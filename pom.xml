@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.jian</groupId>
+    <groupId>com.blog</groupId>
     <artifactId>dal-blog</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <!--springboot项目必须要继承的父工程-->
@@ -47,6 +47,7 @@
     <!-- 15.spring-boot-starter-jetty 使用 Jetty 而不是默认的 Tomcat 作为应用服务器。 -->
 
     <dependencies>
+
         <!--web开发起步依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -91,5 +92,28 @@
             <version>2.6</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

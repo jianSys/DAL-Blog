@@ -4,7 +4,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>layuiAdmin 内容系统 - 文章列表</title>
+  <title>博客|文章列表</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -116,7 +116,6 @@
         layer.confirm("确定要删除此文章吗?",function(index){
           var index = layer.load(1);
           deleteArticle(id);
-          alert("删除成功=============="+index);
         })
       }else if(obj.event === 'edit'){
         console.log(obj.data);
@@ -159,12 +158,6 @@
 
         layer.confirm('确定删除吗？', function(index) {
           //执行 Ajax 后重载
-          /*
-          admin.req({
-            url: 'xxx'
-            //,……
-          });
-          */
           alert(index);
           admin.req({
             url: 'delBlog',

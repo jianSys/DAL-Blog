@@ -55,8 +55,6 @@ public class ArticleController {
     private String toTags(){return "/admin/article/tags";}
     @GetMapping("toTagsForm")
     private String toTagsFrom(){return "/admin/article/tagsform";}
-    @GetMapping("toCategory")
-    private String toCategory(){return "/admin/article/category";}
     /**
      * 分页查询
      * @param page

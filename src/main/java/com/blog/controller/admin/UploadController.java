@@ -2,6 +2,7 @@ package com.blog.controller.admin;
 
 import cn.hutool.json.JSONUtil;
 import com.blog.commons.Result;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,18 +27,12 @@ import java.util.UUID;
 @RequestMapping("/admin/upload")
 public class UploadController {
 
+    @Value("${blog.upload.dir}")
+    private String filePath;
+
     @PostMapping("images")
     @ResponseBody
     private Result uploadImages(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
-
-        String contextPath = request.getContextPath();
-        String servletPath = request.getServletPath();
-        String aStatic = this.getClass().getClassLoader().getResource("static").getFile();
-        String pathInfo = request.getPathInfo();
-        System.out.println(contextPath+"=============="+pathInfo+"============"+servletPath+"================="+aStatic);
-        System.out.println("11111111111111111=====================1111111111111111111");
-        //指定路径
-        String filePath = "E:\\image\\";
         //上传到指定目录下
         File dir = new File(filePath);
         //文件夹不存在创建文件夹
