@@ -4,7 +4,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>layuiAdmin 分类管理 iframe 框</title>
+  <title>博客|标签管理</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -18,7 +18,7 @@
     <div class="layui-form-item">
       <label class="layui-form-label">分类名</label>
       <div class="layui-input-inline">
-        <input type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input">
+        <input type="text" name="tags" lay-verify="required" placeholder="请输入标签" autocomplete="off" class="layui-input">
       </div>
     </div>
   </div>

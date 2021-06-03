@@ -49,12 +49,7 @@ public class ArticleController {
      */
     @GetMapping("toArticleEdit")
     private String toArticleListFrom(){return "/admin/article/articleEdit";}
-    @GetMapping("toEdit")
-    private String toArticleEdit(){return "/admin/article/articleEdit";}
-    @GetMapping("toTags")
-    private String toTags(){return "/admin/article/tags";}
-    @GetMapping("toTagsForm")
-    private String toTagsFrom(){return "/admin/article/tagsform";}
+
     /**
      * 分页查询
      * @param page
@@ -82,16 +77,6 @@ public class ArticleController {
         List<TbBlogEntity> content = byPage.getContent();
         Result result = new Result(0, "成功", content.size(), content);
         return result;
-    }
-    @GetMapping("tagsList")
-    @ResponseBody
-    private Result tagsList(@RequestParam(value = "page",required = true) Integer page,
-                            @RequestParam(value = "limit",required = true) Integer limit){
-        Pageable pageable = new PageRequest(page-1,limit);
-        Page<TbBlogTagEntity> tagPage = articleService.findTagByPage(pageable);
-        List<TbBlogTagEntity> content = tagPage.getContent();
-        System.out.println(content);
-        return new Result(0,"成功",content.size(),content);
     }
 
     @GetMapping("categoryList")

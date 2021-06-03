@@ -23,8 +23,6 @@ public interface ArticleService {
 
     Page<TbBlogEntity> findByPage(Map<String, Object> map, Pageable pageable);
 
-    Page<TbBlogTagEntity> findTagByPage(Pageable pageable);
-
     Page<TbBlogCategoryEntity> findCategoryByPage(Pageable pageable);
 
     List<TbBlogCategoryEntity> findAllCategory();

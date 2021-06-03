@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>layuiAdmin 内容系统-分类管理</title>
+  <title>博客|标签管理</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -57,7 +57,7 @@
         layer.open({
           type: 2
           ,title: '添加分类'
-          ,content: 'toTagsForm'
+          ,content: 'toTagsEdit'
           ,area: ['450px', '200px']
           ,btn: ['确定', '取消']
           ,yes: function(index, layero){

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.apache.commons.lang.StringUtils;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -93,17 +94,6 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     /**
-     * 分页查询所有博客标签
-     * @param pageable
-     * @return
-     */
-    @Override
-    public Page<TbBlogTagEntity> findTagByPage(Pageable pageable) {
-        Page<TbBlogTagEntity> all = blogTagDao.findAll(pageable);
-        return all;
-    }
-
-    /**
      * 分页查询文章分类
      * @param pageable
      * @return
@@ -121,10 +111,19 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public TbBlogEntity save(TbBlogEntity tbBlogEntity) {
-        if (null != tbBlogEntity.getBlogId()){
+        Integer blogId = tbBlogEntity.getBlogId();
+        if (null != blogId){
+            //TbBlogEntity entity = blogDao.getOne(blogId);
+            tbBlogEntity.setUpdateTime(new Date());
+            tbBlogEntity.setIsDeleted(0);
             //更新
             return null;
         }else{
+            tbBlogEntity.setIsDeleted(0);
+            tbBlogEntity.setUpdateTime(new Date());
+            tbBlogEntity.setBlogViews(0);
+            tbBlogEntity.setEnableComment(0);
+            tbBlogEntity.setCreateTime(new Date());
             TbBlogCategoryEntity category = this.findCategoryById(tbBlogEntity.getBlogCategoryId());
             tbBlogEntity.setBlogCategoryName(category.getCategoryName());
             TbBlogEntity save = blogDao.save(tbBlogEntity);

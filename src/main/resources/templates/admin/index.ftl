@@ -117,7 +117,7 @@
                                 <a lay-href="category/toCategoryList">分类目录</a>
                             </dd>
                             <dd data-name="progress">
-                                <a lay-href="article/toTags">标签</a>
+                                <a lay-href="tags/toTagsList">标签</a>
                             </dd>
                         </dl>
                     </li>
