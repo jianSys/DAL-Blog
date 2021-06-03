@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jian</groupId>
+    <artifactId>dal-blog</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <!--springboot项目必须要继承的父工程-->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.8.RELEASE</version>
+    </parent>
+
+    <!-- 表示当前pom文件从spring-boot-starter-parent继承下来，在spring-boot-starter-parent中提供了很多默认的配置，这些配置可以大大简化我们的开发 -->
+    <!-- 通过继承spring-boot-starter-parent，默认具备了如下功能： -->
+    <!-- 1.Java版本（Java8） -->
+    <!-- 2.源码的文件编码方式（UTF-8） -->
+    <!-- 3.依赖管理 -->
+    <!-- 4.打包支持 -->
+    <!-- 5.动态识别资源 -->
+    <!-- 6.识别插件配置 -->
+    <!-- 7.识别不同的配置，如：application-dev.properties 和 application-dev.yml -->
+
+    <!-- 以上继承来的特性有的并非直接继承自spring-boot-starter-parent，而是继承自spring-boot-starter-parent的父级spring-boot-dependencies -->
+
+    <!-- 常用Spring Boot启动器： -->
+    <!-- 1.spring-boot-starter 核心模块，包含自动配置支持、日志库和对 YAML 配置文件的支持。 -->
+    <!-- 2.spring-boot-starter-aop 支持面向切面编程（AOP），包含 spring-aop 和 AspectJ 。 -->
+    <!-- 3.spring-boot-starter-data-mongodb 包含 spring-data-mongodb 来支持 MongoDB。 -->
+    <!-- 4.spring-boot-starter-redis 支持Redis键值存储数据库，包含spring-redis -->
+    <!-- 5.spring-boot-starter-jdbc 支持使用 JDBC 访问数据库。 -->
+    <!-- 6.spring-boot-starter-test 包含常用的测试所需的依赖，如 JUnit、Hamcrest、Mockito 和
+        spring-test 等。 -->
+    <!-- 7.spring-boot-starter-web 支持 Web 应用开发，包含 Tomcat 和 spring-mvc、spring-webmvc -->
+    <!-- 8.spring-boot-starter-websocket 支持使用 Tomcat 开发 WebSocket 应用。 -->
+    <!-- 9.spring-boot-starter-ws 支持 Spring Web Services。 -->
+    <!-- 10.spring-boot-starter-log4j 添加 Log4j 的支持。 -->
+    <!-- 11.spring-boot-starter-logging 使用 Spring Boot 默认的日志框架 Logback。 -->
+    <!-- 12.spring-boot-starter-mail 支持javax.mail模块 -->
+    <!-- 13.spring-boot-starter-remote-shell 支持远程 SSH命令操作。 -->
+    <!-- 14.spring-boot-starter-tomcat 使用 Spring Boot 默认的 Tomcat 作为应用服务器。 -->
+    <!-- 15.spring-boot-starter-jetty 使用 Jetty 而不是默认的 Tomcat 作为应用服务器。 -->
+
+    <dependencies>
+        <!--web开发起步依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--测试的起步依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JPA的起步依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <!-- MySQL连接驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- 添加freemarker的依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+        <!-- 糊涂工具类-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.6.6</version>
+        </dependency>
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+    </dependencies>
+
+</project>
