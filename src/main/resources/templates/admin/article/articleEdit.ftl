@@ -31,14 +31,14 @@
                         </div>
                     </div>
 
-                    <div class="layui-inline">
-                        <label class="layui-form-label">文章分类</label>
-                        <div class="layui-input-inline">
-                            <select id="category" name="label" lay-verify="required" lay-filter = "category_test" id="category">
-                                <option value="" ></option>
-                            </select>
-                        </div>
-                    </div>
+<#--                    <div class="layui-inline">-->
+<#--                        <label class="layui-form-label">文章分类</label>-->
+<#--                        <div class="layui-input-inline">-->
+<#--                            <select id="category" name="label" lay-verify="required" lay-filter = "category_test" id="category">-->
+<#--                                <option value="" ></option>-->
+<#--                            </select>-->
+<#--                        </div>-->
+<#--                    </div>-->
 
                 </div>
 
@@ -48,8 +48,8 @@
                 <div class="layui-form-item layui-layout-admin">
                     <div class="layui-input-block">
                         <div class="layui-footer" style="left: 0;z-index:99;text-align: right">
-                            <button id="blog-submit" class="layui-btn" lay-submit="" lay-filter="component-form-demo1">
-                                立即提交
+                            <button id="blog-submit" data-type="test" class="layui-btn" lay-submit="" lay-filter="component-form-demo1">
+                                发布
                             </button>
                             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         </div>
@@ -59,12 +59,51 @@
         </div>
     </div>
 </div>
-<!-- 弹出框 -->
-<!--
-<div  class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list" style="padding: 20px 30px 0 0;">
+<#--模态框-->
+<div id="blog-other" style="display: none">
+    <div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list" style="padding: 20px 30px 0 0;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">文章标题</label>
+            <div class="layui-input-inline">
+                <input type="text" name="blogTitle" lay-verify="required" placeholder="请输入文章标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">发布人</label>
+            <div class="layui-input-inline">
+                <input type="text" name="author" lay-verify="required" placeholder="请输入号码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">文章内容</label>
+            <div class="layui-input-inline">
+                <textarea name="content" lay-verify="required" style="width: 400px; height: 150px;" autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">分类</label>
+            <div class="layui-input-inline">
+                <select name="label" lay-verify="required" lay-filter = "category_test" id="category">
+                    <option value="" ></option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">发布状态</label>
+            <div class="layui-input-inline">
+                <input type="checkbox" lay-verify="required" lay-filter="status" name="status" lay-skin="switch" lay-text="已发布|待修改">
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide">
+            <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit" value="确认添加">
+            <input type="button" lay-submit lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">
+        </div>
+    </div>
 
 </div>
--->
+
+
+
 <script src="../../../static/jquery/jquery-3.2.1.min.js"></script>
 <script src="../../../static/layui/layui/layui.js"></script>
 <script src="../../../static/editormd/js/editormd.min.js"></script>
@@ -79,22 +118,23 @@
 <script src="../../../static/editormd/lib/jquery.flowchart.min.js"></script>
 
 <script type="text/javascript">
-    layui.use(['layer', 'jquery','form', 'laydate'], function () {
+    layui.config({
+        base: '../../../static/layui/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index','layer', 'jquery','form', 'laydate'], function () {
         var layer = layui.layer
             , $ = layui.jquery
-            ,form = layui.form;
+            ,form = layui.form
+        ,admin = layui.admin;
 
-        layer.ready(function(data){
-            //console.log(data['value']);
-            //var value = data['value'];
+       /* layer.ready(function(data){
             $.ajax({
                 url: "getCategory",
                 type: 'GET',
                 dataType: 'json',
-                //data:{id: value},
                 contentType: "application/json;charset=utf-8",
                 success: function(datas) {
-                    console.log('成功后返回的参数=========='+datas);
                     var data = datas.data;
                     console.log('获取中的数据=================='+data)
                     $("#category").empty();
@@ -107,7 +147,7 @@
                     //重新渲染
                     form.render("select");
                 }});}
-        );
+        );*/
 
         var testEditor;
         //页面加载完成调用此方法
@@ -163,33 +203,82 @@
             });
             console.log("=================md页面渲染完毕=======================")
         });
-        /*$('#showEditor').on('click', function(){
-            // 弹出框
-            layer.open({
-                type: 1
-                ,content: $('#myeditor')
-                ,btn: ['确定','关闭']
-                ,btnAlign: 'c' //按钮居中
-                ,maxmin: true
-                ,shade: 0 //不显示遮罩
-                ,area: ['1000px', '800px']
-                ,yes: function(){
-                    layer.closeAll();
-                },
-                success:function () {
 
+        $('#blog-submit').on('click', function(){
+            var arr = [];
+            layer.open({
+                type: 2,
+                content: 'toListForm',
+                area: ['500px', '500px'],
+                title: "更改信息",
+                //fixed: false, //不固定
+                maxmin: true,
+                shadeClose:false,
+                btn: ['保存','取消'],
+                yes:function (index, layero) {
+                    var othis = layero.find('iframe').contents().find("#blogEditFrom"),
+                        photoUrl = othis.find('#photoUrl').val(),
+                        comments = othis.find('input[name="comments"]:checked').val(),
+                        status = othis.find('input[name="status"]').val(),
+                        tags = othis.find('input[name="tags"]:checked').each(function () {
+                            arr.push($(this).val());
+                        }),
+                    top = othis.find('input[name="top"]').val(),
+                    category = othis.find('#category').val();
+                    console.log("组装请求数据开始");
+                    var content = testEditor.getMarkdown();
+                    var title = $('#title').val();
+                    var data = {
+                        "blogTitle": title, "blogCategoryId": category,"blogCoverImage":photoUrl,"blogContent": content,
+                        "blogTags": arr.toString(), "blogStatus":status === "on"?1:0,"enableComment":comments,
+                        "blogTop":status === "on"?1:0
+                    };
+                    console.log("组装请求数据成功=============开始发送请求"+data)
+                    $.ajax({
+                        type: 'POST',//方法类型
+                        url: "saveArticle",
+                        data: JSON.stringify(data),
+                        dataType:"json",
+                        contentType: "application/json;charset=utf-8",
+                        success: function (res) {
+                            if (res.code === 0) {
+                                //跳转文章列表页面
+                                layer.msg('添加成功', {time: 1000}, function () {
+                                    window.location = '/admin/article/toArticleList';
+                                });
+                            } else {
+                                layer.msg(res.msg);
+                                $("#img").click();
+                            }
+                        },
+                        error:function(){
+                            //请求出错处理
+                            layer.msg('发送失败', {icon: 5});
+                        }
+                    });
                 }
+
             });
-        });*/
+            /*top.layui.admin.popupRight({
+                id: 'LAY_adminPopupLayerTest'
+                ,area:'400px'
+                //,content:"toListForm"
+                ,btn:["保存","取消"]
+                ,success: function(){
+                    //$('#'+ this.id).html('<div style="padding: 20px;">放入内容</div>');
+                    //admin.view(this.id).render('system/xxx')
+                    top.layui.view(this.id).render('../../../admin/article/toListForm');
+                }
+            });*/
+        });
 
         //提交表单
-        $('#blog-submit').click(function () {
+        /*$('#blog-submit').click(function () {
             var a = testEditor.getMarkdown();
             var title = $('#title').val();
             var tag = $('#tag').val();
             var category = $('#category').val();
-            console.log(title+"========================"+tag+"===================="+category+"============="+a);
-            var data = {
+               var data = {
                 "blogTitle": title, "blogCategoryId": category,
                 "blogTags": tag, "blogContent": a
             };
@@ -203,49 +292,23 @@
                     if (res.code === 0) {
                         //登陆成功跳转页面
                         layer.msg('添加成功', {time: 1000}, function () {
-                            window.location = '/admin/article/toList';
+                            window.location = '/admin/article/toArticleList';
                         });
                     } else {
                         layer.msg(res.msg);
                         $("#img").click();
                     }
+                },
+                error:function(){
+                    //请求出错处理
+                    layer.msg('发送失败', {icon: 5});
                 }
-
             });
-        });
-        function save(){
-            layer.msg("成功")
-        }
-        // 获取markdown源码
-        $('#getMarkdownContent').on('click', function () {
-            var mdContent = $('.editormd-markdown-textarea').val();
-            console.log(mdContent);
-            var content = testEditor.getMarkdown();
-            console.log(content);
-        });
-        // 获取解析后的html
-        $('#getHtmlContent').on('click', function () {
-            var content = testEditor.getHTML();
+        });*/
 
-            console.log(content);
-        });
-
-        // 页面解析markdown为html进行显示
-        $('#showHTML').on('click', function () {
-            // 模拟从数据库中取内容
-            $.get('test', function (md) {
-                // 给textarea赋值
-                $('#content').val(md);
-                // 解析
-                editormd.markdownToHTML("markdownToHTML", {
-                    htmlDecode: "style,script,iframe",
-                    emoji: true,  // 解析表情
-                    taskList: true,  // 解析列表
-                    tex: true,  // 默认不解析
-                    flowChart: true,  // 默认不解析
-                    sequenceDiagram: true  // 默认不解析
-                });
-            });
+        $('#LAY-component-layer-theme .layadmin-layer-demo .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] && active[type].call(this);
         });
     });
 </script>

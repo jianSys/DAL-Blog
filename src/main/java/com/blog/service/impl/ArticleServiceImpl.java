@@ -15,10 +15,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang.StringUtils;
 import javax.persistence.criteria.Predicate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ProjectName: springboot
@@ -113,19 +110,19 @@ public class ArticleServiceImpl implements ArticleService {
     public TbBlogEntity save(TbBlogEntity tbBlogEntity) {
         Integer blogId = tbBlogEntity.getBlogId();
         if (null != blogId){
-            //TbBlogEntity entity = blogDao.getOne(blogId);
             tbBlogEntity.setUpdateTime(new Date());
             tbBlogEntity.setIsDeleted(0);
             //更新
             return null;
         }else{
-            tbBlogEntity.setIsDeleted(0);
             tbBlogEntity.setUpdateTime(new Date());
-            tbBlogEntity.setBlogViews(0);
-            tbBlogEntity.setEnableComment(0);
             tbBlogEntity.setCreateTime(new Date());
+            tbBlogEntity.setBlogViews(0);
+            tbBlogEntity.setIsDeleted(0);
             TbBlogCategoryEntity category = this.findCategoryById(tbBlogEntity.getBlogCategoryId());
             tbBlogEntity.setBlogCategoryName(category.getCategoryName());
+            String tagsNames = getTagsNames(tbBlogEntity.getBlogTags());
+            tbBlogEntity.setBlogTags(tagsNames);
             TbBlogEntity save = blogDao.save(tbBlogEntity);
             return save;
         }
@@ -139,5 +136,20 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void delArticleById(Integer id) {
         blogDao.deleteById(id);
+    }
+
+
+    public String getTagsNames(String tagsIds){
+        String[] split = tagsIds.split(",");
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < split.length; i++) {
+            TbBlogTagEntity entity = blogTagDao.getOne(Integer.parseInt(split[i]));
+            if (i == split.length-1){
+                builder.append(entity.getTagName());
+            }else{
+                builder.append(entity.getTagName()).append(",");
+            }
+        }
+        return builder.toString();
     }
 }

@@ -24,10 +24,10 @@
     <div class="layui-form-item">
       <label class="layui-form-label">分类图标</label>
       <div class="layui-input-inline">
-        <input name="avatar" lay-verify="required" id="LAY_avatarSrc" placeholder="图片地址" value="http://cdn.layui.com/avatar/168.jpg" class="layui-input">
+        <input name="avatar" lay-verify="required" id="LAY_avatarSrc" placeholder="图片地址" value="" class="layui-input">
       </div>
       <div class="layui-input-inline layui-btn-container" style="width: auto;">
-        <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
+        <button type="button" class="layui-btn layui-btn-primary" id="uploadImages">
           <i class="layui-icon">&#xe67c;</i>上传图片
         </button>
         <button class="layui-btn layui-btn-primary" layadmin-event="avartatPreview">查看图片</button >
@@ -47,13 +47,16 @@
     ,upload = layui.upload;
 
     upload.render({
-      elem: '#LAY_avatarUpload'
+      elem: '#uploadImages'
       ,url: "../upload/images"
       ,accept: 'images'
       ,method: 'post'
       ,acceptMime: 'image/*'
       ,done: function(res){
-        $(this.item).prev("div").children("input").val(res.data.data)
+        if (res.code === 0){
+          $("#LAY_avatarSrc").prop("value",res.data);
+        }
+        //$(this.item).prev("div").children("input").val(res.data.data)
       }
     });
   })

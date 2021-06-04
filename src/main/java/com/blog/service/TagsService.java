@@ -4,6 +4,8 @@ import com.blog.pojo.TbBlogTagEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * @program: dal-blog
  * @description:
@@ -14,4 +16,7 @@ public interface TagsService {
     Page<TbBlogTagEntity> findTagByPage(Pageable pageable);
 
     TbBlogTagEntity saveTags(TbBlogTagEntity tbBlogTagEntity);
+
+    List<TbBlogTagEntity> getAllTags();
+
 }

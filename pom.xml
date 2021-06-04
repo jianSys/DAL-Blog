@@ -60,6 +60,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- devtools自动重启 生产环境禁用-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- JPA的起步依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

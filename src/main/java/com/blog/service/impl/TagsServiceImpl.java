@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -49,5 +50,10 @@ public class TagsServiceImpl implements TagsService {
             TbBlogTagEntity tagEntity = tagDao.save(tbBlogTagEntity);
             return tagEntity;
         }
+    }
+
+    @Override
+    public List<TbBlogTagEntity> getAllTags() {
+        return tagDao.findAll();
     }
 }

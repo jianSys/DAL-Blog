@@ -34,7 +34,7 @@ public class TagsController {
 
     @GetMapping("tagsList")
     @ResponseBody
-    private Result tagsList(@RequestParam(value = "page",required = true) Integer page,
+    private Result tagsListByPage(@RequestParam(value = "page",required = true) Integer page,
                             @RequestParam(value = "limit",required = true) Integer limit){
         Pageable pageable = new PageRequest(page-1,limit);
         Page<TbBlogTagEntity> tagPage = tagsService.findTagByPage(pageable);
@@ -48,5 +48,11 @@ public class TagsController {
     private Result saveTags(@RequestBody TbBlogTagEntity tagEntity){
         TbBlogTagEntity entity = tagsService.saveTags(tagEntity);
         return new Result(0,"成功",entity);
+    }
+    @GetMapping("getAllTags")
+    @ResponseBody
+    private Result getAllTags(){
+        List<TbBlogTagEntity> allTags = tagsService.getAllTags();
+        return new Result(0,"成功",allTags);
     }
 }

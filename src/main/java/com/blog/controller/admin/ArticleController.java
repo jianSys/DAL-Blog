@@ -49,6 +49,12 @@ public class ArticleController {
      */
     @GetMapping("toArticleEdit")
     private String toArticleListFrom(){return "/admin/article/articleEdit";}
+    /**
+     * 新增文章页面
+     * @return
+     */
+    @GetMapping("toListForm")
+    private String toListFrom(){return "/admin/article/listform";}
 
     /**
      * 分页查询

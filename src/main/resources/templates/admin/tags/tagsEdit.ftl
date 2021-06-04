@@ -18,7 +18,7 @@
     <div class="layui-form-item">
       <label class="layui-form-label">分类名</label>
       <div class="layui-input-inline">
-        <input type="text" name="tags" lay-verify="required" placeholder="请输入标签" autocomplete="off" class="layui-input">
+        <input id="tagsName" type="text" name="tags" lay-verify="required" placeholder="请输入标签" autocomplete="off" class="layui-input">
       </div>
     </div>
   </div>

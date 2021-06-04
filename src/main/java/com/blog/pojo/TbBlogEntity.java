@@ -73,6 +73,11 @@ public class TbBlogEntity {
     @Column(name = "enable_comment")
     Integer enableComment;
     /**
+     * 是否置顶
+     */
+    @Column(name="blog_top")
+    Integer blogTop;
+    /**
      * 是否删除
      */
     @Column(name = "is_deleted")

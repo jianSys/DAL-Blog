@@ -12,11 +12,11 @@
 </head>
 <body>
 
-  <div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list" style="padding: 20px 30px 0 0;">
-    <div class="layui-form-item">
+  <div class="layui-form" lay-filter="layuiadmin-app-form-list" id="blogEditFrom" style="padding: 20px 30px 0 0;">
+    <#--<div class="layui-form-item">
       <label class="layui-form-label">文章标题</label>
       <div class="layui-input-inline">
-        <input type="text" name="blogTitle" lay-verify="required" placeholder="请输入文章标题" autocomplete="off" class="layui-input">
+        <input id="blogStatus" type="text" name="blogStatus" lay-verify="required" placeholder="请输入文章标题" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
@@ -30,19 +30,52 @@
       <div class="layui-input-inline">
         <textarea name="content" lay-verify="required" style="width: 400px; height: 150px;" autocomplete="off" class="layui-textarea"></textarea>
       </div>
+    </div>-->
+
+    <div class="layui-form-item">
+      <label class="layui-form-label">封面图</label>
+      <div class="layui-input-inline">
+        <input name="avatar" lay-verify="required" id="photoUrl" placeholder="图片地址" value="" class="layui-input">
+      </div>
+      <div class="layui-input-inline layui-btn-container" style="width: auto;">
+        <button type="button" class="layui-btn layui-btn-primary" id="uploadImages">
+          <i class="layui-icon">&#xe67c;</i>上传图片
+        </button>
+      </div>
     </div>
+
     <div class="layui-form-item">
       <label class="layui-form-label">分类</label>
       <div class="layui-input-inline">
-        <select name="label" lay-verify="required" lay-filter = "category_test" id="category">
+        <select name="label" lay-verify="required" lay-filter="category_test" id="category">
           <option value="" ></option>
         </select>
+      </div>
+    </div>
+    <div class="layui-form-item" pane="">
+      <label class="layui-form-label">标签</label>
+      <div class="layui-input-block" id="tags">
+        <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked="">
+        <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">允许评论</label>
+      <div class="layui-input-block">
+        <input type="radio" lay-filter="comments" name="comments" value="0" title="是" checked="">
+        <input type="radio" lay-filter="comments" name="comments" value="1" title="否">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">是否置顶</label>
+      <div class="layui-input-inline">
+        <input type="checkbox" lay-verify="required" lay-filter="top" name="top" lay-skin="switch" lay-text="开启|关闭">
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">发布状态</label>
       <div class="layui-input-inline">
-        <input type="checkbox" lay-verify="required" lay-filter="status" name="status" lay-skin="switch" lay-text="已发布|待修改">
+        <input type="checkbox" lay-verify="required" lay-filter="status" name="status" lay-skin="switch" lay-text="发布|草稿">
       </div>
     </div>
     <div class="layui-form-item layui-hide">
@@ -58,10 +91,11 @@
     base: '../../../static/layui/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'form'], function(){
+  }).use(['index', 'form','set','upload'], function(){
     var $ = layui.$
     ,form = layui.form
-    ,layer = layui.layer;
+    ,layer = layui.layer
+    ,upload = layui.upload;
     
     //监听提交
     form.on('submit(layuiadmin-app-form-submit)', function(data){
@@ -84,20 +118,54 @@
                 //data:{id: value},
                 contentType: "application/json;charset=utf-8",
                 success: function(datas) {
-                  console.log('成功后返回的参数=========='+datas);
                   var data = datas.data;
-                  console.log('获取中的数据=================='+data)
+                  console.log('获取中的数据=================='+data);
                   $("#category").empty();
                   for(var i = 0;i< data.length;i++){
                     console.log('循环开始============'+datas.data[i]);
                     $("#category").append('<option value="' + data[i].categoryId + '">'+ data[i].categoryName  + '</option>');
                   }
-                  console.log("循环结束=========================")
+                  console.log("循环结束=========================");
                   //注意：最后必须重新渲染下拉框，否则没有任何效果。
                   //重新渲染
                   form.render("select");
-                }});}
-    );
+                }});
+    });
+    $(document).ready(function () {
+      $.ajax({
+        url: "../tags/getAllTags",
+        type: 'GET',
+        dataType: 'json',
+        contentType: "application/json;charset=utf-8",
+        success: function(res) {
+          if (res.code === 0){
+            var data = res.data;
+            console.log(data)
+            $("#tags").empty();
+            for (var i = 0; i <data.length ; i++) {
+              $("#tags").append('<input type="checkbox" value="'+data[i].tagId+'"name="tags" lay-skin="primary" title="'+data[i].tagName+'">')
+            }
+            //渲染表单
+            form.render();
+          }else{
+            layer.msg("查询失败")
+          }
+        }
+      });
+    });
+    upload.render({
+      elem: '#uploadImages'
+      ,url: "../upload/images"
+      ,accept: 'images'
+      ,method: 'post'
+      ,acceptMime: 'image/*'
+      ,done: function(res){
+        if (res.code === 0){
+          $("#photoUrl").prop("value",res.data);
+        }
+        //$(this.item).prev("div").children("input").val(res.data.data)
+      }
+    });
    /* form.on('select(category_test)', function(data){
       console.log(data['value']);
       var value = data['value'];

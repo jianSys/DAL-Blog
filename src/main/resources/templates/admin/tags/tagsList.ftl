@@ -35,7 +35,8 @@
     index: 'lib/index' //主入口模块
   }).use(['index', 'contlist', 'table'], function(){
 
-    var table = layui.table;
+    var table = layui.table
+    form = layui.form;
     //渲染表格,发送请求
     table.render({
       elem:'#LAY-app-content-tags',
@@ -58,20 +59,40 @@
           type: 2
           ,title: '添加分类'
           ,content: 'toTagsEdit'
-          ,area: ['450px', '200px']
+          ,area: ['400px', '200px']
           ,btn: ['确定', '取消']
           ,yes: function(index, layero){
-            var othis = layero.find('iframe').contents().find("#layuiadmin-app-form-tags")
+             var othis = layero.find('iframe').contents().find("#layuiadmin-app-form-tags")
             ,tags = othis.find('input[name="tags"]').val();
-            
             if(!tags.replace(/\s/g, '')) return;
-            
-            table.reload('LAY-app-content-tags');
-            layer.close(index);
+            // table.reload('LAY-app-content-tags');
+            // layer.close(index);
+            console.log("=============开始渲染date数据==============");
+            var data = {
+              "tagName":tags
+            };
+            console.log("=============结束渲染date数据==============",data);
+            $.ajax({
+              type: 'POST',//方法类型
+              url: "saveTags",
+              data: JSON.stringify(data),
+              dataType:"json",
+              contentType: "application/json;charset=utf-8",
+              success: function (res) {
+                if (res.code === 0) {
+                  layer.close(index);//关闭弹窗
+                  table.reload('LAY-app-content-tags');//重载表格
+                } else {
+                  layer.msg(res.msg);
+                  $("#img").click();
+                }
+              }
+
+            });
           }
         }); 
       }
-    }  
+    };
     $('.layui-btn.layuiadmin-btn-tags').on('click', function(){
       var type = $(this).data('type');
       active[type] ? active[type].call(this) : '';
