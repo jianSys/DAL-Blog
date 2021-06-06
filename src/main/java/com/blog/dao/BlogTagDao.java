@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author: jian
  * @create: 2021-05-29 09:09
  **/
-public interface BlogTagDao extends JpaRepository<TbBlogTagEntity,Integer>{
+public interface BlogTagDao extends JpaRepository<TbBlogTagEntity, Integer> {
 }

@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang.StringUtils;
+
 import javax.persistence.criteria.Predicate;
 import java.util.*;
 
@@ -40,7 +41,6 @@ public class ArticleServiceImpl implements ArticleService {
     private BlogCategoryDao blogCategoryDao;
 
 
-
     @Override
     public TbBlogEntity findById(Integer id) {
         TbBlogEntity tbBlogEntity = articleDao.findById(id).get();
@@ -49,6 +49,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 分页查询所有博客文章
+     *
      * @param map
      * @param pageable
      * @return
@@ -57,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Page<TbBlogEntity> findByPage(Map<String, Object> map, Pageable pageable) {
 
         //List<TbBlogEntity> all = articleDao.findAll();
-        Specification<TbBlogEntity> spec = (root, criteriaQuery, criteriaBuilder)-> {
+        Specification<TbBlogEntity> spec = (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
             Integer id = (Integer) map.get("id");
             if (id != null) {
@@ -76,13 +77,13 @@ public class ArticleServiceImpl implements ArticleService {
 
         Page<TbBlogEntity> page = blogDao.findAll(spec, pageable);
 
-        if(page==null || page.getTotalElements()<1) {
+        if (page == null || page.getTotalElements() < 1) {
             return new PageImpl<>(new ArrayList<>(0), pageable, 0);
         }
 
         List<TbBlogEntity> lists = page.getContent();
 
-        if(lists!=null && lists.size()>0) {
+        if (lists != null && lists.size() > 0) {
 
             //List<TbBlogEntity> arr = TbBlogEntity.taskData2Vo(lists);
             return new PageImpl<>(lists, pageable, page.getTotalElements());
@@ -92,6 +93,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 分页查询文章分类
+     *
      * @param pageable
      * @return
      */
@@ -109,12 +111,12 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public TbBlogEntity save(TbBlogEntity tbBlogEntity) {
         Integer blogId = tbBlogEntity.getBlogId();
-        if (null != blogId){
+        if (null != blogId) {
             tbBlogEntity.setUpdateTime(new Date());
             tbBlogEntity.setIsDeleted(0);
             //更新
             return null;
-        }else{
+        } else {
             tbBlogEntity.setUpdateTime(new Date());
             tbBlogEntity.setCreateTime(new Date());
             tbBlogEntity.setBlogViews(0);
@@ -139,14 +141,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
 
-    public String getTagsNames(String tagsIds){
+    public String getTagsNames(String tagsIds) {
         String[] split = tagsIds.split(",");
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < split.length; i++) {
             TbBlogTagEntity entity = blogTagDao.getOne(Integer.parseInt(split[i]));
-            if (i == split.length-1){
+            if (i == split.length - 1) {
                 builder.append(entity.getTagName());
-            }else{
+            } else {
                 builder.append(entity.getTagName()).append(",");
             }
         }

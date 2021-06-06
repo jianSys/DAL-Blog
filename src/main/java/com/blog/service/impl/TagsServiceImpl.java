@@ -23,8 +23,10 @@ public class TagsServiceImpl implements TagsService {
 
     @Autowired
     private BlogTagDao tagDao;
+
     /**
      * 分页查询所有博客标签
+     *
      * @param pageable
      * @return
      */
@@ -36,15 +38,16 @@ public class TagsServiceImpl implements TagsService {
 
     /**
      * 添加标签数据
+     *
      * @param tbBlogTagEntity
      */
     @Override
     public TbBlogTagEntity saveTags(TbBlogTagEntity tbBlogTagEntity) {
         Integer tagId = tbBlogTagEntity.getTagId();
-        if (null != tagId){
+        if (null != tagId) {
             TbBlogTagEntity entity = tagDao.save(tbBlogTagEntity);
             return entity;
-        }else {
+        } else {
             tbBlogTagEntity.setCreateTime(new Date());
             tbBlogTagEntity.setIsDeleted(0);
             TbBlogTagEntity tagEntity = tagDao.save(tbBlogTagEntity);

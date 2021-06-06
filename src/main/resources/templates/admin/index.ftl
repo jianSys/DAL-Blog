@@ -138,7 +138,7 @@
                         </a>
                     </li>
                     <li data-name="senior" class="layui-nav-item">
-                        <a href="javascript:;" lay-tips="高级" lay-direction="2" lay-href="app/content/comment">
+                        <a href="javascript:;" lay-tips="高级" lay-direction="2" lay-href="comments/toCommentsList">
                             <i class="layui-icon layui-icon-senior"></i>
                             <cite>评论</cite>
                         </a>

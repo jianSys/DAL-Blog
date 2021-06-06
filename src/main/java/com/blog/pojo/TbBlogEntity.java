@@ -26,12 +26,12 @@ public class TbBlogEntity {
     @Column(name = "blog_id")
     Integer blogId;
     @Column(name = "blog_title")
-    String  blogTitle;
+    String blogTitle;
     /**
      * 自定义路径
      */
     @Column(name = "blog_sub_url")
-    String  blogSubUrl;
+    String blogSubUrl;
     /**
      * 博客封面图
      */
@@ -75,7 +75,7 @@ public class TbBlogEntity {
     /**
      * 是否置顶
      */
-    @Column(name="blog_top")
+    @Column(name = "blog_top")
     Integer blogTop;
     /**
      * 是否删除

@@ -12,5 +12,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @Date: 2021/5/28 14:20
  * @Version: 1.0
  */
-public interface BlogDao extends JpaRepository<TbBlogEntity,Integer> , JpaSpecificationExecutor<TbBlogEntity>{
+public interface BlogDao extends JpaRepository<TbBlogEntity, Integer>, JpaSpecificationExecutor<TbBlogEntity> {
 }

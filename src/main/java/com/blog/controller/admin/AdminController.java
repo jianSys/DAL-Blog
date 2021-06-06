@@ -19,7 +19,7 @@ import java.util.Map;
 public class AdminController {
 
     @GetMapping("index")
-    private String index(){
+    private String index() {
         return "/admin/index";
     }
 }

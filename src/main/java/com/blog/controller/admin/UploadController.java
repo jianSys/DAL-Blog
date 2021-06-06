@@ -2,6 +2,7 @@ package com.blog.controller.admin;
 
 import cn.hutool.json.JSONUtil;
 import com.blog.commons.Result;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import java.util.UUID;
  * @Date: 2021/6/3 11:24
  * @Version: 1.0
  */
+@Log4j2
 @Controller
 @RequestMapping("/admin/upload")
 public class UploadController {
@@ -33,10 +35,11 @@ public class UploadController {
     @PostMapping("images")
     @ResponseBody
     private Result uploadImages(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
+        log.info("==============上传照片的入参为=================",file);
         //上传到指定目录下
         File dir = new File(filePath);
         //文件夹不存在创建文件夹
-        if (!dir.exists() && !dir.isDirectory()){
+        if (!dir.exists() && !dir.isDirectory()) {
             //创建文件夹
             dir.mkdir();
         }
@@ -45,19 +48,20 @@ public class UploadController {
         //截取后缀名
         String suffix = filename.substring(filename.lastIndexOf("."));
         //生成新的文件名
-        String newFileName = UUID.randomUUID().toString()+suffix;
+        String newFileName = UUID.randomUUID().toString() + suffix;
         //构造新的图片文件
-        File newFile = new File(dir,newFileName);
+        File newFile = new File(dir, newFileName);
         System.out.println(suffix);
         //把图片保存在本地
         try {
             file.transferTo(newFile);
         } catch (IOException e) {
+            log.error("=========保存图片异常============",e);
             e.printStackTrace();
         }
 //        生成图片的url
-        String imgUrl = filePath+newFileName;
+        String imgUrl = filePath + newFileName;
         System.out.println(imgUrl);
-        return new Result(0,"成功",imgUrl);
+        return new Result(0, "成功", imgUrl);
     }
 }

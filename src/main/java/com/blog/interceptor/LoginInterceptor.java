@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author: jian
  * @create: 2021-05-23 19:17
  **/
-public class LoginInterceptor implements HandlerInterceptor{
+public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("======================拦截工作开始=========================");

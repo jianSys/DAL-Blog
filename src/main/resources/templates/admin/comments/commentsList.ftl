@@ -1,15 +1,13 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>layuiAdmin 内容系统 - 评论管理</title>
+  <title>博客|评论管理</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
-  <link rel="stylesheet" href="../../../static/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../../static/layui/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../static/layui/style/admin.css" media="all">
 </head>
 <body>
 
@@ -55,22 +53,19 @@
     </div>
   </div>
 
-  <script src="../../../static/layui/layui.js"></script>
+  <script src="../../../static/layui/layui/layui.js"></script>
   <script>
   layui.config({
-    base: '../../../static/' //静态资源所在路径
+    base: '../../../static/layui/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'contlist', 'table'], function(){
     var $ = layui.$
     ,form = layui.form
     ,table = layui.table;
-    
-    
     //监听搜索
     form.on('submit(LAY-app-contcomm-search)', function(data){
       var field = data.field;
-      
       //执行重载
       table.reload('LAY-app-content-comm', {
         where: field

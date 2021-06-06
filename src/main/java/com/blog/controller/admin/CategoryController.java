@@ -3,6 +3,7 @@ package com.blog.controller.admin;
 import com.blog.commons.Result;
 import com.blog.pojo.TbBlogCategoryEntity;
 import com.blog.service.CategoryService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,7 @@ import java.util.List;
  * @Date: 2021/6/3 9:51
  * @Version: 1.0
  */
+@Log4j2
 @Controller
 @RequestMapping("/admin/category")
 public class CategoryController {
@@ -28,37 +30,47 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("toCategoryList")
-    private String toCategoryList(){return "/admin/category/categoryList";}
+    private String toCategoryList() {
+        return "/admin/category/categoryList";
+    }
 
     @GetMapping("toCategoryEdit")
-    private String toCategoryEdit(){return "/admin/category/categoryEdit";}
+    private String toCategoryEdit() {
+        return "/admin/category/categoryEdit";
+    }
 
 
     /**
-     *  find category list by page
+     * find category list by page
+     *
      * @param page
      * @param limit
      * @return
      */
     @GetMapping("categoryList")
     @ResponseBody
-    private Result categoryList(@RequestParam(value = "page",required = true) Integer page,
-                                @RequestParam(value = "limit",required = true) Integer limit){
-        Pageable pageable = new PageRequest(page-1,limit);
-        Page<TbBlogCategoryEntity> category = categoryService.findCategoryByPage(pageable);
-        List<TbBlogCategoryEntity> content = category.getContent();
-        System.out.println(content);
-        return new Result(0,"成功",content.size(),content);
-    }
+    private Result categoryList(@RequestParam(value = "page", required = true) Integer page,
+                                @RequestParam(value = "limit", required = true) Integer limit) {
+        Pageable pageable = new PageRequest(page - 1, limit);
+        try {
+            Page<TbBlogCategoryEntity> category = categoryService.findCategoryByPage(pageable);
+            List<TbBlogCategoryEntity> content = category.getContent();
+            return new Result(0, "成功", content.size(), content);
+        }catch (Exception e){
+            log.error("查询分类列表异常",e);
+            return new Result(500, "失败");
+
+        } }
 
     /**
      * Save the article category
+     *
      * @param categoryEntity
      * @return
      */
     @PostMapping("saveCategory")
     @ResponseBody
-    private Result saveCategory(@RequestBody TbBlogCategoryEntity categoryEntity){
+    private Result saveCategory(@RequestBody TbBlogCategoryEntity categoryEntity) {
         return null;
     }
 }
