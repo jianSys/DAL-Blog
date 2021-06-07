@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tb_blog_tag")
-public class TbBlogTagEntity implements Serializable {
+public class TbBlogTag implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

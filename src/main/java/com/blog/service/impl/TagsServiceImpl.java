@@ -1,7 +1,7 @@
 package com.blog.service.impl;
 
 import com.blog.dao.BlogTagDao;
-import com.blog.pojo.TbBlogTagEntity;
+import com.blog.pojo.TbBlogTag;
 import com.blog.service.TagsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,32 +31,32 @@ public class TagsServiceImpl implements TagsService {
      * @return
      */
     @Override
-    public Page<TbBlogTagEntity> findTagByPage(Pageable pageable) {
-        Page<TbBlogTagEntity> all = tagDao.findAll(pageable);
+    public Page<TbBlogTag> findTagByPage(Pageable pageable) {
+        Page<TbBlogTag> all = tagDao.findAll(pageable);
         return all;
     }
 
     /**
      * 添加标签数据
      *
-     * @param tbBlogTagEntity
+     * @param tbBlogTag
      */
     @Override
-    public TbBlogTagEntity saveTags(TbBlogTagEntity tbBlogTagEntity) {
-        Integer tagId = tbBlogTagEntity.getTagId();
+    public TbBlogTag saveTags(TbBlogTag tbBlogTag) {
+        Integer tagId = tbBlogTag.getTagId();
         if (null != tagId) {
-            TbBlogTagEntity entity = tagDao.save(tbBlogTagEntity);
+            TbBlogTag entity = tagDao.save(tbBlogTag);
             return entity;
         } else {
-            tbBlogTagEntity.setCreateTime(new Date());
-            tbBlogTagEntity.setIsDeleted(0);
-            TbBlogTagEntity tagEntity = tagDao.save(tbBlogTagEntity);
+            tbBlogTag.setCreateTime(new Date());
+            tbBlogTag.setIsDeleted(0);
+            TbBlogTag tagEntity = tagDao.save(tbBlogTag);
             return tagEntity;
         }
     }
 
     @Override
-    public List<TbBlogTagEntity> getAllTags() {
+    public List<TbBlogTag> getAllTags() {
         return tagDao.findAll();
     }
 }

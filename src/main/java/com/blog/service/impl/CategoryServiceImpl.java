@@ -1,7 +1,7 @@
 package com.blog.service.impl;
 
 import com.blog.dao.BlogCategoryDao;
-import com.blog.pojo.TbBlogCategoryEntity;
+import com.blog.pojo.TbBlogCategory;
 import com.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,8 +29,8 @@ public class CategoryServiceImpl implements CategoryService {
      * @return
      */
     @Override
-    public Page<TbBlogCategoryEntity> findCategoryByPage(Pageable pageable) {
-        Page<TbBlogCategoryEntity> all = categoryDao.findAll(pageable);
+    public Page<TbBlogCategory> findCategoryByPage(Pageable pageable) {
+        Page<TbBlogCategory> all = categoryDao.findAll(pageable);
         return all;
     }
 }

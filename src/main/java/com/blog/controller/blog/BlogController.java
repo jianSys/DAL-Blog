@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Version: 1.0
  */
 @Controller
+@RequestMapping("/blog")
 public class BlogController {
-    @GetMapping("/blog/index")
+    @GetMapping("index")
     private String toIndex(){
         return "/blog/index";
     }

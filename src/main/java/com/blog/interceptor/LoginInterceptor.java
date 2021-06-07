@@ -1,5 +1,6 @@
 package com.blog.interceptor;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,10 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("======================拦截工作开始=========================");
-        String token = request.getHeader("access_token");
-        System.out.println(token);
-        return false;
+        String requestServletPath = request.getServletPath();
+        System.out.println("======================拦截器开始工作=============================");
+        if (requestServletPath.startsWith("/admin") && null == request.getSession().getAttribute("loginUser")) {
+            request.getSession().setAttribute("errorMsg", "请重新登陆");
+            response.sendRedirect(request.getContextPath() + "/admin/login");
+            return false;
+        } else {
+            request.getSession().removeAttribute("errorMsg");
+            return true;
+        }
     }
 
     @Override

@@ -2,10 +2,16 @@ package com.blog.controller.admin;
 
 import com.blog.commons.Result;
 import com.blog.pojo.LoginUser;
+import com.blog.pojo.TbAdminUser;
 import com.blog.pojo.User;
+import com.blog.service.UserService;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @program: SpringBoot
@@ -17,6 +23,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/admin")
 public class LoginController {
+
+    @Autowired
+    private UserService userService;
     /**
      * 跳转登录页面
      *
@@ -35,10 +44,17 @@ public class LoginController {
      */
     @ResponseBody
     @PostMapping(value = "/login")
-    private Result login(@RequestBody User user) {
+    private Result login(@RequestBody User user, HttpSession session) {
+        TbAdminUser login = userService.login(user.getUsername(), user.getPassword());
+        if (null == login){
+            return new Result(500, "登录失败");
+        }
         System.out.println(user);
+        session.setAttribute("loginUser",login.getLoginUserName());
         LoginUser loginUser = new LoginUser();
-        loginUser.setId("fhgjgfghfggfj");
+        loginUser.setId(login.getAdminUserId());
+        loginUser.setUsername(login.getLoginUserName());
+        loginUser.setPhone(login.getEmail());
         loginUser.setAccessToken("是jvgvggjhfg");
         return new Result(0, "成功", 200, loginUser);
     }

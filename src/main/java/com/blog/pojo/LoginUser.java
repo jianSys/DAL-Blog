@@ -12,14 +12,14 @@ public class LoginUser {
 
     private String username;
 
-    private String id;
+    private Integer id;
 
     private String phone;
 
     public LoginUser() {
     }
 
-    public LoginUser(String accessToken, String username, String id, String phone) {
+    public LoginUser(String accessToken, String username, Integer id, String phone) {
         this.accessToken = accessToken;
         this.username = username;
         this.id = id;
@@ -42,11 +42,11 @@ public class LoginUser {
         this.username = username;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

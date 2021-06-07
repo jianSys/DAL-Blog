@@ -2,9 +2,8 @@ package com.blog.controller.admin;
 
 import cn.hutool.json.JSONUtil;
 import com.blog.commons.Result;
-import com.blog.pojo.TbBlogCategoryEntity;
-import com.blog.pojo.TbBlogEntity;
-import com.blog.pojo.TbBlogTagEntity;
+import com.blog.pojo.TbBlogCategory;
+import com.blog.pojo.TbBlog;
 import com.blog.service.ArticleService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +14,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * @ProjectName: springboot
@@ -93,8 +89,8 @@ public class ArticleController {
         Sort sort = new Sort(Sort.Direction.DESC, "blogId");
         Pageable pageable = new PageRequest(page - 1, limit);
         try{
-            Page<TbBlogEntity> byPage = articleService.findByPage(map, pageable);
-            List<TbBlogEntity> content = byPage.getContent();
+            Page<TbBlog> byPage = articleService.findByPage(map, pageable);
+            List<TbBlog> content = byPage.getContent();
             Result result = new Result(0, "成功", content.size(), content);
             return result;
         }catch (Exception e){
@@ -110,8 +106,8 @@ public class ArticleController {
                                 @RequestParam(value = "limit", required = true) Integer limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
         try {
-            Page<TbBlogCategoryEntity> category = articleService.findCategoryByPage(pageable);
-            List<TbBlogCategoryEntity> content = category.getContent();
+            Page<TbBlogCategory> category = articleService.findCategoryByPage(pageable);
+            List<TbBlogCategory> content = category.getContent();
             return new Result(0, "成功", content.size(), content);
         }catch (Exception e){
             log.error("查询分类列表异常",e);
@@ -123,16 +119,16 @@ public class ArticleController {
     @GetMapping("getCategory")
     @ResponseBody
     private Result getCategory() {
-        List<TbBlogCategoryEntity> allCategory = articleService.findAllCategory();
+        List<TbBlogCategory> allCategory = articleService.findAllCategory();
         return new Result(0, "成功", allCategory.size(), allCategory);
     }
 
     @PostMapping("saveArticle")
     @ResponseBody
-    private Result saveArticle(@RequestBody TbBlogEntity tbBlogEntity) {
+    private Result saveArticle(@RequestBody TbBlog tbBlogEntity) {
         log.info("保存文章的入参为===========[{}]",JSONUtil.parse(tbBlogEntity));
         try{
-            TbBlogEntity save = articleService.save(tbBlogEntity);
+            TbBlog save = articleService.save(tbBlogEntity);
             return new Result(0, "成功", save);
         }catch (Exception e){
             log.error("保存文章信息异常",e);

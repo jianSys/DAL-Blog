@@ -1,7 +1,7 @@
 package com.blog.controller.admin;
 
 import com.blog.commons.Result;
-import com.blog.pojo.TbBlogCategoryEntity;
+import com.blog.pojo.TbBlogCategory;
 import com.blog.service.CategoryService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +53,8 @@ public class CategoryController {
                                 @RequestParam(value = "limit", required = true) Integer limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
         try {
-            Page<TbBlogCategoryEntity> category = categoryService.findCategoryByPage(pageable);
-            List<TbBlogCategoryEntity> content = category.getContent();
+            Page<TbBlogCategory> category = categoryService.findCategoryByPage(pageable);
+            List<TbBlogCategory> content = category.getContent();
             return new Result(0, "成功", content.size(), content);
         }catch (Exception e){
             log.error("查询分类列表异常",e);
@@ -70,7 +70,7 @@ public class CategoryController {
      */
     @PostMapping("saveCategory")
     @ResponseBody
-    private Result saveCategory(@RequestBody TbBlogCategoryEntity categoryEntity) {
+    private Result saveCategory(@RequestBody TbBlogCategory categoryEntity) {
         return null;
     }
 }

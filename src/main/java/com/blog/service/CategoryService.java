@@ -1,6 +1,6 @@
 package com.blog.service;
 
-import com.blog.pojo.TbBlogCategoryEntity;
+import com.blog.pojo.TbBlogCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,5 +13,5 @@ import org.springframework.data.domain.Pageable;
  * @Version: 1.0
  */
 public interface CategoryService {
-    Page<TbBlogCategoryEntity> findCategoryByPage(Pageable pageable);
+    Page<TbBlogCategory> findCategoryByPage(Pageable pageable);
 }

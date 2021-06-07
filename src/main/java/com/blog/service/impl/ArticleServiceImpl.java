@@ -3,9 +3,9 @@ package com.blog.service.impl;
 import com.blog.dao.BlogCategoryDao;
 import com.blog.dao.BlogDao;
 import com.blog.dao.BlogTagDao;
-import com.blog.pojo.TbBlogCategoryEntity;
-import com.blog.pojo.TbBlogEntity;
-import com.blog.pojo.TbBlogTagEntity;
+import com.blog.pojo.TbBlogCategory;
+import com.blog.pojo.TbBlog;
+import com.blog.pojo.TbBlogTag;
 import com.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,8 +42,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     @Override
-    public TbBlogEntity findById(Integer id) {
-        TbBlogEntity tbBlogEntity = articleDao.findById(id).get();
+    public TbBlog findById(Integer id) {
+        TbBlog tbBlogEntity = articleDao.findById(id).get();
         return tbBlogEntity;
     }
 
@@ -55,10 +55,10 @@ public class ArticleServiceImpl implements ArticleService {
      * @return
      */
     @Override
-    public Page<TbBlogEntity> findByPage(Map<String, Object> map, Pageable pageable) {
+    public Page<TbBlog> findByPage(Map<String, Object> map, Pageable pageable) {
 
         //List<TbBlogEntity> all = articleDao.findAll();
-        Specification<TbBlogEntity> spec = (root, criteriaQuery, criteriaBuilder) -> {
+        Specification<TbBlog> spec = (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
             Integer id = (Integer) map.get("id");
             if (id != null) {
@@ -75,13 +75,13 @@ public class ArticleServiceImpl implements ArticleService {
             return criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
         };
 
-        Page<TbBlogEntity> page = blogDao.findAll(spec, pageable);
+        Page<TbBlog> page = blogDao.findAll(spec, pageable);
 
         if (page == null || page.getTotalElements() < 1) {
             return new PageImpl<>(new ArrayList<>(0), pageable, 0);
         }
 
-        List<TbBlogEntity> lists = page.getContent();
+        List<TbBlog> lists = page.getContent();
 
         if (lists != null && lists.size() > 0) {
 
@@ -98,18 +98,18 @@ public class ArticleServiceImpl implements ArticleService {
      * @return
      */
     @Override
-    public Page<TbBlogCategoryEntity> findCategoryByPage(Pageable pageable) {
-        Page<TbBlogCategoryEntity> all = blogCategoryDao.findAll(pageable);
+    public Page<TbBlogCategory> findCategoryByPage(Pageable pageable) {
+        Page<TbBlogCategory> all = blogCategoryDao.findAll(pageable);
         return all;
     }
 
     @Override
-    public List<TbBlogCategoryEntity> findAllCategory() {
+    public List<TbBlogCategory> findAllCategory() {
         return blogCategoryDao.findAll();
     }
 
     @Override
-    public TbBlogEntity save(TbBlogEntity tbBlogEntity) {
+    public TbBlog save(TbBlog tbBlogEntity) {
         Integer blogId = tbBlogEntity.getBlogId();
         if (null != blogId) {
             tbBlogEntity.setUpdateTime(new Date());
@@ -121,17 +121,17 @@ public class ArticleServiceImpl implements ArticleService {
             tbBlogEntity.setCreateTime(new Date());
             tbBlogEntity.setBlogViews(0);
             tbBlogEntity.setIsDeleted(0);
-            TbBlogCategoryEntity category = this.findCategoryById(tbBlogEntity.getBlogCategoryId());
+            TbBlogCategory category = this.findCategoryById(tbBlogEntity.getBlogCategoryId());
             tbBlogEntity.setBlogCategoryName(category.getCategoryName());
             String tagsNames = getTagsNames(tbBlogEntity.getBlogTags());
             tbBlogEntity.setBlogTags(tagsNames);
-            TbBlogEntity save = blogDao.save(tbBlogEntity);
+            TbBlog save = blogDao.save(tbBlogEntity);
             return save;
         }
     }
 
     @Override
-    public TbBlogCategoryEntity findCategoryById(Integer id) {
+    public TbBlogCategory findCategoryById(Integer id) {
         return blogCategoryDao.getOne(id);
     }
 
@@ -145,7 +145,7 @@ public class ArticleServiceImpl implements ArticleService {
         String[] split = tagsIds.split(",");
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < split.length; i++) {
-            TbBlogTagEntity entity = blogTagDao.getOne(Integer.parseInt(split[i]));
+            TbBlogTag entity = blogTagDao.getOne(Integer.parseInt(split[i]));
             if (i == split.length - 1) {
                 builder.append(entity.getTagName());
             } else {
