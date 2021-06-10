@@ -18,8 +18,13 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @GetMapping("index")
+    @GetMapping({"","/","index"})
     private String index() {
         return "/admin/index";
+    }
+
+    @GetMapping("toTool")
+    private String toTool() {
+        return "/admin/system/tool";
     }
 }

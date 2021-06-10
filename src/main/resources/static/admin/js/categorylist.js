@@ -21,6 +21,30 @@ layui.config({
             {title: '操作', minWidth: 175, templet: '#layuiadmin-app-cont-tagsbar', fixed: "right", align: "center"}
         ]]
     });
+
+
+    table.on('tool(LAY-app-content-list)', function (obj) {
+        var id = obj.data.blogId;
+        var data = obj.data;
+        console.log("选中的id为========" + id);
+        console.log("操作为=========" + obj.event)
+        if (obj.event === 'edit') {
+            layer.open({
+                type: 2,
+                content: 'toArticleEdit',
+                area: ['500px', '500px'],
+                title: "更改信息",
+                //fixed: false, //不固定
+                maxmin: true,
+                shadeClose: false,
+                btn: ['修改', '取消'],
+
+            })
+        }else{
+
+        }
+    });
+
     var $ = layui.$, active = {
         add: function () {
             layer.open({

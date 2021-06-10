@@ -68,7 +68,7 @@
                 </li>
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;">
-                        <cite>贤心</cite>
+                        <cite id="login_name">jian</cite>
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a lay-href="set/user/info.html">基本资料</a></dd>
@@ -170,7 +170,7 @@
                                 <a lay-href="user/user/list.html">博客设置</a>
                             </dd>
                             <dd>
-                                <a lay-href="user/administrators/list.html">小工具</a>
+                                <a lay-href="toTool">小工具</a>
                             </dd>
                             <dd>
                                 <a lay-href="user/administrators/role.html">关于</a>

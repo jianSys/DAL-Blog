@@ -63,6 +63,12 @@ public class ArticleController {
         return "/admin/article/listform";
     }
 
+
+    @GetMapping("toArticleAdd")
+    private String toArticleListAdd() {
+        return "/admin/article/articleAdd";
+    }
+
     /**
      * 分页查询
      *
@@ -90,8 +96,9 @@ public class ArticleController {
         Pageable pageable = new PageRequest(page - 1, limit);
         try{
             Page<TbBlog> byPage = articleService.findByPage(map, pageable);
+            Long total = byPage.getTotalElements();
             List<TbBlog> content = byPage.getContent();
-            Result result = new Result(0, "成功", content.size(), content);
+            Result result = new Result(0, "成功", total.intValue(), content);
             return result;
         }catch (Exception e){
             log.error("查询文章列表异常==============",e);
@@ -147,6 +154,5 @@ public class ArticleController {
             log.error("删除文章异常",e);
             return new Result(500, "失败");
         }
-
     }
 }

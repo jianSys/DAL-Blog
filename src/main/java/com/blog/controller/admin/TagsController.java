@@ -48,9 +48,10 @@ public class TagsController {
         log.info("查询标签列表的入参为[{},{}]",page,limit);
         try {
             Page<TbBlogTag> tagPage = tagsService.findTagByPage(pageable);
+            Long total = tagPage.getTotalElements();
             List<TbBlogTag> content = tagPage.getContent();
             System.out.println(content);
-            return new Result(0, "成功", content.size(), content);
+            return new Result(0, "成功", total.intValue(), content);
         }catch (Exception e){
             log.error("查询标签列表异常",e);
             return new Result(500, "失败");

@@ -2,7 +2,11 @@ package com.blog.controller.admin;
 
 import cn.hutool.json.JSONUtil;
 import com.blog.commons.Result;
+import com.blog.pojo.TbBlog;
+import com.blog.service.ArticleService;
 import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.core.util.datetime.Format;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -29,8 +35,15 @@ import java.util.UUID;
 @RequestMapping("/admin/upload")
 public class UploadController {
 
+
     @Value("${blog.upload.dir}")
     private String filePath;
+
+    @Value("${blog.upload.file.dir}")
+    private String fileDirPath;
+
+    @Autowired
+    private ArticleService articleService;
 
     @PostMapping("images")
     @ResponseBody
@@ -64,4 +77,100 @@ public class UploadController {
         System.out.println(imgUrl);
         return new Result(0, "成功", imgUrl);
     }
+
+    @PostMapping("file")
+    @ResponseBody
+    private Result uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request){
+        String str="";
+        String filename = file.getOriginalFilename();
+        try {
+            InputStream ins = null;
+
+            ins = file.getInputStream();
+
+            File toFile = new File(filename);
+
+            inputStreamToFile(ins, toFile);
+
+            FileReader fr = new FileReader(toFile);
+
+            BufferedReader br = new BufferedReader(fr);
+
+            String line="";
+
+            int lineNum=0;
+
+            while((line=br.readLine())!=null /*&& Format.isNotNull(line)*/){
+                str = str + line;
+                System.out.println(line);
+                //log.info(line);
+
+            }
+
+            br.close();
+
+            fr.close();
+
+        } catch (Exception e) {
+            log.error("splitText e:" + e);
+        }
+        TbBlog tbBlog = new TbBlog();
+        tbBlog.setBlogTitle(filename);
+        tbBlog.setBlogContent(str);
+        tbBlog.setBlogStatus(0);
+        tbBlog.setEnableComment(0);
+        tbBlog.setBlogTop(0);
+        articleService.save(tbBlog);
+        return new Result(0, "成功");
+    }
+
+    public static void inputStreamToFile(InputStream ins, File file) {
+
+        try {
+            OutputStream os = new FileOutputStream(file);
+            int bytesRead = 0;
+            byte[] buffer = new byte[8192];
+            while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+            os.close();
+            ins.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //上传文件到本地
+    public static void main(String[] args) throws Exception {
+
+        String lineTxt = null;
+
+
+        String encoding="UTF-8";
+
+        File file=new File("F://redis.md");
+
+        if(file.isFile() && file.exists()){ //判断文件是否存在
+
+            InputStreamReader read = new InputStreamReader(
+
+                    new FileInputStream(file),encoding);//考虑到编码格式
+
+            BufferedReader bufferedReader = new BufferedReader(read);
+
+            //bufferedReader.
+            while((lineTxt = bufferedReader.readLine()) != null){
+                //str = str +
+                //list.add(Integer.parseInt(lineTxt));
+                System.out.println(lineTxt);
+
+            }
+            read.close();
+
+        }
+
+
+    }
+
 }

@@ -46,18 +46,20 @@ layui.config({
             layer.confirm("确定要删除此文章吗?", function (index) {
                 var index = layer.load(1);
                 deleteArticle(id);
+                layer.close(index);
             })
         } else if (obj.event === 'edit') {
             console.log(obj.data);
+            json = JSON.stringify(data);
             layer.open({
                 type: 2,
-                content: 'toArticleEdit',
+                content: 'toArticleAdd',
                 area: ['500px', '500px'],
                 title: "更改信息",
                 //fixed: false, //不固定
                 maxmin: true,
                 shadeClose: false,
-                btn: ['修改', '取消'],
+                //btn: ['修改', '取消'],
 
             });
             //表单值
@@ -104,20 +106,8 @@ layui.config({
         },
         add: function () {
             window.location.href = 'toArticleEdit'
-            /*layer.open({
-              type: 2
-              ,title: '添加文章'
-              ,content: 'toEdit'
-              ,maxmin: true
-              ,area: ['550px', '550px']
-              ,btn: ['确定', '取消']
-              ,yes: function(index, layero){
-                //点击确认触发 iframe 内容中的按钮提交
-                var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
-                submit.click();
-              }
-            }); */
         }
+
     };
 
     $('.layui-btn.layuiadmin-btn-list').on('click', function () {

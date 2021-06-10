@@ -54,8 +54,9 @@ public class CategoryController {
         Pageable pageable = new PageRequest(page - 1, limit);
         try {
             Page<TbBlogCategory> category = categoryService.findCategoryByPage(pageable);
+            Long total = category.getTotalElements();
             List<TbBlogCategory> content = category.getContent();
-            return new Result(0, "成功", content.size(), content);
+            return new Result(0, "成功", total.intValue(), content);
         }catch (Exception e){
             log.error("查询分类列表异常",e);
             return new Result(500, "失败");

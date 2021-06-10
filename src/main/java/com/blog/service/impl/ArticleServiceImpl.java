@@ -121,10 +121,14 @@ public class ArticleServiceImpl implements ArticleService {
             tbBlogEntity.setCreateTime(new Date());
             tbBlogEntity.setBlogViews(0);
             tbBlogEntity.setIsDeleted(0);
-            TbBlogCategory category = this.findCategoryById(tbBlogEntity.getBlogCategoryId());
-            tbBlogEntity.setBlogCategoryName(category.getCategoryName());
-            String tagsNames = getTagsNames(tbBlogEntity.getBlogTags());
-            tbBlogEntity.setBlogTags(tagsNames);
+            if (null != tbBlogEntity.getBlogCategoryId()){
+                TbBlogCategory category = this.findCategoryById(tbBlogEntity.getBlogCategoryId());
+                tbBlogEntity.setBlogCategoryName(category.getCategoryName());
+            }
+            if (StringUtils.isNotBlank(tbBlogEntity.getBlogTags())){
+                String tagsNames = getTagsNames(tbBlogEntity.getBlogTags());
+                tbBlogEntity.setBlogTags(tagsNames);
+            }
             TbBlog save = blogDao.save(tbBlogEntity);
             return save;
         }
