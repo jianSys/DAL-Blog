@@ -51,6 +51,7 @@ layui.config({
         } else if (obj.event === 'edit') {
             console.log(obj.data);
             json = JSON.stringify(data);
+            var arr=[];
             layer.open({
                 type: 2,
                 content: 'toArticleAdd',
@@ -59,16 +60,79 @@ layui.config({
                 //fixed: false, //不固定
                 maxmin: true,
                 shadeClose: false,
-                //btn: ['修改', '取消'],
+                btn: ['修改', '取消'],
+                yes: function (index, layero) {
+                    var othis = layero.find('iframe').contents().find("#blogArticleForm"),
+                        photoUrl = othis.find('#photoUrl').val(),
+                        comments = othis.find('input[name="comments"]:checked').val(),
+                        status = othis.find('input[name="status"]').val(),
+                        tags = othis.find('input[name="tags"]:checked').each(function () {
+                            arr.push($(this).val());
+                        }),
+                        blogId = othis.find('input[name="id"]').val(),
 
-            });
-            //表单值
-            form.val("layuiadmin-app-form-list", {
-                "blogTitle": data.blogTitle
-            });
+                        title = othis.find('#title').val(),
+                        content = othis.find('.editormd-markdown-textarea').val(),
+                        top = othis.find('input[name="top"]').val(),
+                        category = othis.find('#category').val();
+                    console.log("组装请求数据开始");
+                    console.log("看看行不行=========="+data.blogViews);
+                    //var content = testEditor.getMarkdown();
+                    //var title = $('#title').val();
+                    /*if (title == ''){
+                        layer.msg('标题不能为空',function(){time:2000});
+                        return flase;
+                    }
+                    if (content==''){
+                        layer.msg('内容不能为空',function(){time:2000});
+                        return flase;
+                    }*/
+                    var data = {
+                        "blogId":blogId,
+                        "blogTitle": title,
+                        "blogCategoryId": category,
+                        "blogCoverImage": photoUrl,
+                        "blogContent": content,
+                        "blogTags": arr.toString(),
+                        "blogStatus": status === "on" ? 1 : 0,
+                        "enableComment": comments,
+                        "blogTop": status === "on" ? 1 : 0,
+                        //"blogSubUrl": data.blogSubUrl===""?"":data.blogSubUrl,
+                        "blogViews":data.blogViews,
+                        "createTime":data.createTime,
+                        "isDeleted":data.isDeleted
+                    };
+                    console.log("组装请求数据成功=============开始发送请求" + data)
+                    $.ajax({
+                        type: 'POST',//方法类型
+                        url: "saveArticle",
+                        data: JSON.stringify(data),
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        success: function (res) {
+                            if (res.code === 0) {
+                                //跳转文章列表页面
+                                layer.msg('添加成功', {time: 1000}, function () {
+                                    window.location = '/admin/article/toArticleList';
+                                });
+                            } else {
+                                layer.msg(res.msg);
+                                $("#img").click();
+                            }
+                        },
+                        error: function () {
+                            //请求出错处理
+                            layer.msg('发送失败', {icon: 5});
+                        }
+                    });
+                    //表单值
+                    form.val("layuiadmin-app-form-list", {
+                        "blogTitle": data.blogTitle
+                    });
 
-        }
-    });
+                }
+            });
+        }});
     //监听搜索
     form.on('submit(LAY-app-contlist-search)', function (data) {
         var field = data.field;

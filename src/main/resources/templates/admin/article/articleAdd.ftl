@@ -13,7 +13,7 @@
 <div class="layui-fluid">
     <div class="layui-card">
         <div class="layui-card-body" style="padding: 15px;">
-            <div class="layui-form" method="post" action="" lay-filter="component-form-group">
+            <div id="blogArticleForm" class="layui-form" method="post" action="" lay-filter="component-form-group">
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">文章标题</label>
@@ -82,17 +82,17 @@
                 <!-- 富文本编辑器 -->
                 <div id="test-editormd"></div>
                 <!--底部按钮-->
-                <div class="layui-form-item layui-layout-admin">
+                <#--<div class="layui-form-item layui-layout-admin">
                     <div class="layui-input-block">
                         <div class="layui-footer" style="left: 0;z-index:99;text-align: right">
                             <button id="blog-submit" data-type="test" class="layui-btn" lay-submit=""
                                     lay-filter="component-form-demo1">
-                                发布
+                                修改
                             </button>
                             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
@@ -188,8 +188,27 @@
                                           $(this).attr('selected',$(this).val()===parent_json.blogCategoryId);
                                      });*/
             //testEditor.setMarkdown(parent_json.blogContent);
-            $("input[name='comments'][value="+parent_json.enableComment+"]").prop("checked","ture");
-            parent_json.blogTop==1?$("input[name='top']").prop("checked","ture"):$("input[name='top']").prop("checked","flase");
+            $("input[name='comments'][value="+parent_json.enableComment+"]").prop("checked","true");
+            //alert(parent_json.blogTop);
+            if (parent_json.blogTop === 1){
+                //$("input[name='top']").val(true);
+                $("input[name='top']").prop("checked","true");
+            }else{
+                //$("input[name='top']").val(false);
+                $("input[name='top']").prop("checked","");
+            }
+
+            if (parent_json.blogStatus === 1){
+                //$("input[name='top']").val(true);
+                $("input[name='status']").prop("checked","true");
+            }else{
+                //$("input[name='top']").val(false);
+                $("input[name='status']").prop("checked","");
+            }
+
+
+
+               // $("input[name='top']").prop("checked","flase");
 
             $('.editormd-markdown-textarea').val(parent_json.blogContent);
             //testEditor.setValue(parent_json.blogContent)

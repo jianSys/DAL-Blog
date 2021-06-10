@@ -113,9 +113,17 @@ public class ArticleServiceImpl implements ArticleService {
         Integer blogId = tbBlogEntity.getBlogId();
         if (null != blogId) {
             tbBlogEntity.setUpdateTime(new Date());
-            tbBlogEntity.setIsDeleted(0);
             //更新
-            return null;
+            if (null != tbBlogEntity.getBlogCategoryId()){
+                TbBlogCategory category = this.findCategoryById(tbBlogEntity.getBlogCategoryId());
+                tbBlogEntity.setBlogCategoryName(category.getCategoryName());
+            }
+            if (StringUtils.isNotBlank(tbBlogEntity.getBlogTags())){
+                String tagsNames = getTagsNames(tbBlogEntity.getBlogTags());
+                tbBlogEntity.setBlogTags(tagsNames);
+            }
+            TbBlog save = blogDao.save(tbBlogEntity);
+            return save;
         } else {
             tbBlogEntity.setUpdateTime(new Date());
             tbBlogEntity.setCreateTime(new Date());
