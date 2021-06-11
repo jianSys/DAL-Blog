@@ -26,7 +26,7 @@
             <p class="layuiadmin-big-font">9,999,666</p>
             <p>
               总计访问量 
-              <span class="layuiadmin-span-color">88万 <i class="layui-inline layui-icon layui-icon-flag"></i></span>
+              <span class="layuiadmin-span-color" id="num">88万 <i class="layui-inline layui-icon layui-icon-flag"></i></span>
             </p>
           </div>
         </div>
@@ -317,7 +317,30 @@
     base: '../../static/layui/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'sample']);
+  }).use(['index', 'sample'],function () {
+    var layer = layui.layer
+            , $ = layui.jquery
+            , form = layui.form
+            , admin = layui.admin
+            ,upload = layui.upload;
+    $(document).ready(function () {
+      $.ajax({
+        url: "../getIndexShow",
+        type: 'GET',
+        dataType: 'json',
+        contentType: "application/json;charset=utf-8",
+        success: function (res) {
+          if (res.code === 0) {
+            var data = res.data;
+            console.log("返回的数据是=================+"+JSON.stringify(data))
+
+          } else {
+            layer.msg("查询失败")
+          }
+        }
+      });
+    });
+  });
   </script>
 </body>
 </html>

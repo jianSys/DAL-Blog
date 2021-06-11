@@ -45,13 +45,28 @@ layui.config({
         if (obj.event === 'del') {
             layer.confirm("确定要删除此文章吗?", function (index) {
                 var index = layer.load(1);
-                deleteArticle(id);
-                layer.close(index);
+                $.ajax({
+                    type: 'delete',//方法类型
+                    url: "delArticle/" + id,
+                    //data: JSON.stringify(data),
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (res) {
+                        if (res.code === 0) {
+                            table.reload('LAY-app-content-list');
+                            layer.msg('已删除');
+                            layer.close(index);
+                        } else {
+                            table.reload('LAY-app-content-list');
+                        }
+                    }
+                });
+
             })
         } else if (obj.event === 'edit') {
-            console.log(obj.data);
+            console.log("我是编辑页面获取到的data==================" + JSON.stringify(obj.data));
             json = JSON.stringify(data);
-            var arr=[];
+            var arr = [];
             layer.open({
                 type: 2,
                 content: 'toArticleAdd',
@@ -65,7 +80,7 @@ layui.config({
                     var othis = layero.find('iframe').contents().find("#blogArticleForm"),
                         photoUrl = othis.find('#photoUrl').val(),
                         comments = othis.find('input[name="comments"]:checked').val(),
-                        status = othis.find('input[name="status"]').val(),
+                        status = othis.find('input[name="status"]:checked').val(),
                         tags = othis.find('input[name="tags"]:checked').each(function () {
                             arr.push($(this).val());
                         }),
@@ -73,34 +88,38 @@ layui.config({
 
                         title = othis.find('#title').val(),
                         content = othis.find('.editormd-markdown-textarea').val(),
-                        top = othis.find('input[name="top"]').val(),
+                        top = othis.find('input[name="top"]:checked').val(),
                         category = othis.find('#category').val();
+                    //alert("这是id================"+blogId);
                     console.log("组装请求数据开始");
-                    console.log("看看行不行=========="+data.blogViews);
-                    //var content = testEditor.getMarkdown();
-                    //var title = $('#title').val();
-                    /*if (title == ''){
-                        layer.msg('标题不能为空',function(){time:2000});
-                        return flase;
+
+                    if (title == '') {
+                        layer.msg('标题不能为空', function () {
+                            time:2000
+                        });
+                        return;
                     }
-                    if (content==''){
-                        layer.msg('内容不能为空',function(){time:2000});
-                        return flase;
-                    }*/
+                    if (content == '') {
+                        layer.msg('内容不能为空', function () {
+                            time:2000
+                        });
+                        return;
+                    }
+                    //alert("开关按钮"+status);
                     var data = {
-                        "blogId":blogId,
+                        "blogId": blogId,
                         "blogTitle": title,
                         "blogCategoryId": category,
                         "blogCoverImage": photoUrl,
                         "blogContent": content,
                         "blogTags": arr.toString(),
-                        "blogStatus": status === "on" ? 1 : 0,
+                        "blogStatus": status,//=== "on" ? 1 : 0
                         "enableComment": comments,
-                        "blogTop": status === "on" ? 1 : 0,
-                        //"blogSubUrl": data.blogSubUrl===""?"":data.blogSubUrl,
-                        "blogViews":data.blogViews,
-                        "createTime":data.createTime,
-                        "isDeleted":data.isDeleted
+                        "blogTop": top,
+                        "blogSubUrl": obj.data.blogSubUrl == "" ? "" : obj.data.blogSubUrl,
+                        "blogViews": obj.data.blogViews === 0 ? 0 : obj.data.blogViews,
+                        "createTime": obj.data.createTime == "" ? "" : obj.data.createTime,
+                        "isDeleted": obj.data.isDeleted === 0 ? 0 : obj.data.isDeleted,
                     };
                     console.log("组装请求数据成功=============开始发送请求" + data)
                     $.ajax({
@@ -112,7 +131,7 @@ layui.config({
                         success: function (res) {
                             if (res.code === 0) {
                                 //跳转文章列表页面
-                                layer.msg('添加成功', {time: 1000}, function () {
+                                layer.msg('修改成功', {time: 1000}, function () {
                                     window.location = '/admin/article/toArticleList';
                                 });
                             } else {
@@ -132,7 +151,8 @@ layui.config({
 
                 }
             });
-        }});
+        }
+    });
     //监听搜索
     form.on('submit(LAY-app-contlist-search)', function (data) {
         var field = data.field;
@@ -178,24 +198,4 @@ layui.config({
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
     });
-
-
-    //删除列
-    function deleteArticle(blogId) {
-        $.ajax({
-            type: 'delete',//方法类型
-            url: "delArticle/" + blogId,
-            //data: JSON.stringify(data),
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (res) {
-                if (res.code === 0) {
-                    table.reload('LAY-app-content-list');
-                    layer.msg('已删除');
-                } else {
-                    table.reload('LAY-app-content-list');
-                }
-            }
-        })
-    }
 });

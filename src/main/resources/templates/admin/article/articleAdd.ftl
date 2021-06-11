@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../../../static/editormd/css/editormd.preview.css"/>
 </head>
 <body>
-
 <div class="layui-fluid">
     <div class="layui-card">
         <div class="layui-card-body" style="padding: 15px;">
@@ -35,8 +34,6 @@
                             </button>
                         </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">分类</label>
                         <div class="layui-input-inline">
@@ -45,13 +42,13 @@
                             </select>
                         </div>
                     </div>
-
+                </div>
+                <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">标签</label>
                         <div class="layui-input-block" id="tags">
                         </div>
                     </div>
-
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-inline">
@@ -64,35 +61,20 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">是否置顶</label>
                         <div class="layui-input-inline">
-                            <input type="checkbox" lay-verify="required" lay-filter="top" name="top" lay-skin="switch"
-                                   lay-text="开启|关闭">
+                           <input type="radio" lay-filter="top" name="top" value="0" title="否" checked="">
+                            <input type="radio" lay-filter="top" name="top" value="1" title="是">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">发布状态</label>
                         <div class="layui-input-inline">
-                            <input type="checkbox" lay-verify="required" lay-filter="status" name="status"
-                                   lay-skin="switch"
-                                   lay-text="发布|草稿">
+                            <input type="radio" lay-filter="status" name="status" value="0" title="草稿" checked="">
+                            <input type="radio" lay-filter="status" name="status" value="1" title="发布">
                         </div>
                     </div>
-
                 </div>
-
                 <!-- 富文本编辑器 -->
                 <div id="test-editormd"></div>
-                <!--底部按钮-->
-                <#--<div class="layui-form-item layui-layout-admin">
-                    <div class="layui-input-block">
-                        <div class="layui-footer" style="left: 0;z-index:99;text-align: right">
-                            <button id="blog-submit" data-type="test" class="layui-btn" lay-submit=""
-                                    lay-filter="component-form-demo1">
-                                修改
-                            </button>
-                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                        </div>
-                    </div>
-                </div>-->
             </div>
         </div>
     </div>
@@ -120,6 +102,61 @@
             , form = layui.form
             , admin = layui.admin
         ,upload = layui.upload;
+
+
+
+
+        layer.ready(function (data) {
+            //console.log(data['value']);
+            //var value = data['value'];
+            $.ajax({
+                url: "getCategory",
+                type: 'GET',
+                dataType: 'json',
+                //data:{id: value},
+                contentType: "application/json;charset=utf-8",
+                success: function (datas) {
+                    var data = datas.data;
+                    console.log('获取中的数据==================' + data);
+                    $("#category").empty();
+                    for (var i = 0; i < data.length; i++) {
+                        console.log('循环开始============' + datas.data[i]);
+                        $("#category").append('<option value="' + data[i].categoryId + '">' + data[i].categoryName + '</option>');
+                        //$('#category').append(new Option(data[i].categoryName,data[i].categoryId));//往下拉菜单里添加元素
+                        $('#category').val(categoryId);
+                    }
+
+                    console.log("循环结束=========================");
+                    //注意：最后必须重新渲染下拉框，否则没有任何效果。
+                    //重新渲染
+                    form.render("select");
+                }
+            });
+        });
+        $(document).ready(function () {
+            $.ajax({
+                url: "../tags/getAllTags",
+                type: 'GET',
+                dataType: 'json',
+                contentType: "application/json;charset=utf-8",
+                success: function (res) {
+                    if (res.code === 0) {
+                        var data = res.data;
+                        console.log(data)
+                        $("#tags").empty();
+                        for (var i = 0; i < data.length; i++) {
+                            $("#tags").append('<input type="checkbox" value="' + data[i].tagId + '"name="tags" lay-skin="primary" title="' + data[i].tagName + '">')
+                        }
+                        //渲染表单
+                        form.render();
+                    } else {
+                        layer.msg("查询失败")
+                    }
+                }
+            });
+        });
+
+
 
         var testEditor;
         var categoryId;
@@ -180,16 +217,14 @@
             console.dir("+++++++++++++++++============"+parent_json)
             console.log("父页面获取的值==============="+parent_json);
             //alert(parent_json.blogId);
-            $("#blogId").val(parent_json.blogid);
+            $("#blogId").val(parent_json.blogId);
             $("#title").val(parent_json.blogTitle);
             $("#photoUrl").val(parent_json.blogCoverImage);
-            //console.log("内容为"+parent_json.blogContent);
-           /* $("#category").find('option').each(function(){
-                                          $(this).attr('selected',$(this).val()===parent_json.blogCategoryId);
-                                     });*/
-            //testEditor.setMarkdown(parent_json.blogContent);
             $("input[name='comments'][value="+parent_json.enableComment+"]").prop("checked","true");
-            //alert(parent_json.blogTop);
+            $("input[name='top'][value="+parent_json.blogTop+"]").prop("checked","true");
+            $("input[name='status'][value="+parent_json.blogStatus+"]").prop("checked","true");
+
+            /*//alert(parent_json.blogTop);
             if (parent_json.blogTop === 1){
                 //$("input[name='top']").val(true);
                 $("input[name='top']").prop("checked","true");
@@ -204,10 +239,20 @@
             }else{
                 //$("input[name='top']").val(false);
                 $("input[name='status']").prop("checked","");
+            }*/
+
+            var unitType = parent_json.blogTags.split(",");
+            //console.log("这是获取到的arr"+arr);
+            for (var j = 0; j <unitType.length ; j++) {
+                var unitTypeCheckbox=$("input[name='tags']");
+                for(var i=0;i<unitTypeCheckbox.length;i++){
+                    if(unitTypeCheckbox[i].title===unitType[j]){
+                        unitTypeCheckbox[i].value=unitType[j];
+                        unitTypeCheckbox[i].checked=true;
+                    }
+                }
+                form.render();
             }
-
-
-
                // $("input[name='top']").prop("checked","flase");
 
             $('.editormd-markdown-textarea').val(parent_json.blogContent);
@@ -215,55 +260,7 @@
             categoryId = parent_json.blogCategoryId;
         });
 
-        layer.ready(function (data) {
-            //console.log(data['value']);
-            //var value = data['value'];
-            $.ajax({
-                url: "getCategory",
-                type: 'GET',
-                dataType: 'json',
-                //data:{id: value},
-                contentType: "application/json;charset=utf-8",
-                success: function (datas) {
-                    var data = datas.data;
-                    console.log('获取中的数据==================' + data);
-                    $("#category").empty();
-                    for (var i = 0; i < data.length; i++) {
-                        console.log('循环开始============' + datas.data[i]);
-                        $("#category").append('<option value="' + data[i].categoryId + '">' + data[i].categoryName + '</option>');
-                        //$('#category').append(new Option(data[i].categoryName,data[i].categoryId));//往下拉菜单里添加元素
-                        $('#category').val(categoryId);
-                    }
 
-                    console.log("循环结束=========================");
-                    //注意：最后必须重新渲染下拉框，否则没有任何效果。
-                    //重新渲染
-                    form.render("select");
-                }
-            });
-        });
-        $(document).ready(function () {
-            $.ajax({
-                url: "../tags/getAllTags",
-                type: 'GET',
-                dataType: 'json',
-                contentType: "application/json;charset=utf-8",
-                success: function (res) {
-                    if (res.code === 0) {
-                        var data = res.data;
-                        console.log(data)
-                        $("#tags").empty();
-                        for (var i = 0; i < data.length; i++) {
-                            $("#tags").append('<input type="checkbox" value="' + data[i].tagId + '"name="tags" lay-skin="primary" title="' + data[i].tagName + '">')
-                        }
-                        //渲染表单
-                        form.render();
-                    } else {
-                        layer.msg("查询失败")
-                    }
-                }
-            });
-        });
 
         upload.render({
             elem: '#uploadImages'
@@ -402,11 +399,6 @@
             active[type] && active[type].call(this);
         });
 
-
-
-        $(function () {
-
-        });
     });
 
 </script>

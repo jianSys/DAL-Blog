@@ -7,11 +7,14 @@ import com.blog.pojo.TbBlogCategory;
 import com.blog.pojo.TbBlog;
 import com.blog.pojo.TbBlogTag;
 import com.blog.service.ArticleService;
+import org.hibernate.internal.util.beans.BeanInfoHelper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.query.Jpa21Utils;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang.StringUtils;
 
@@ -113,6 +116,8 @@ public class ArticleServiceImpl implements ArticleService {
         Integer blogId = tbBlogEntity.getBlogId();
         if (null != blogId) {
             tbBlogEntity.setUpdateTime(new Date());
+            //Optional<TbBlog> tbBlog = blogDao.findById(blogId);
+            //TbBlog blog = tbBlog.get();
             //更新
             if (null != tbBlogEntity.getBlogCategoryId()){
                 TbBlogCategory category = this.findCategoryById(tbBlogEntity.getBlogCategoryId());
@@ -122,6 +127,7 @@ public class ArticleServiceImpl implements ArticleService {
                 String tagsNames = getTagsNames(tbBlogEntity.getBlogTags());
                 tbBlogEntity.setBlogTags(tagsNames);
             }
+            //BeanUtils.copyProperties(tbBlog,tbBlogEntity);
             TbBlog save = blogDao.save(tbBlogEntity);
             return save;
         } else {

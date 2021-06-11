@@ -49,8 +49,9 @@
           , layer = layui.layer
           , upload = layui.upload;
 
+    var up;
     $("#open_upload").click(function () {
-        layer.open({
+         up= layer.open({
           type: 1,
           offset: 'auto',
           //area: 'auto',
@@ -68,7 +69,10 @@
       , exts: 'md' //只允许上传压缩文件
       , url: './upload/file' //上传接口
       , done: function (res) {
-        layer.msg("上传成功")
+        layer.msg("上传成功",{time: 1000}, function () {
+          layer.closeAll();
+        });
+
       }
       , error: function () {
         layer.msg("上传失败，请重新上传")
