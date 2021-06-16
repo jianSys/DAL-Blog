@@ -13,4 +13,8 @@ import com.blog.pojo.TbAdminUser;
 public interface UserService {
 
     TbAdminUser login(String username,String password);
-}
+
+    Boolean validation(String oldPassword);
+
+    TbAdminUser updatePassword(String newPassword);
+};

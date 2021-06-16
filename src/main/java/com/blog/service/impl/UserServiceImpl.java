@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @ProjectName: dal-blog
  * @ClassName: UserServiceImpl
@@ -31,5 +33,26 @@ public class UserServiceImpl implements UserService {
             return user;
         }
         return null;
+    }
+
+    @Override
+    public Boolean validation(String oldPassword) {
+        String loginPassword = userDao.findAll().get(0).getLoginPassword();
+        String s = MD5Util.MD5Encode(oldPassword, "UTF-8");
+        boolean b = s.equals(loginPassword);
+        if (b){
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
+    public TbAdminUser updatePassword(String newPassword) {
+        String password = MD5Util.MD5Encode(newPassword, "UTF-8");
+        TbAdminUser adminUser = userDao.findAll().get(0);
+        adminUser.setLoginPassword(password);
+        TbAdminUser user = userDao.save(adminUser);
+        return user;
     }
 }

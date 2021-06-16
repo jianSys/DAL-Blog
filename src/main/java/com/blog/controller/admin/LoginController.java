@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * @program: SpringBoot
@@ -31,7 +32,7 @@ public class LoginController {
      *
      * @return
      */
-    @GetMapping("/login")
+    @GetMapping("login")
     private String login() {
         return "/admin/login";
     }
@@ -43,7 +44,7 @@ public class LoginController {
      * @return
      */
     @ResponseBody
-    @PostMapping(value = "/login")
+    @PostMapping(value = "login")
     private Result login(@RequestBody User user, HttpSession session) {
         TbAdminUser login = userService.login(user.getUsername(), user.getPassword());
         if (null == login){
@@ -58,6 +59,34 @@ public class LoginController {
         loginUser.setAccessToken("是jvgvggjhfg");
         return new Result(0, "成功", 200, loginUser);
     }
+
+    @ResponseBody
+    @PostMapping("validation")
+    private Result validation(@RequestBody Map<String,String>  oldPassword) {
+        Boolean validation = userService.validation(oldPassword.get("oldPassword"));
+        if (validation){
+            return new Result(0,"成功");
+        }else {
+            return new Result(500,"失败");
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("updatePassword")
+    private Result updatePassword(@RequestBody Map<String,String>  map, HttpSession session) {
+        System.out.println(map);
+        TbAdminUser adminUser = userService.updatePassword(map.get("repassword"));
+        session.removeAttribute("loginUser");
+        return new Result(0,"成功",adminUser);
+    }
+
+    @ResponseBody
+    @GetMapping("logout")
+    private String logout(HttpSession session) {
+        session.removeAttribute("loginUser");
+        return "/admin/login";
+    }
+
 
     @GetMapping("home/console")
     private String toConsole() {

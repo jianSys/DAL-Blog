@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,9 +70,9 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a lay-href="set/user/info.html">基本资料</a></dd>
-                        <dd><a lay-href="set/user/password.html">修改密码</a></dd>
+                        <dd><a lay-href="toPassword">修改密码</a></dd>
                         <hr>
-                        <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+                        <dd id="logout" layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
                     </dl>
                 </li>
 
@@ -167,7 +165,7 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd>
-                                <a lay-href="user/user/list.html">博客设置</a>
+                                <a lay-href="toWebSite">博客设置</a>
                             </dd>
                             <dd>
                                 <a lay-href="toTool">小工具</a>
@@ -229,7 +227,30 @@
         base: '../static/layui/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use('index');
+    }).use(['index'],function () {
+        var $ = layui.$
+            , form = layui.form
+            , layer = layui.layer
+            , upload = layui.upload;
+        $("#logout").on("click",function () {
+            $.ajax({
+                type: 'get',//方法类型
+                url: "./logout",
+                //data: JSON.stringify(data),
+                //dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (res) {
+                    if (res.code === 0) {
+                    } else {
+                    }
+                },
+                error: function () {
+                    //请求出错处理
+                    layer.msg('发送失败', {icon: 5});
+                }
+            })
+        })
+    });
 </script>
 </body>
 </html>
