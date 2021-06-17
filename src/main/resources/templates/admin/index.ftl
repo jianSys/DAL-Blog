@@ -66,7 +66,7 @@
                 </li>
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;">
-                        <cite id="login_name">jian</cite>
+                        <cite id="login_name">${loginUser}</cite>
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a lay-href="set/user/info.html">基本资料</a></dd>
@@ -221,10 +221,10 @@
     </div>
 </div>
 
-<script src="../static/layui/layui/layui.js"></script>
+<script src="../../../static/layui/layui/layui.js"></script>
 <script>
     layui.config({
-        base: '../static/layui/' //静态资源所在路径
+        base: '../../../static/layui/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index'],function () {
@@ -241,6 +241,10 @@
                 contentType: "application/json;charset=utf-8",
                 success: function (res) {
                     if (res.code === 0) {
+                        layer.msg('退出登陆成功', {time: 1000},function () {
+                            //window.location.href= '/admin/login';
+                            parent.location.reload();//刷新整个页面
+                        })
                     } else {
                     }
                 },

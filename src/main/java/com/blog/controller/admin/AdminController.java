@@ -3,11 +3,15 @@ package com.blog.controller.admin;
 import com.blog.commons.Result;
 import com.blog.pojo.TbBlogConfig;
 import com.blog.service.AdminService;
+import com.blog.service.ArticleService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +31,17 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private ArticleService articleService;
 
     @GetMapping({"", "/", "/index", "/index.ftl"})
-    private String index() {
-        return "/admin/index";
+    private ModelAndView toIndex(HttpServletRequest request,
+                                 HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/admin/index");
+        //mv.addObject("blogCount",articleService.getArticleCount());
+        mv.addObject("loginUser",request.getSession().getAttribute("loginUser"));
+        return mv;
     }
 
     @GetMapping("toTool")

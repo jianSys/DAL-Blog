@@ -38,7 +38,7 @@ a,img{text-decoration:none;border:none;}
 	height: 100vh;
 	padding: 0;
 	background-color: #151515;
-	background-image: url(https://visualhunt.com/photos/1/sunset-scenery-landscape-nature-plain-oregon.jpg);
+	background-image: url(../../../static/blog/image/bgc.jpg);
 	background-position: center;
 	background-attachment: fixed;
 	background-repeat: no-repeat
@@ -59,13 +59,13 @@ a,img{text-decoration:none;border:none;}
 .page2,.page3,.page4,.page5{width:90%;position:relative;margin:0 auto;padding-top:.1px;font-family:"Microsoft YaHei"}
 .warp-box{width:100%;height:100%;position:relative}
 .warp{display:table;margin:0 auto;height:100%;position:relative}
-.page2 .single-news{margin-top:50px;background:#faf9f9}
+.page2 .single-news{margin-top:30px;background:#faf9f9}
 .page2 .single-news:hover .news-head img{-webkit-transform:scale(1.2);-moz-transform:scale(1.2);transform:scale(1.2)}
 .page2 .single-news:hover .news-head:before{opacity:1;visibility:visible;-webkit-transform:translateY(0);-moz-transform:translateY(0);transform:translateY(0)}
 .page2 .single-news:hover .link{top:50%;opacity:1;visibility:visible}
 .page2 .news-head{position:relative;overflow:hidden}
 .page2 .news-head::before{position:absolute;width:100%;height:100%;left:0;top:0;background:rgba(255,255,255,.51);content:"";opacity:0;visibility:hidden;-webkit-transition:all .4s ease;-moz-transition:all .4s ease;transition:all .4s ease;-webkit-transform:translateY(-100%);-moz-transform:translateY(-100%);transform:translateY(-100%);z-index:8}
-.page2 .news-head img{width:100%;height:244px;-webkit-transition:all .4s ease;-moz-transition:all .4s ease;transition:all .4s ease}
+.page2 .news-head img{width:100%;height:187px;-webkit-transition:all .4s ease;-moz-transition:all .4s ease;transition:all .4s ease}
 .page2 .link{position:absolute;left:0;top:0;width:40px;height:40px;background:#333;color:#fff;opacity:0;visibility:hidden;text-align:center;left:50%;margin:-20px 0 0 -20px;line-height:40px;z-index:9;-webkit-transition:all .4s ease;-moz-transition:all .4s ease;transition:all .4s ease}
 .page2 .news-content{padding:30px 15px}
 .page2 .news-content h4{margin-bottom:10px}
@@ -94,11 +94,11 @@ a,img{text-decoration:none;border:none;}
 @media screen and (min-width: 768px){
     .page2 {width: 750px;}
 }
-@media screen and (min-width: 992px){
+/*@media screen and (min-width: 992px){
     .page2 {width: 970px;}
-}
-@media screen and (min-width: 1200px){
-    .page2 {width: 1170px;}
+}*/
+@media screen and (min-width: 850px){
+    .page2 {width: 850px;}
 }
 @media screen and (max-width:768px){
     .navgation:before,.navgation_open:before,.navgation_close:before{width:50%;transform: none;-webkit-transform:none;}

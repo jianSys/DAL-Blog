@@ -31,4 +31,6 @@ public interface ArticleService {
     TbBlogCategory findCategoryById(Integer id);
 
     void delArticleById(Integer id);
+
+    Integer getArticleCount();
 }

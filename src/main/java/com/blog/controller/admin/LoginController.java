@@ -80,11 +80,11 @@ public class LoginController {
         return new Result(0,"成功",adminUser);
     }
 
-    @ResponseBody
+
     @GetMapping("logout")
     private String logout(HttpSession session) {
         session.removeAttribute("loginUser");
-        return "/admin/login";
+        return "redirect:/admin/login";
     }
 
 

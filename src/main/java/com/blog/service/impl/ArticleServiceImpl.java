@@ -158,6 +158,12 @@ public class ArticleServiceImpl implements ArticleService {
         blogDao.deleteById(id);
     }
 
+    @Override
+    public Integer getArticleCount() {
+        List<TbBlog> all = articleDao.findAll();
+        return all.size();
+    }
+
 
     public String getTagsNames(String tagsIds) {
         String[] split = tagsIds.split(",");

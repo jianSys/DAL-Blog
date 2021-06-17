@@ -8,12 +8,12 @@
     <meta name="author" content="www.lzqcode.com" />
     <meta name="robots" content="all" />
     <title>我的博客</title>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="layui/css/layui.css" />
-    <link rel="stylesheet" href="css/master.css" />
-    <link rel="stylesheet" href="css/gloable.css" />
-    <link rel="stylesheet" href="css/nprogress.css" />
-    <link rel="stylesheet" href="css/blog.css" />
+    <link rel="stylesheet" href="../../static/blog/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/blog/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../static/blog/css/master.css" />
+    <link rel="stylesheet" href="../../static/blog/css/gloable.css" />
+    <link rel="stylesheet" href="../../static/blog/css/nprogress.css" />
+    <link rel="stylesheet" href="../../static/blog/css/blog.css" />
 </head>
 <body>
     <div class="header">
@@ -24,8 +24,8 @@
                 <a href="javascript:void(0)" class="header-logo" id="logo">Mr.liu</a>
                 <nav class="nav" id="nav">
                     <ul>
-                        <li><a href="index.ftl">首页</a></li>
-                        <li><a href="article.html">博客</a></li>
+                        <li><a href="../index">首页</a></li>
+                        <li><a href="../article">博客</a></li>
                         <li><a href="message.html">留言</a></li>
 						<li><a href="diary.html">日记</a></li>
                         <li><a href="link.html">友链</a></li>
@@ -51,7 +51,7 @@
 							<div class="fc-flag">置顶</div>   
 							<h5 class="title">       
 								<span class="fc-blue">【原创】</span>       
-								<a href="read.html">Java学习路线推荐</a>   
+								<a href="../read">Java学习路线推荐</a>   
 							</h5>   
 							<div class="time">       
 								<span class="day">1</span>       
@@ -59,13 +59,13 @@
 								<span class="year fs-18 ml10">2020</span>   
 							</div>   
 							<div class="content">       
-								<a href="read.html" class="cover img-light">           
-									<img src="image/java.jpg">       
+								<a href="../read" class="cover img-light">           
+									<img src="../../static/blog/image/java.jpg">
 								</a>
 								这篇文章是为了介绍自己自学用过的Java视频资料。本套整合教程总共180+G，共450+小时。考虑到绝大部分视频至少要看两遍，而且视频总时长并不代表学习时长，所以零基础初学者总学习时间大约为：600小时视频时长 + 100小时理解 + 100小时练习，至少需要800小时。你可能觉得自己能一天学习8小时，实际上平均下来每天能学4小时都算厉害了。总会有各种原因，比如当天内容太难，公司聚会，要出差等等。如果周末你也是坚持学习，那么最理想状况下，6个半月就可以学完，达到工作后能被人带的水平。但我知道那其实基本不可能。
 							</div>   
 							<div class="read-more">       
-								<a href="read.html" class="fc-black f-fwb">继续阅读</a>   
+								<a href="../read" class="fc-black f-fwb">继续阅读</a>   
 							</div>    
 							<aside class="f-oh footer">       
 								<div class="f-fl tags">           
@@ -88,7 +88,7 @@
 							<div class="fc-flag">置顶</div>   
 							<h5 class="title">       
 								<span class="fc-blue">【原创】</span>       
-								<a href="read.html">Java学习路线推荐</a>   
+								<a href="../read">Java学习路线推荐</a>   
 							</h5>   
 							<div class="time">       
 								<span class="day">1</span>       
@@ -96,13 +96,13 @@
 								<span class="year fs-18 ml10">2020</span>   
 							</div>   
 							<div class="content">       
-								<a href="read.html" class="cover img-light">           
-									<img src="image/java.jpg">       
+								<a href="../read" class="cover img-light">           
+									<img src="../../static/blog/image/java.jpg">
 								</a>
 								这篇文章是为了介绍自己自学用过的Java视频资料。本套整合教程总共180+G，共450+小时。考虑到绝大部分视频至少要看两遍，而且视频总时长并不代表学习时长，所以零基础初学者总学习时间大约为：600小时视频时长 + 100小时理解 + 100小时练习，至少需要800小时。你可能觉得自己能一天学习8小时，实际上平均下来每天能学4小时都算厉害了。总会有各种原因，比如当天内容太难，公司聚会，要出差等等。如果周末你也是坚持学习，那么最理想状况下，6个半月就可以学完，达到工作后能被人带的水平。但我知道那其实基本不可能。
 							</div>   
 							<div class="read-more">       
-								<a href="read.html" class="fc-black f-fwb">继续阅读</a>   
+								<a href="../read" class="fc-black f-fwb">继续阅读</a>   
 							</div>    
 							<aside class="f-oh footer">       
 								<div class="f-fl tags">           
@@ -125,7 +125,7 @@
 							<div class="fc-flag">置顶</div>   
 							<h5 class="title">       
 								<span class="fc-blue">【原创】</span>       
-								<a href="read.html">Java学习路线推荐</a>   
+								<a href="../read">Java学习路线推荐</a>   
 							</h5>   
 							<div class="time">       
 								<span class="day">1</span>       
@@ -133,13 +133,13 @@
 								<span class="year fs-18 ml10">2020</span>   
 							</div>   
 							<div class="content">       
-								<a href="read.html" class="cover img-light">           
-									<img src="image/java.jpg">       
+								<a href="../read" class="cover img-light">           
+									<img src="../../static/blog/image/java.jpg">
 								</a>
 								这篇文章是为了介绍自己自学用过的Java视频资料。本套整合教程总共180+G，共450+小时。考虑到绝大部分视频至少要看两遍，而且视频总时长并不代表学习时长，所以零基础初学者总学习时间大约为：600小时视频时长 + 100小时理解 + 100小时练习，至少需要800小时。你可能觉得自己能一天学习8小时，实际上平均下来每天能学4小时都算厉害了。总会有各种原因，比如当天内容太难，公司聚会，要出差等等。如果周末你也是坚持学习，那么最理想状况下，6个半月就可以学完，达到工作后能被人带的水平。但我知道那其实基本不可能。
 							</div>   
 							<div class="read-more">       
-								<a href="read.html" class="fc-black f-fwb">继续阅读</a>   
+								<a href="../read" class="fc-black f-fwb">继续阅读</a>   
 							</div>    
 							<aside class="f-oh footer">       
 								<div class="f-fl tags">           
@@ -162,7 +162,7 @@
 							<div class="fc-flag">置顶</div>   
 							<h5 class="title">       
 								<span class="fc-blue">【原创】</span>       
-								<a href="read.html">Java学习路线推荐</a>   
+								<a href="../read">Java学习路线推荐</a>   
 							</h5>   
 							<div class="time">       
 								<span class="day">1</span>       
@@ -170,13 +170,13 @@
 								<span class="year fs-18 ml10">2020</span>   
 							</div>   
 							<div class="content">       
-								<a href="read.html" class="cover img-light">           
-									<img src="image/java.jpg">       
+								<a href="../read" class="cover img-light">           
+									<img src="../../static/blog/image/java.jpg">
 								</a>
 								这篇文章是为了介绍自己自学用过的Java视频资料。本套整合教程总共180+G，共450+小时。考虑到绝大部分视频至少要看两遍，而且视频总时长并不代表学习时长，所以零基础初学者总学习时间大约为：600小时视频时长 + 100小时理解 + 100小时练习，至少需要800小时。你可能觉得自己能一天学习8小时，实际上平均下来每天能学4小时都算厉害了。总会有各种原因，比如当天内容太难，公司聚会，要出差等等。如果周末你也是坚持学习，那么最理想状况下，6个半月就可以学完，达到工作后能被人带的水平。但我知道那其实基本不可能。
 							</div>   
 							<div class="read-more">       
-								<a href="read.html" class="fc-black f-fwb">继续阅读</a>   
+								<a href="../read" class="fc-black f-fwb">继续阅读</a>   
 							</div>    
 							<aside class="f-oh footer">       
 								<div class="f-fl tags">           
@@ -199,7 +199,7 @@
 							<div class="fc-flag">置顶</div>   
 							<h5 class="title">       
 								<span class="fc-blue">【原创】</span>       
-								<a href="read.html">Java学习路线推荐</a>   
+								<a href="../read">Java学习路线推荐</a>   
 							</h5>   
 							<div class="time">       
 								<span class="day">1</span>       
@@ -207,13 +207,13 @@
 								<span class="year fs-18 ml10">2020</span>   
 							</div>   
 							<div class="content">       
-								<a href="read.html" class="cover img-light">           
-									<img src="image/java.jpg">       
+								<a href="../read" class="cover img-light">           
+									<img src="../../static/blog/image/java.jpg">
 								</a>
 								这篇文章是为了介绍自己自学用过的Java视频资料。本套整合教程总共180+G，共450+小时。考虑到绝大部分视频至少要看两遍，而且视频总时长并不代表学习时长，所以零基础初学者总学习时间大约为：600小时视频时长 + 100小时理解 + 100小时练习，至少需要800小时。你可能觉得自己能一天学习8小时，实际上平均下来每天能学4小时都算厉害了。总会有各种原因，比如当天内容太难，公司聚会，要出差等等。如果周末你也是坚持学习，那么最理想状况下，6个半月就可以学完，达到工作后能被人带的水平。但我知道那其实基本不可能。
 							</div>   
 							<div class="read-more">       
-								<a href="read.html" class="fc-black f-fwb">继续阅读</a>   
+								<a href="../read" class="fc-black f-fwb">继续阅读</a>   
 							</div>    
 							<aside class="f-oh footer">       
 								<div class="f-fl tags">           
@@ -236,7 +236,7 @@
 							<div class="fc-flag">置顶</div>   
 							<h5 class="title">       
 								<span class="fc-blue">【原创】</span>       
-								<a href="read.html">Java学习路线推荐</a>   
+								<a href="../read">Java学习路线推荐</a>   
 							</h5>   
 							<div class="time">       
 								<span class="day">1</span>       
@@ -244,13 +244,13 @@
 								<span class="year fs-18 ml10">2020</span>   
 							</div>   
 							<div class="content">       
-								<a href="read.html" class="cover img-light">           
-									<img src="image/java.jpg">       
+								<a href="../read" class="cover img-light">           
+									<img src="../../static/blog/image/java.jpg">
 								</a>
 								这篇文章是为了介绍自己自学用过的Java视频资料。本套整合教程总共180+G，共450+小时。考虑到绝大部分视频至少要看两遍，而且视频总时长并不代表学习时长，所以零基础初学者总学习时间大约为：600小时视频时长 + 100小时理解 + 100小时练习，至少需要800小时。你可能觉得自己能一天学习8小时，实际上平均下来每天能学4小时都算厉害了。总会有各种原因，比如当天内容太难，公司聚会，要出差等等。如果周末你也是坚持学习，那么最理想状况下，6个半月就可以学完，达到工作后能被人带的水平。但我知道那其实基本不可能。
 							</div>   
 							<div class="read-more">       
-								<a href="read.html" class="fc-black f-fwb">继续阅读</a>   
+								<a href="../read" class="fc-black f-fwb">继续阅读</a>   
 							</div>    
 							<aside class="f-oh footer">       
 								<div class="f-fl tags">           
@@ -273,7 +273,7 @@
 							<div class="fc-flag">置顶</div>   
 							<h5 class="title">       
 								<span class="fc-blue">【原创】</span>       
-								<a href="read.html">Java学习路线推荐</a>   
+								<a href="../read">Java学习路线推荐</a>   
 							</h5>   
 							<div class="time">       
 								<span class="day">1</span>       
@@ -281,13 +281,13 @@
 								<span class="year fs-18 ml10">2020</span>   
 							</div>   
 							<div class="content">       
-								<a href="read.html" class="cover img-light">           
-									<img src="image/java.jpg">       
+								<a href="../read" class="cover img-light">           
+									<img src="../../static/blog/image/java.jpg">
 								</a>
 								这篇文章是为了介绍自己自学用过的Java视频资料。本套整合教程总共180+G，共450+小时。考虑到绝大部分视频至少要看两遍，而且视频总时长并不代表学习时长，所以零基础初学者总学习时间大约为：600小时视频时长 + 100小时理解 + 100小时练习，至少需要800小时。你可能觉得自己能一天学习8小时，实际上平均下来每天能学4小时都算厉害了。总会有各种原因，比如当天内容太难，公司聚会，要出差等等。如果周末你也是坚持学习，那么最理想状况下，6个半月就可以学完，达到工作后能被人带的水平。但我知道那其实基本不可能。
 							</div>   
 							<div class="read-more">       
-								<a href="read.html" class="fc-black f-fwb">继续阅读</a>   
+								<a href="../read" class="fc-black f-fwb">继续阅读</a>   
 							</div>    
 							<aside class="f-oh footer">       
 								<div class="f-fl tags">           
@@ -310,7 +310,7 @@
 							<div class="fc-flag">置顶</div>   
 							<h5 class="title">       
 								<span class="fc-blue">【原创】</span>       
-								<a href="read.html">Java学习路线推荐</a>   
+								<a href="../read">Java学习路线推荐</a>   
 							</h5>   
 							<div class="time">       
 								<span class="day">1</span>       
@@ -318,13 +318,13 @@
 								<span class="year fs-18 ml10">2020</span>   
 							</div>   
 							<div class="content">       
-								<a href="read.html" class="cover img-light">           
-									<img src="image/java.jpg">       
+								<a href="../read" class="cover img-light">           
+									<img src="../../static/blog/image/java.jpg">
 								</a>
 								这篇文章是为了介绍自己自学用过的Java视频资料。本套整合教程总共180+G，共450+小时。考虑到绝大部分视频至少要看两遍，而且视频总时长并不代表学习时长，所以零基础初学者总学习时间大约为：600小时视频时长 + 100小时理解 + 100小时练习，至少需要800小时。你可能觉得自己能一天学习8小时，实际上平均下来每天能学4小时都算厉害了。总会有各种原因，比如当天内容太难，公司聚会，要出差等等。如果周末你也是坚持学习，那么最理想状况下，6个半月就可以学完，达到工作后能被人带的水平。但我知道那其实基本不可能。
 							</div>   
 							<div class="read-more">       
-								<a href="read.html" class="fc-black f-fwb">继续阅读</a>   
+								<a href="../read" class="fc-black f-fwb">继续阅读</a>   
 							</div>    
 							<aside class="f-oh footer">       
 								<div class="f-fl tags">           
@@ -360,23 +360,23 @@
 			    		</div>
 			    		<ul class="category mt20" id="category">
 				        	<li data-index="0" class="slider"></li>
-				        	<li data-index="1"><a href="/Blog/Article">全部文章</a></li>
-				            <li data-index="2"><a href="/Blog/Article/1/">Java</a></li>
-				            <li data-index="3"><a href="/Blog/Article/2/">前端</a></li>
-				            <li data-index="4"><a href="/Blog/Article/3/">Python</a></li>
-				            <li data-index="5"><a href="/Blog/Article/4/">PHP</a></li>
-				            <li data-index="6"><a href="/Blog/Article/5/">其它</a></li>
+				        	<li data-index="1"><a href="../Article">全部文章</a></li>
+				            <li data-index="2"><a href="../article">Java</a></li>
+				            <li data-index="3"><a href="../article">前端</a></li>
+				            <li data-index="4"><a href="../article">Python</a></li>
+				            <li data-index="5"><a href="../article">PHP</a></li>
+				            <li data-index="6"><a href="../article">其它</a></li>
 			    		</ul>
 					</div>
 					<!--右边悬浮 平板或手机设备显示-->
 					<div class="category-toggle"><i class="layui-icon">&#xe603;</i></div>
 					<div class="article-category">
 					    <div class="article-category-title">分类导航</div>
-					            <a href="/Blog/Article/1/">Java</a>
-					            <a href="/Blog/Article/2/">前端</a>
-					            <a href="/Blog/Article/3/">Python</a>
-					            <a href="/Blog/Article/4/">PHP</a>
-					            <a href="/Blog/Article/5/">其它</a>
+					            <a href="../article">Java</a>
+					            <a href="../article">前端</a>
+					            <a href="../article">Python</a>
+					            <a href="../article">PHP</a>
+					            <a href="../article">其它</a>
 					    <div class="f-cb"></div>
 					</div>
 					<!--遮罩-->
@@ -410,18 +410,18 @@
 					    <h5 class="other-item-title">最近访客</h5>
 					    <div class="inner">
 					        <dl class="vistor">
-					                <dd><a href="javasript:;"><img src="image/a1.png"><cite>Anonymous</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a4.png"><cite>Dekstra</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a2.png"><cite>惜i</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a3.png"><cite>↙Aㄨ计划 ◆莪↘</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a4.png"><cite>.</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a1.png"><cite>Lambert.</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a2.png"><cite>64ღ</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a3.png"><cite>doBoor</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a4.png"><cite>毛毛小妖</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a1.png"><cite>NULL</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a2.png"><cite>吓一跳</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a3.png"><cite>如初</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="../../static/blog/image/a1.png"><cite>Anonymous</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="../../static/blog/image/a4.png"><cite>Dekstra</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="../../static/blog/image/a2.png"><cite>惜i</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="../../static/blog/image/a3.png"><cite>↙Aㄨ计划 ◆莪↘</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="../../static/blog/image/a4.png"><cite>.</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="../../static/blog/image/a1.png"><cite>Lambert.</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="../../static/blog/image/a2.png"><cite>64ღ</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="../../static/blog/image/a3.png"><cite>doBoor</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="../../static/blog/image/a4.png"><cite>毛毛小妖</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="../../static/blog/image/a1.png"><cite>NULL</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="../../static/blog/image/a2.png"><cite>吓一跳</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="../../static/blog/image/a3.png"><cite>如初</cite></a></dd>
 					        </dl>
 					    </div>
 					</div>
@@ -446,11 +446,11 @@
             </div>
         </div>
     </footer>
-    <script src="layui/layui.js"></script>
-    <script src="js/yss/gloable.js"></script>
-    <script src="js/plugins/nprogress.js"></script>
+    <script src="../../static/blog/layui/layui.js"></script>
+    <script src="../../static/blog/js/yss/gloable.js"></script>
+    <script src="../../static/blog/js/plugins/nprogress.js"></script>
     <script>NProgress.start();</script>
- 	<script src="js/yss/article.js"></script>
+ 	<script src="../../static/blog/js/yss/article.js"></script>
     <script> 
         window.onload = function () {
             NProgress.done();

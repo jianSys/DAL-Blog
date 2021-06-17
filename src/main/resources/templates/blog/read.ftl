@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width" />
 	<meta name="author" content="www.lzqcode.com" />
     <title>文章阅读</title>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="layui/css/layui.css" />
-    <link rel="stylesheet" href="css/master.css" />
-    <link rel="stylesheet" href="css/gloable.css" />
-    <link rel="stylesheet" href="css/nprogress.css" />
-    <link rel="stylesheet" href="css/blog.css" />
+    <link rel="stylesheet" href="../../static/blog/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/blog/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../static/blog/css/master.css" />
+    <link rel="stylesheet" href="../../static/blog/css/gloable.css" />
+    <link rel="stylesheet" href="../../static/blog/css/nprogress.css" />
+    <link rel="stylesheet" href="../../static/blog/css/blog.css" />
 </head>
 <body>
     <div class="header">
@@ -23,8 +23,8 @@
                 <a href="javascript:void(0)" class="header-logo" id="logo">Mr.liu</a>
                 <nav class="nav" id="nav">
                     <ul>
-                        <li><a href="index.ftl">首页</a></li>
-                        <li><a href="article.html">博客</a></li>
+                        <li><a href="../index">首页</a></li>
+                        <li><a href="../article">博客</a></li>
                         <li><a href="message.html">留言</a></li>
 						<li><a href="diary.html">日记</a></li>
                         <li><a href="link.html">友链</a></li>
@@ -134,10 +134,10 @@
             </div>
         </div>
     </footer>
-    <script src="layui/layui.js"></script>
-    <script src="js/yss/gloable.js"></script>
-    <script src="js/plugins/nprogress.js"></script>
-    <script src="js/pagecomment.js"></script>
+    <script src="../../static/blog/layui/layui.js"></script>
+    <script src="../../static/blog/js/yss/gloable.js"></script>
+    <script src="../../static/blog/js/plugins/nprogress.js"></script>
+    <script src="../../static/blog/js/pagecomment.js"></script>
     <script>NProgress.start();</script>
     <script> 
         window.onload = function () {

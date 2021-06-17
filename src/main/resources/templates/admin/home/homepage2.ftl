@@ -19,11 +19,11 @@
       <div class="layui-col-sm6 layui-col-md3">
         <div class="layui-card">
           <div class="layui-card-header">
-            访问量
+            文章总数
             <span class="layui-badge layui-bg-blue layuiadmin-badge">周</span>
           </div>
           <div class="layui-card-body layuiadmin-card-list">
-            <p class="layuiadmin-big-font">9,999,666</p>
+            <p class="layuiadmin-big-font">999999999</p>
             <p>
               总计访问量 
               <span class="layuiadmin-span-color" id="num">88万 <i class="layui-inline layui-icon layui-icon-flag"></i></span>
