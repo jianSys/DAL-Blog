@@ -50,6 +50,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">文章简介</label>
+                    <div class="layui-input-block">
+                        <textarea id="introduce" name="introduce" placeholder="请输入内容" class="layui-textarea"></textarea>
+                    </div>
+                </div>
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">允许评论</label>
@@ -220,6 +226,7 @@
             $("#blogId").val(parent_json.blogId);
             $("#title").val(parent_json.blogTitle);
             $("#photoUrl").val(parent_json.blogCoverImage);
+            $("#introduce").val(parent_json.blogIntroduce);
             $("input[name='comments'][value="+parent_json.enableComment+"]").prop("checked","true");
             $("input[name='top'][value="+parent_json.blogTop+"]").prop("checked","true");
             $("input[name='status'][value="+parent_json.blogStatus+"]").prop("checked","true");

@@ -564,6 +564,20 @@ img {
 	transition: all .35s ease-in-out;
 }
 
+.content .mate {
+	height: 14px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-bottom: 5px;
+}
+
+.content .categories {
+	color: #718096;
+	font-size: 12px;
+	margin-right: 5px;
+}
+
 .content h2 {
 	margin-bottom: 8px;
 	font-weight: 700;
@@ -579,7 +593,12 @@ img {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
-	margin: 0;
+	/*margin: 0;*/
+	/*font-size: 15px;*/
+	/*line-height: 1.5;*/
+	/*color: #555;*/
+	/*min-height: 45px;*/
+	/*word-break: break-all;*/
 }
 
 .content h2::after {

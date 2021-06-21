@@ -112,6 +112,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<TbBlog> findAllBlog() {
+        return articleDao.findAll();
+    }
+
+    @Override
     public TbBlog save(TbBlog tbBlogEntity) {
         Integer blogId = tbBlogEntity.getBlogId();
         if (null != blogId) {

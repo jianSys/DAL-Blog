@@ -26,6 +26,8 @@ public interface ArticleService {
 
     List<TbBlogCategory> findAllCategory();
 
+    List<TbBlog> findAllBlog();
+
     TbBlog save(TbBlog tbBlogEntity);
 
     TbBlogCategory findCategoryById(Integer id);

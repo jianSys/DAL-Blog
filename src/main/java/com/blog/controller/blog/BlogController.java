@@ -2,6 +2,7 @@ package com.blog.controller.blog;
 
 import com.blog.commons.Result;
 import com.blog.service.AdminService;
+import com.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,8 @@ public class BlogController {
 
    @Autowired
    private AdminService adminService;
+   @Autowired
+   private ArticleService articleService;
 
     @GetMapping({"","/","index"})
     private ModelAndView index(HttpServletRequest request,
@@ -39,6 +42,7 @@ public class BlogController {
         mv.addObject("logo","jian");
         mv.addObject("siteName",site.get("websiteName"));
         mv.addObject("websiteDescription",site.get("websiteDescription"));
+        mv.addObject("blogs",articleService.findAllBlog());
         return mv;
     }
     @GetMapping("article")

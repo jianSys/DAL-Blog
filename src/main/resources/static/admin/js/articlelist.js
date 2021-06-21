@@ -88,6 +88,7 @@ layui.config({
 
                         title = othis.find('#title').val(),
                         content = othis.find('.editormd-markdown-textarea').val(),
+                        introduce = othis.find('input[name="introduce"]').val(),
                         top = othis.find('input[name="top"]:checked').val(),
                         category = othis.find('#category').val();
                     //alert("这是id================"+blogId);
@@ -115,6 +116,7 @@ layui.config({
                         "blogTags": arr.toString(),
                         "blogStatus": status,//=== "on" ? 1 : 0
                         "enableComment": comments,
+                        "blogIntroduce":introduce,
                         "blogTop": top,
                         "blogSubUrl": obj.data.blogSubUrl == "" ? "" : obj.data.blogSubUrl,
                         "blogViews": obj.data.blogViews === 0 ? 0 : obj.data.blogViews,

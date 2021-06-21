@@ -150,57 +150,28 @@
                 </div>
                 <div class="new-article">
                     <div class="inner wow fadeInDown" data-wow-delay=".2s">
-                        <h3><i class="fa fa-list" aria-hidden="true"></i> 所有文章</h3>
+                        <h3><i class="fa fa-list" aria-hidden="true" style="font-size: 16px; color: #f1404b"></i> 所有文章</h3>
                     </div>
                 </div>
+                <#list blogs as bg>
                 <div class="layui-row">
                     <div class="blog-article">
                         <div class="blog-article-img">
-                            <img src="../../static/blog/image/md.jpeg" alt="">
+                            <img src="${bg.blogCoverImage}" alt="">
                         </div>
                         <div class="content">
-                            <h2>标题</h2>
-                            <p>这是一个段落我可以很长哼唱had接口返回那得是看金凤凰男大数据库符合你的萨科技风那得是看减肥拿到数据客服那尽快发哈山东科技氟化钠第三方发大水发的放单费打发第三方说法大方</p>
+                            <div class="mate">
+                                <span class="categories">#${bg.blogCategoryName}</span>
+                            </div>
+                            <h2>${bg.blogTitle!'这是一个标题'}</h2>
+                            <p>
+                                ${bg.blogIntroduce!'这是一个文章简介'}
+                            </p>
                             <a href=" JavaScript:; "><span>查看全文</span></a>
                         </div>
                     </div>
                 </div>
-                <div class="layui-row">
-                    <div class="blog-article">
-                        <div class="blog-article-img">
-                            <img src="../../static/blog/image/md.jpeg" alt="">
-                        </div>
-                        <div class="content">
-                            <h2>标题</h2>
-                            <p>这是一个段落我可以很长哼唱had接口返回那得是看金凤凰男大数据库符合你的萨科技风那得是看减肥拿到数据客服那尽快发哈山东科技氟化钠第三方发大水发的放单费打发第三方说法大方这是一个段落我可以很长哼唱had接口返回那得是看金凤凰男大数据库符合你的萨科技风那得是看减肥拿到数据客服那尽快发哈山东科技氟化钠第三方发大水发的放单费打发第三方说法大方这是一个段落我可以很长哼唱had接口返回那得是看金凤凰男大数据库符合你的萨科技风那得是看减肥拿到数据客服那尽快发哈山东科技氟化钠第三方发大水发的放单费打发第三方说法大方这是一个段落我可以很长哼唱had接口返回那得是看金凤凰男大数据库符合你的萨科技风那得是看减肥拿到数据客服那尽快发哈山东科技氟化钠第三方发大水发的放单费打发第三方说法大方这是一个段落我可以很长哼唱had接口返回那得是看金凤凰男大数据库符合你的萨科技风那得是看减肥拿到数据客服那尽快发哈山东科技氟化钠第三方发大水发的放单费打发第三方说法大方</p>
-                            <a href=" JavaScript:; "><span>查看全文>>></span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-row">
-                    <div class="blog-article">
-                        <div class="blog-article-img">
-                            <img src="../../static/blog/image/md.jpeg" alt="">
-                        </div>
-                        <div class="content">
-                            <h2>标题</h2>
-                            <p>这是一个段落我可以很长哼唱had接口返回那得是看金凤凰男大数据库符合你的萨科技风那得是看减肥拿到数据客服那尽快发哈山东科技氟化钠第三方发大水发的放单费打发第三方说法大方</p>
-                            <a href=" JavaScript:; "><span>查看全文>>></span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-row">
-                    <div class="blog-article">
-                        <div class="blog-article-img">
-                            <img src="../../static/blog/image/md.jpeg" alt="">
-                        </div>
-                        <div class="content">
-                            <h2>标题</h2>
-                            <p>这是一个段落我可以很长哼唱had接口返回那得是看金凤凰男大数据库符合你的萨科技风那得是看减肥拿到数据客服那尽快发哈山东科技氟化钠第三方发大水发的放单费打发第三方说法大方</p>
-                            <a href=" JavaScript:; "><span>查看全文>>></span></a>
-                        </div>
-                    </div>
-                </div>
+                </#list>
             </div>
         </div>
     </div>

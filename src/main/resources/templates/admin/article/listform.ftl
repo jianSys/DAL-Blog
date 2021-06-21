@@ -38,6 +38,12 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">简介</label>
+        <div class="layui-input-block">
+            <textarea name="introduce" placeholder="文章简介" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">允许评论</label>
         <div class="layui-input-block">
             <input type="radio" lay-filter="comments" name="comments" value="0" title="是" checked="">

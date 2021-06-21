@@ -78,6 +78,11 @@ public class TbBlog {
     @Column(name = "blog_top")
     Integer blogTop;
     /**
+     * 文章简介
+     */
+    @Column(name = "blog_introduce")
+    String blogIntroduce;
+    /**
      * 是否删除
      */
     @Column(name = "is_deleted")

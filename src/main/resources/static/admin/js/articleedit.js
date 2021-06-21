@@ -111,6 +111,7 @@ layui.config({
                         arr.push($(this).val());
                     }),
                     top = othis.find('input[name="top"]').val(),
+                    introduce = othis.find('input[name="introduce"]').val(),
                     category = othis.find('#category').val();
                 console.log("组装请求数据开始");
                 var content = testEditor.getMarkdown();
@@ -126,7 +127,7 @@ layui.config({
                 var data = {
                     "blogTitle": title, "blogCategoryId": category, "blogCoverImage": photoUrl, "blogContent": content,
                     "blogTags": arr.toString(), "blogStatus": status === "on" ? 1 : 0, "enableComment": comments,
-                    "blogTop": status === "on" ? 1 : 0
+                    "blogTop": status === "on" ? 1 : 0,"blogIntroduce":introduce
                 };
                 console.log("组装请求数据成功=============开始发送请求" + data)
                 $.ajax({
