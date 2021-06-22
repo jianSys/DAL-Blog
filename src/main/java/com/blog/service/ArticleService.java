@@ -35,4 +35,6 @@ public interface ArticleService {
     void delArticleById(Integer id);
 
     Integer getArticleCount();
+
+    Map<String,Object> indexData();
 }

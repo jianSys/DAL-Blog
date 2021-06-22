@@ -2,6 +2,9 @@ package com.blog.dao;
 
 import com.blog.pojo.TbBlog;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  * @ProjectName: springboot

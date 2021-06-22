@@ -1,4 +1,4 @@
-﻿layui.use(['jquery', 'util'], function () {
+﻿layui.use(['jquery', 'util',], function () {
     var $ = layui.jquery,
         util = layui.util;
     $(window).load(function () {
@@ -25,5 +25,8 @@
             $(this).attr({ 'data-mark': "false" });
         }
     });
-
+    $(".blog-article").hover(function() {
+            $(this).stop().find("#mate").animate({ height: 'toggle', opacity: 'toggle' }, 100);
+            $(this).stop().find('a').animate({ height: 'toggle', opacity: 'toggle' }, 500);
+     });
 });

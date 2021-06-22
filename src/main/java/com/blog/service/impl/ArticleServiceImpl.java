@@ -13,13 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.query.Jpa21Utils;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.criteria.Predicate;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ProjectName: springboot
@@ -167,6 +171,25 @@ public class ArticleServiceImpl implements ArticleService {
     public Integer getArticleCount() {
         List<TbBlog> all = articleDao.findAll();
         return all.size();
+    }
+
+    /**
+     * 组装首页显示
+     * @return
+     */
+    @Override
+    public Map<String, Object> indexData() {
+        Map<String, Object> map = new HashMap<>();
+        //查询最热文章
+        Sort sort = new Sort(Sort.Direction.DESC, "blogViews");
+        List<TbBlog> list = articleDao.findAll(sort);
+        List<TbBlog> hotBlog = list.stream()
+                .limit(4)
+                .collect(Collectors.toList());
+
+        map.put("hotBlog",hotBlog);
+        map.put("allBlog",list);
+        return map;
     }
 
 

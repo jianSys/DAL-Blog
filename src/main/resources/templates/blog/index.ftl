@@ -51,10 +51,11 @@
                     </div>
                 </div>
                 <div class="layui-row">
+                    <#list hotBlog as hot>
                     <div class="layui-col-xs6 layui-col-sm6 layui-col-md3  wow fadeInUp" style="padding: 5px">
                         <div class="single-news">
                             <div class="news-head">
-                                <img src="../../static/blog/image/md.jpeg">
+                                <img src="${hot.blogCoverImage}">
                                 <a href="#" class="link"><i class="fa fa-link"></i></a>
                             </div>
                             <!-- <div class="news-content">
@@ -75,7 +76,8 @@
                             </div> -->
                         </div>
                     </div>
-                    <div class="layui-col-xs6 layui-col-sm6 layui-col-md3  wow fadeInUp" data-wow-delay=".2s" style="padding: 5px">
+                    </#list>
+                    <#--<div class="layui-col-xs6 layui-col-sm6 layui-col-md3  wow fadeInUp" data-wow-delay=".2s" style="padding: 5px">
                         <div class="single-news">
                             <div class="news-head">
                                 <img src="../../static/blog/image/md1.jpeg">
@@ -96,7 +98,7 @@
                                 <a href="#" class="btn">
                                     阅读更多
                                 </a>
-                            </div> -->
+                            </div> &ndash;&gt;
                         </div>
                     </div>
                     <div class="layui-col-xs6 layui-col-sm6 layui-col-md3  wow fadeInUp" data-wow-delay=".4s" style="padding: 5px">
@@ -120,7 +122,7 @@
                                 <a href="#" class="btn">
                                     阅读更多
                                 </a>
-                            </div> -->
+                            </div> &ndash;&gt;
                         </div>
                     </div>
                     <div class="layui-col-xs6 layui-col-sm6 layui-col-md3  wow fadeInUp" data-wow-delay=".4s" style="padding: 5px">
@@ -144,30 +146,30 @@
                                 <a href="#" class="btn">
                                     阅读更多
                                 </a>
-                            </div> -->
+                            </div> &ndash;&gt;
                         </div>
                     </div>
-                </div>
+               </div>-->
                 <div class="new-article">
                     <div class="inner wow fadeInDown" data-wow-delay=".2s">
                         <h3><i class="fa fa-list" aria-hidden="true" style="font-size: 16px; color: #f1404b"></i> 所有文章</h3>
                     </div>
                 </div>
-                <#list blogs as bg>
+                <#list allBlog as bg>
                 <div class="layui-row">
                     <div class="blog-article">
                         <div class="blog-article-img">
                             <img src="${bg.blogCoverImage}" alt="">
                         </div>
                         <div class="content">
-                            <div class="mate">
+                            <div class="mate" id="mate">
                                 <span class="categories">#${bg.blogCategoryName}</span>
                             </div>
                             <h2>${bg.blogTitle!'这是一个标题'}</h2>
                             <p>
                                 ${bg.blogIntroduce!'这是一个文章简介'}
                             </p>
-                            <a href=" JavaScript:; "><span>查看全文</span></a>
+                            <a href=" JavaScript:; "><span>查看全文>>></span></a>
                         </div>
                     </div>
                 </div>
@@ -175,6 +177,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- <div class="section " id="section3 ">
     <div class="fp-tablecell ">
@@ -262,7 +265,7 @@
 </footer>
 <script src="../../static/blog/layui/layui.js "></script>
 <script src="../../static/blog/js/wow.min.js "></script>
-<script src="../../static/blog/js/index.js "></script>
+<script src="../../static/blog/js/index.js"></script>
 </body>
 
 </html>

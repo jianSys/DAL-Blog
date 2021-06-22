@@ -593,12 +593,13 @@ img {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
-	/*margin: 0;*/
-	/*font-size: 15px;*/
-	/*line-height: 1.5;*/
-	/*color: #555;*/
-	/*min-height: 45px;*/
-	/*word-break: break-all;*/
+	margin: 0;
+}
+.content a {
+	display: none;
+	position: relative;
+	bottom: -25px;
+	color: #be0b0b
 }
 
 .content h2::after {
