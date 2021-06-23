@@ -1,15 +1,13 @@
 package com.blog.controller.blog;
 
+import cn.hutool.json.JSONUtil;
 import com.blog.commons.Result;
 import com.blog.pojo.TbBlog;
 import com.blog.service.AdminService;
 import com.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,6 +58,23 @@ public class BlogController {
     private Result getIndex(){
         List<TbBlog> allBlog = articleService.findAllBlog();
         return new Result(0,"成功",allBlog);
+    }
+
+    @GetMapping("toBlog/{id}")
+    private ModelAndView toBlog(@PathVariable("id") Integer id,HttpServletRequest request,
+                          HttpServletResponse response){
+        TbBlog tbBlog = articleService.findById(id);
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/blog/blog");
+        mv.addObject("blog",tbBlog);
+        mv.addObject("content", tbBlog.getBlogContent().toString());
+        return mv;
+    }
+    @GetMapping("getBlog/{id}")
+    @ResponseBody
+    private Result toBlog(@PathVariable("id") Integer id){
+        TbBlog tbBlog = articleService.findById(id);
+        return new Result(0,"成功",tbBlog);
     }
     @GetMapping("article")
     private String toArticle(){

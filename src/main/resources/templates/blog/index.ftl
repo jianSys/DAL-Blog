@@ -169,7 +169,7 @@
                             <p>
                                 ${bg.blogIntroduce!'这是一个文章简介'}
                             </p>
-                            <a href=" JavaScript:; "><span>查看全文>>></span></a>
+                            <a href="./toBlog/6"><span>查看全文>>></span></a>
                         </div>
                     </div>
                 </div>
