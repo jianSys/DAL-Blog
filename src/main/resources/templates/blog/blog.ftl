@@ -517,15 +517,10 @@
 <div class="section" id="section2">
     <div class="fp-tablecell">
         <div class="page2">
-            <div class="warp-box article">
-                <!-- 弹出框 -->
-                <div id="myeditor" style="display: none">
-                    <!-- 富文本编辑器 -->
-                    <div id="test-editormd"></div>
-                </div>
+            <div class="warp-box article" >
                 <!-- 页面解析markdown为HTML显示 -->
-                <div id="markdownToHTML" style="margin: 0 20px">
-                    <textarea id="content" style="display:none;" placeholder="markdown语言"></textarea>
+                <div id="test-editormd" >
+                    <textarea style="display: none" name="test-editormd-markdown-doc">${blog.blogContent}</textarea>
                 </div>
             </div>
         </div>
@@ -559,34 +554,18 @@
     layui.use(['layer', 'jquery'], function() {
         var layer = layui.layer,
             $ = layui.jquery;
-
-
         var testEditor;
         //页面加载完成调用此方法
         // 页面解析markdown为html进行显示
-        $(document).ready(function() {
-           // var md;
-            /*$.ajax({
-                type: 'get',//方法类型
-                url: "../getBlog/${blog.blogId}",
-                contentType: "application/json;charset=utf-8",
-                success: function (res) {
-                    if (res.code === 0) {
-                      md=res.data.blogContent;
-                    }
-                }
-                });*/
-            // 模拟从数据库中取内容
-            $('#content').val("${content}");
-            // 解析
-            editormd.markdownToHTML("markdownToHTML", {
-                htmlDecode: "style,script,iframe",
-                emoji: true, // 解析表情
-                taskList: true, // 解析列表
-                tex: true, // 默认不解析
-                flowChart: true, // 默认不解析
-                sequenceDiagram: true // 默认不解析
-            })
+        $(document).ready( function() {
+            testEditor = editormd.markdownToHTML("test-editormd", {
+                htmlDecode :"style, script, iframe",
+                emoji           : true,
+                taskList        : true,
+                tex             : true,  // 默认不解析
+                flowChart       : true,  // 默认不解析
+                sequenceDiagram : true,  // 默认不解析
+            });
         });
     });
 </script>

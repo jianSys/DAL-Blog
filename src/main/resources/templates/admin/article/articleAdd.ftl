@@ -217,6 +217,7 @@
                      });*/
                 }
             });
+
             console.log("=================md页面渲染完毕=======================")
             //从父层获取值，json是父层的全局js变量。eval是将该string类型的json串变为标准的json串
             var parent_json = eval('('+parent.json+')');
@@ -262,7 +263,7 @@
             }
                // $("input[name='top']").prop("checked","flase");
 
-            $('.editormd-markdown-textarea').val(parent_json.blogContent);
+            $('.editormd-markdown-textarea').val(URLDecoder.decode(parent_json.blogContent,"UTF-8"));
             //testEditor.setValue(parent_json.blogContent)
             categoryId = parent_json.blogCategoryId;
         });

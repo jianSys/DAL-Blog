@@ -114,7 +114,7 @@ layui.config({
                     introduce = othis.find('input[name="introduce"]').val(),
                     category = othis.find('#category').val();
                 console.log("组装请求数据开始");
-                var content = testEditor.getMarkdown();
+                var content = encodeURIComponent(testEditor.getMarkdown());
                 var title = $('#title').val();
                 /*if (title == ''){
                     layer.msg('标题不能为空',function(){time:2000});
