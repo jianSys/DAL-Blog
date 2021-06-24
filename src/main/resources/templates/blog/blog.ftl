@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="../../static/blog/css/base.css" rel="stylesheet" type="text/css">
     <link href="../../static/layui/layui/css/layui.css" rel="stylesheet" type="text/css">
     <link href="../../static/blog/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../../static/blog/css/animate.min.css" rel="stylesheet" type="text/css">
@@ -62,7 +63,7 @@
         }
 
         #section1 {
-            height: 50vh;
+            height: 400px;
             padding: 0;
             background-color: #151515;
             background-image: url(../../static/blog/image/bgc.jpg);
@@ -83,57 +84,20 @@
         }
 
         .page1 p {
-            letter-spacing: 10px;
+            letter-spacing: 5px;
             margin: 20px 0
         }
-
-        .page1 .nav .btn {
-            padding: 10px 40px;
-            background: 0 0;
-            border-radius: 4px;
-            border: 2px solid #FFF;
-            color: #FFF;
-            cursor: pointer;
-            margin-top: 20px;
-            font-family: 'Microsoft YaHei';
-            display: inline-block
-        }
-
-        .page1 .next {
+        .page1 span{
+            font-size: 19px;
             display: block;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            margin-left: -25px !important;
-            z-index: 0;
-            -webkit-transition: all .5s ease-out;
-            transition: all .5s ease-out;
-            cursor: pointer
+            margin: 20px;
         }
-
-        .page1 .next:hover {
-            -webkit-animation: nextanimation 1s linear;
-            animation: nextanimation 1s linear;
-            /* background-color: #6bc30d */
-        }
-
-        .page1 .next:after {
-            font-family: FontAwesome;
-            content: "\f107";
-            color: #fff;
-            font-size: 3rem;
-            display: table;
-            margin: 0 auto
+        .page1 .blog-views{
+            display: inline-block;
         }
         /*第二屏 开始*/
 
-        .page2,
-        .page3,
-        .page4,
-        .page5 {
+        .page2{
             width: 90%;
             position: relative;
             margin: 0 auto;
@@ -149,7 +113,7 @@
 
         .article {
             margin: 0 auto;
-            width: 67%;
+            width: 60%;
         }
 
         .warp {
@@ -291,16 +255,6 @@
             position: relative;
             font-weight: 500
         }
-        /* .page2 .new-article h1:after {
-    position: absolute;
-    width: 50px;
-    height: 2px;
-    content: "";
-    left: 50%;
-    margin-left: -25px;
-    bottom: -1px;
-    background: #00C2FF
-} */
 
         .page2 .new-article p {
             margin-top: 20px;
@@ -500,16 +454,48 @@
             font-size: 14px
         }
         /*底部*/
+
+        /*#test-editormd{
+            height: 100%;
+            overflow: hidden;
+        }*/
+        .blog-rights {
+            padding-top: 5px;
+            padding-right: 10px;
+            padding-bottom: 10px;
+            padding-left: 15px;
+            font-family: 微软雅黑;
+            font-size: 12px;
+        }
+
+        .blog-rights p {
+            margin-top: 8px;
+            text-align: center;
+            font-size: 12px;
+            color: #9199a1;
+            line-height: 18px;
+            display: inline-block;
+        }
+        .blog-header{
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            background-color: #2E2E2E;
+            position: fixed!important;
+            background-size: 100% 100%
+        }
     </style>
 </head>
 
-<body>
-<div class="header" id="section1">
+<body class="night">
+<div class="section" id="section1">
     <div class="fp-tablecell">
         <div class="page1">
             <div class="nav wow zoomIn" data-wow-duration="2s">
-                <h1>${blog.blogTitle}</h1>
-                <p>${blog.blogTitle}</p>
+                <h1>${blog.blogTitle!''}</h1>
+                <span>${blog.createTime!'时间未知'}
+                    <div class="blog-views">${blog.blogViews!'0'}浏览</div>
+                </span>
             </div>
         </div>
     </div>
@@ -519,9 +505,12 @@
         <div class="page2">
             <div class="warp-box article" >
                 <!-- 页面解析markdown为HTML显示 -->
-                <div id="test-editormd" >
+                <div id="test-editormd">
                     <textarea style="display: none" name="test-editormd-markdown-doc">${blog.blogContent}</textarea>
                 </div>
+                <aside class="blog-rights">
+                    <p>本站文章除注明转载/出处外，皆为作者原创，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文链接，否则保留追究法律责任的权利。</p>
+                </aside>
             </div>
         </div>
     </div>
@@ -537,29 +526,26 @@
         </div>
     </div>
 </footer>
-<script src="../../../static/jquery/jquery-3.2.1.min.js"></script>
-<script src="../../../static/layui/layui/layui.js"></script>
-<script src="../../../static/editormd/js/editormd.min.js"></script>
+<script src="../../static/blog/js/jquery.min.js"></script>
+<script src="../../static/editormd/js/editormd.min.js"></script>
 <!-- 页面markdown解析成HTML需要的js -->
-<script src="../../../static/editormd/lib/marked.min.js"></script>
-<script src="../../../static/editormd/lib/prettify.min.js"></script>
-<script src="../../../static/editormd/lib/raphael.min.js"></script>
-<script src="../../../static/editormd/lib/underscore.min.js"></script>
-<script src="../../../static/editormd/lib/sequence-diagram.min.js"></script>
-<script src="../../../static/editormd/lib/flowchart.min.js"></script>
-<script src="../../../static/editormd/lib/jquery.flowchart.min.js"></script>
-<script src="../../../static/admin/js/articleedit.js"></script>
+<script src="../../static/editormd/lib/marked.min.js"></script>
+<script src="../../static/editormd/lib/prettify.min.js"></script>
+<script src="../../static/editormd/lib/raphael.min.js"></script>
+<script src="../../static/editormd/lib/underscore.min.js"></script>
+<script src="../../static/editormd/lib/sequence-diagram.min.js"></script>
+<script src="../../static/editormd/lib/flowchart.min.js"></script>
+<script src="../../static/editormd/lib/jquery.flowchart.min.js"></script>
 
 <script>
-    layui.use(['layer', 'jquery'], function() {
-        var layer = layui.layer,
-            $ = layui.jquery;
+   $(function () {
         var testEditor;
         //页面加载完成调用此方法
         // 页面解析markdown为html进行显示
         $(document).ready( function() {
             testEditor = editormd.markdownToHTML("test-editormd", {
                 htmlDecode :"style, script, iframe",
+                //markdownSourceCode : true,
                 emoji           : true,
                 taskList        : true,
                 tex             : true,  // 默认不解析

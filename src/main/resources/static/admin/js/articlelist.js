@@ -88,7 +88,7 @@ layui.config({
 
                         title = othis.find('#title').val(),
                         content = othis.find('.editormd-markdown-textarea').val(),
-                        introduce = othis.find('input[name="introduce"]').val(),
+                        introduce = othis.find("#introduce").val(),
                         top = othis.find('input[name="top"]:checked').val(),
                         category = othis.find('#category').val();
                     //alert("这是id================"+blogId);
@@ -118,9 +118,9 @@ layui.config({
                         "enableComment": comments,
                         "blogIntroduce":introduce,
                         "blogTop": top,
-                        "blogSubUrl": obj.data.blogSubUrl == "" ? "" : obj.data.blogSubUrl,
+                        "blogSubUrl": obj.data.blogSubUrl === "" ? "" : obj.data.blogSubUrl,
                         "blogViews": obj.data.blogViews === 0 ? 0 : obj.data.blogViews,
-                        "createTime": obj.data.createTime == "" ? "" : obj.data.createTime,
+                        "createTime": obj.data.createTime === "" ? "" : obj.data.createTime,
                         "isDeleted": obj.data.isDeleted === 0 ? 0 : obj.data.isDeleted,
                     };
                     console.log("组装请求数据成功=============开始发送请求" + data)

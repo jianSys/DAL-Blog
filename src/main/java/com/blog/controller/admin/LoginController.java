@@ -93,11 +93,6 @@ public class LoginController {
         return "/admin/home/console";
     }
 
-    @GetMapping("home/homepage2")
-    private String toHomePage2() {
-        return "/admin/home/homepage2";
-    }
-
     @GetMapping("app/content/comment")
     private String toComment() {
         return "/admin/app/content/comment";

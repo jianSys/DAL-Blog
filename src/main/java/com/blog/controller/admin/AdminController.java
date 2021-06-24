@@ -90,4 +90,22 @@ public class AdminController {
             return new Result(500,"查询失败");
         }
     }
+
+    /**
+     * 初始化导航页
+     * @param request
+     * @param response
+     * @return
+     */
+    @GetMapping("home/homepage2")
+    private ModelAndView toHomePage2(HttpServletRequest request,
+                                     HttpServletResponse response) {
+        Integer viewsCount = articleService.getArticleViewsCount();
+        Integer articleCount = articleService.getArticleCount();
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/admin/home/homepage2");
+        mv.addObject("viewsCount",viewsCount);
+        mv.addObject("articleCount",articleCount);
+        return mv;
+    }
 }

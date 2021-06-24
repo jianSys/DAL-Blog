@@ -112,58 +112,6 @@
 
 
 
-        layer.ready(function (data) {
-            //console.log(data['value']);
-            //var value = data['value'];
-            $.ajax({
-                url: "getCategory",
-                type: 'GET',
-                dataType: 'json',
-                //data:{id: value},
-                contentType: "application/json;charset=utf-8",
-                success: function (datas) {
-                    var data = datas.data;
-                    console.log('获取中的数据==================' + data);
-                    $("#category").empty();
-                    for (var i = 0; i < data.length; i++) {
-                        console.log('循环开始============' + datas.data[i]);
-                        $("#category").append('<option value="' + data[i].categoryId + '">' + data[i].categoryName + '</option>');
-                        //$('#category').append(new Option(data[i].categoryName,data[i].categoryId));//往下拉菜单里添加元素
-                        $('#category').val(categoryId);
-                    }
-
-                    console.log("循环结束=========================");
-                    //注意：最后必须重新渲染下拉框，否则没有任何效果。
-                    //重新渲染
-                    form.render("select");
-                }
-            });
-        });
-        $(document).ready(function () {
-            $.ajax({
-                url: "../tags/getAllTags",
-                type: 'GET',
-                dataType: 'json',
-                contentType: "application/json;charset=utf-8",
-                success: function (res) {
-                    if (res.code === 0) {
-                        var data = res.data;
-                        console.log(data)
-                        $("#tags").empty();
-                        for (var i = 0; i < data.length; i++) {
-                            $("#tags").append('<input type="checkbox" value="' + data[i].tagId + '"name="tags" lay-skin="primary" title="' + data[i].tagName + '">')
-                        }
-                        //渲染表单
-                        form.render();
-                    } else {
-                        layer.msg("查询失败")
-                    }
-                }
-            });
-        });
-
-
-
         var testEditor;
         var categoryId;
         //页面加载完成调用此方法
@@ -228,26 +176,10 @@
             $("#title").val(parent_json.blogTitle);
             $("#photoUrl").val(parent_json.blogCoverImage);
             $("#introduce").val(parent_json.blogIntroduce);
+
             $("input[name='comments'][value="+parent_json.enableComment+"]").prop("checked","true");
             $("input[name='top'][value="+parent_json.blogTop+"]").prop("checked","true");
             $("input[name='status'][value="+parent_json.blogStatus+"]").prop("checked","true");
-
-            /*//alert(parent_json.blogTop);
-            if (parent_json.blogTop === 1){
-                //$("input[name='top']").val(true);
-                $("input[name='top']").prop("checked","true");
-            }else{
-                //$("input[name='top']").val(false);
-                $("input[name='top']").prop("checked","");
-            }
-
-            if (parent_json.blogStatus === 1){
-                //$("input[name='top']").val(true);
-                $("input[name='status']").prop("checked","true");
-            }else{
-                //$("input[name='top']").val(false);
-                $("input[name='status']").prop("checked","");
-            }*/
 
             var unitType = parent_json.blogTags.split(",");
             //console.log("这是获取到的arr"+arr);
@@ -261,12 +193,65 @@
                 }
                 form.render();
             }
-               // $("input[name='top']").prop("checked","flase");
 
-            $('.editormd-markdown-textarea').val(URLDecoder.decode(parent_json.blogContent,"UTF-8"));
-            //testEditor.setValue(parent_json.blogContent)
+            $('.editormd-markdown-textarea').val(parent_json.blogContent);
+            //testEditor.setMarkdown(parent_json.blogContent)
             categoryId = parent_json.blogCategoryId;
         });
+
+
+        layer.ready(function (data) {
+            //console.log(data['value']);
+            //var value = data['value'];
+            $.ajax({
+                url: "getCategory",
+                type: 'GET',
+                dataType: 'json',
+                //data:{id: value},
+                contentType: "application/json;charset=utf-8",
+                success: function (datas) {
+                    var data = datas.data;
+                    console.log('获取中的数据==================' + data);
+                    $("#category").empty();
+                    for (var i = 0; i < data.length; i++) {
+                        console.log('循环开始============' + datas.data[i]);
+                        $("#category").append('<option value="' + data[i].categoryId + '">' + data[i].categoryName + '</option>');
+                        //$('#category').append(new Option(data[i].categoryName,data[i].categoryId));//往下拉菜单里添加元素
+                        $('#category').val(categoryId);
+                    }
+
+                    console.log("循环结束=========================");
+                    //注意：最后必须重新渲染下拉框，否则没有任何效果。
+                    //重新渲染
+                    form.render("select");
+                }
+            });
+        });
+        $(document).ready(function () {
+            $.ajax({
+                url: "../tags/getAllTags",
+                type: 'GET',
+                dataType: 'json',
+                contentType: "application/json;charset=utf-8",
+                success: function (res) {
+                    if (res.code === 0) {
+                        var data = res.data;
+                        console.log(data)
+                        $("#tags").empty();
+                        for (var i = 0; i < data.length; i++) {
+                            $("#tags").append('<input type="checkbox" value="' + data[i].tagId + '"name="tags" lay-skin="primary" title="' + data[i].tagName + '">')
+                        }
+                        //渲染表单
+                        form.render();
+                    } else {
+                        layer.msg("查询失败")
+                    }
+                }
+            });
+        });
+
+
+
 
 
 

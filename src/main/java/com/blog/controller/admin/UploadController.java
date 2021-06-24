@@ -101,10 +101,10 @@ public class UploadController {
             int lineNum=0;
 
             while((line=br.readLine())!=null /*&& Format.isNotNull(line)*/){
+                //替换字符
+                //String replace = line.replace("\n", "你在干什么");
                 str = str + line;
                 System.out.println(line);
-                //log.info(line);
-
             }
 
             br.close();
@@ -146,10 +146,10 @@ public class UploadController {
 
         String lineTxt = null;
 
-
+        File file = new File("E://redis.md");
         String encoding="UTF-8";
 
-        File file=new File("F://redis.md");
+        File path=new File("F://redis.md");
 
         if(file.isFile() && file.exists()){ //判断文件是否存在
 
@@ -164,13 +164,8 @@ public class UploadController {
                 //str = str +
                 //list.add(Integer.parseInt(lineTxt));
                 System.out.println(lineTxt);
-
             }
             read.close();
-
         }
-
-
     }
-
 }

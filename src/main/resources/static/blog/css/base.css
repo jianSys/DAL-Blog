@@ -1,0 +1,27 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    list-style: none;
+}
+
+a,
+img {
+    text-decoration: none;
+    border: none;
+}
+
+.night {
+    background-color: #292a2d;
+    color: #a9a9b3!important;
+}
+
+.editormd-html-preview{
+    background-color: #292a2d!important;
+}
+
+.markdown-body{
+    color: #a9a9b3!important;
+}

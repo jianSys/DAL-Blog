@@ -37,4 +37,6 @@ public interface ArticleService {
     Integer getArticleCount();
 
     Map<String,Object> indexData();
+
+    Integer getArticleViewsCount();
 }

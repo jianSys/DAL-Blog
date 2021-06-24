@@ -9,6 +9,7 @@
     <title>DAL个人博客</title>
     <meta name="keywords" content="个人博客，个人网站，个人博客模板，好看的个人博客">
     <meta name="description" content="个人博客搭建，个人博客免费建站，个人博客网站html源码，个人博客网站制作模板，源码下载，织梦，前端，java，PHP模板源码分享">
+    <link href="../../static/blog/css/base.css" rel="stylesheet" type="text/css">
     <link href="../../static/blog/layui/css/layui.css" rel="stylesheet" type="text/css">
     <link href="../../static/blog/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../../static/blog/css/index_style.css" rel="stylesheet" type="text/css">
@@ -159,17 +160,18 @@
                 <div class="layui-row">
                     <div class="blog-article">
                         <div class="blog-article-img">
-                            <img src="${bg.blogCoverImage}" alt="">
+                            <img src="${bg.blogCoverImage!'../../static/blog/image/md.jpeg'}" alt="">
                         </div>
                         <div class="content">
+                            <input id="id" value="${bg.blogId}" type="hidden" name="id">
                             <div class="mate" id="mate">
-                                <span class="categories">#${bg.blogCategoryName}</span>
+                                <span class="categories">#${bg.blogCategoryName!'分类不存在'}</span>
                             </div>
                             <h2>${bg.blogTitle!'这是一个标题'}</h2>
                             <p>
                                 ${bg.blogIntroduce!'这是一个文章简介'}
                             </p>
-                            <a href="./toBlog/6"><span>查看全文>>></span></a>
+                            <a href="./toBlog/${bg.blogId}" ><span>查看全文>>></span></a>
                         </div>
                     </div>
                 </div>

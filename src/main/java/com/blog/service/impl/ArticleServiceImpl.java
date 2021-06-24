@@ -169,8 +169,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Integer getArticleCount() {
-        List<TbBlog> all = articleDao.findAll();
-        return all.size();
+
+        Integer count = articleDao.getBlogCount();
+        return count;
     }
 
     /**
@@ -190,6 +191,16 @@ public class ArticleServiceImpl implements ArticleService {
         map.put("hotBlog",hotBlog);
         map.put("allBlog",list);
         return map;
+    }
+
+    /**
+     * 查看所有观看人数
+     * @return
+     */
+    @Override
+    public Integer getArticleViewsCount() {
+        Integer count = articleDao.getBlogViewsCount();
+        return count;
     }
 
 
