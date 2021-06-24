@@ -39,4 +39,6 @@ public interface ArticleService {
     Map<String,Object> indexData();
 
     Integer getArticleViewsCount();
+
+    void updateBlogViews(Integer id);
 }

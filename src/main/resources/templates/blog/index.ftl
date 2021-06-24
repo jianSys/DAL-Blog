@@ -259,7 +259,7 @@
         <div class="container ">
             <div class="layui-row ">
                 <div class="layui-col-xs12 layui-col-sm12 layui-col-md12 text-center ">
-                    <p>Copyright &copy; 2019-2020 ZQ个人博客 All Rights Reserved V.5.1.3 粤ICP备1231100号</p>
+                    <p>Copyright &copy; ${copyRight} All Rights Reserved V.5.1.3 粤ICP备1231100号</p>
                 </div>
             </div>
         </div>

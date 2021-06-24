@@ -217,4 +217,12 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return builder.toString();
     }
+
+    @Override
+    public void updateBlogViews(Integer id){
+        TbBlog blog = articleDao.getOne(id);
+        Integer blogViews = blog.getBlogViews();
+        blog.setBlogViews(blogViews+1);
+        TbBlog tbBlog = articleDao.save(blog);
+    }
 }

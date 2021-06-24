@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLDecoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +45,7 @@ public class BlogController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/blog/index");
         mv.addObject("logo","jian");
+        mv.addObject("copyRight",site.get("footerCopyRight"));
         mv.addObject("siteName",site.get("websiteName"));
         mv.addObject("websiteDescription",site.get("websiteDescription"));
         mv.addObject("allBlog",articleService.indexData().get("allBlog"));
@@ -63,8 +66,11 @@ public class BlogController {
 
     @GetMapping("toBlog/{id}")
     private ModelAndView toBlog(@PathVariable("id") Integer id,HttpServletRequest request,
-                          HttpServletResponse response){
+                          HttpServletResponse response) throws ParseException {
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         TbBlog tbBlog = articleService.findById(id);
+        //更新观看人数
+        articleService.updateBlogViews(id);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/blog/blog");
         mv.addObject("blog",tbBlog);
