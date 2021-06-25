@@ -6,12 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link href="../../static/blog/css/base.css" rel="stylesheet" type="text/css">
-    <link href="../../static/layui/layui/css/layui.css" rel="stylesheet" type="text/css">
-    <link href="../../static/blog/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="../../static/blog/css/animate.min.css" rel="stylesheet" type="text/css">
-    <!-- 页面解析markdown为HTML显示需要的css -->
-    <link rel="stylesheet" href="../../static/editormd/css/editormd.preview.min.css" />
+    <#include "./common.ftl">
     <style>
         * {
             margin: 0;
@@ -488,6 +483,7 @@
 </head>
 
 <body class="night">
+<#include "./header.ftl">
 <div class="section" id="section1">
     <div class="fp-tablecell">
         <div class="page1">

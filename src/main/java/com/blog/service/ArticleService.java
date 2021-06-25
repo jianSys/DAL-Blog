@@ -17,7 +17,11 @@ import java.util.Map;
  * @Version: 1.0
  */
 public interface ArticleService {
-
+    /**
+     * 根据id查找博客
+     * @param id
+     * @return
+     */
     TbBlog findById(Integer id);
 
     Page<TbBlog> findByPage(Map<String, Object> map, Pageable pageable);
@@ -26,7 +30,6 @@ public interface ArticleService {
 
     List<TbBlogCategory> findAllCategory();
 
-    List<TbBlog> findAllBlog();
 
     TbBlog save(TbBlog tbBlogEntity);
 
@@ -41,4 +44,15 @@ public interface ArticleService {
     Integer getArticleViewsCount();
 
     void updateBlogViews(Integer id);
+
+    /**
+     * 获取最热的文章
+     * @return
+     */
+    List<TbBlog> getHotBlog();
+    /**
+     * 首页显示所有文章
+     * @return
+     */
+    List<TbBlog> getAllBlog();
 }

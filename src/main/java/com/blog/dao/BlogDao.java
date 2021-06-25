@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 /**
  * @ProjectName: springboot
  * @ClassName: ArticleDao
@@ -19,4 +21,8 @@ public interface BlogDao extends JpaRepository<TbBlog, Integer>, JpaSpecificatio
     Integer getBlogViewsCount();
     @Query(value = "select count (blogId)from TbBlog ")
     Integer getBlogCount();
+    //加入：nativeQuery注解时，写原生sql，支持limit函数
+    //不加入：nativeQuery注解时是JPQL。JPQL不支持limit函数
+    @Query(nativeQuery = true,value = "select * from tb_blog tb where tb.blog_status = 1 order by tb.blog_views desc limit 0,4")
+    List<TbBlog> getHotBlog();
 }

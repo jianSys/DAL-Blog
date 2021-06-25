@@ -7,19 +7,19 @@ import com.blog.pojo.TbBlogCategory;
 import com.blog.pojo.TbBlog;
 import com.blog.pojo.TbBlogTag;
 import com.blog.service.ArticleService;
-import org.hibernate.internal.util.beans.BeanInfoHelper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.query.Jpa21Utils;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang.StringUtils;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -63,8 +63,7 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public Page<TbBlog> findByPage(Map<String, Object> map, Pageable pageable) {
-
-        //List<TbBlogEntity> all = articleDao.findAll();
+        //分页带动态条件查询文章
         Specification<TbBlog> spec = (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
             Integer id = (Integer) map.get("id");
@@ -77,7 +76,7 @@ public class ArticleServiceImpl implements ArticleService {
             }
             String blogCategoryName = (String) map.get("blogCategoryName");
             if (StringUtils.isNotBlank(blogCategoryName)) {
-                list.add(criteriaBuilder.like(root.get("blogCategoryName"), blogCategoryName));
+                list.add(criteriaBuilder.like(root.get("blogCategoryName"), "%"+blogCategoryName+"%"));
             }
             return criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
         };
@@ -91,8 +90,6 @@ public class ArticleServiceImpl implements ArticleService {
         List<TbBlog> lists = page.getContent();
 
         if (lists != null && lists.size() > 0) {
-
-            //List<TbBlogEntity> arr = TbBlogEntity.taskData2Vo(lists);
             return new PageImpl<>(lists, pageable, page.getTotalElements());
         }
         return new PageImpl<>(new ArrayList<>(0), pageable, 0);
@@ -116,17 +113,10 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<TbBlog> findAllBlog() {
-        return articleDao.findAll();
-    }
-
-    @Override
     public TbBlog save(TbBlog tbBlogEntity) {
         Integer blogId = tbBlogEntity.getBlogId();
         if (null != blogId) {
             tbBlogEntity.setUpdateTime(new Date());
-            //Optional<TbBlog> tbBlog = blogDao.findById(blogId);
-            //TbBlog blog = tbBlog.get();
             //更新
             if (null != tbBlogEntity.getBlogCategoryId()){
                 TbBlogCategory category = this.findCategoryById(tbBlogEntity.getBlogCategoryId());
@@ -136,7 +126,6 @@ public class ArticleServiceImpl implements ArticleService {
                 String tagsNames = getTagsNames(tbBlogEntity.getBlogTags());
                 tbBlogEntity.setBlogTags(tagsNames);
             }
-            //BeanUtils.copyProperties(tbBlog,tbBlogEntity);
             TbBlog save = blogDao.save(tbBlogEntity);
             return save;
         } else {
@@ -224,5 +213,36 @@ public class ArticleServiceImpl implements ArticleService {
         Integer blogViews = blog.getBlogViews();
         blog.setBlogViews(blogViews+1);
         TbBlog tbBlog = articleDao.save(blog);
+    }
+
+    /**
+     * 获取最热文章
+     * @return
+     */
+    @Override
+    public List<TbBlog> getHotBlog() {
+        return articleDao.getHotBlog();
+    }
+
+    /**
+     * 获取首页显示所有文章
+     * @return
+     */
+    @Override
+    public List<TbBlog> getAllBlog() {
+
+        Specification<TbBlog> spec = (root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> list = new ArrayList<>();
+                //判断状态已发布
+                list.add(criteriaBuilder.equal(root.get("blogStatus"),1));
+                //未删除
+                list.add(criteriaBuilder.equal(root.get("isDeleted"),0));
+            Predicate predicate = criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
+            criteriaQuery.where(predicate);
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createTime")));
+            return criteriaQuery.getRestriction();
+            };
+        List<TbBlog> blogs = articleDao.findAll(spec);
+        return blogs;
     }
 }

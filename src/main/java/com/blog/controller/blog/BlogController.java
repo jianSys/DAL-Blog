@@ -48,8 +48,8 @@ public class BlogController {
         mv.addObject("copyRight",site.get("footerCopyRight"));
         mv.addObject("siteName",site.get("websiteName"));
         mv.addObject("websiteDescription",site.get("websiteDescription"));
-        mv.addObject("allBlog",articleService.indexData().get("allBlog"));
-        mv.addObject("hotBlog",articleService.indexData().get("hotBlog"));
+        mv.addObject("allBlog",articleService.getAllBlog());
+        mv.addObject("hotBlog",articleService.getHotBlog());
         return mv;
     }
 
@@ -60,7 +60,7 @@ public class BlogController {
     @PostMapping("getArticleList")
     @ResponseBody
     private Result getIndex(){
-        List<TbBlog> allBlog = articleService.findAllBlog();
+        List<TbBlog> allBlog = articleService.getAllBlog();
         return new Result(0,"成功",allBlog);
     }
 
