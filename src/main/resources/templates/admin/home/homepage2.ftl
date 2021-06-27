@@ -46,6 +46,16 @@
           </div>
         </div>
       </div>
+      <div class="layui-col-sm6 layui-col-md3">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            总文章数
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <p class="layuiadmin-big-font">${articleCount}</p>
+          </div>
+        </div>
+      </div>
       <div class="layui-col-sm12 layui-col-md6">
         <div class="layui-card">
           <div class="layui-card-header">动态</div>

@@ -12,7 +12,7 @@
    <#include "./common.ftl">
 </head>
 
-<body class="night">
+<body >
 <#include "./header.ftl">
 <div class="section" id="section1">
     <div class="fp-tablecell">
