@@ -62,32 +62,44 @@
                         </div>
                     </div>
                     </#list>
+            </div>
                 <div class="new-article">
                     <div class="inner wow fadeInDown" data-wow-delay=".2s">
                         <h3><i class="fa fa-list" aria-hidden="true" style="font-size: 16px; color: #f1404b"></i> 所有文章</h3>
                     </div>
                 </div>
                 <#list allBlog as bg>
-                <div class="layui-row">
-                    <div class="blog-article">
-                        <div class="blog-article-img">
-                            <img src="${bg.blogCoverImage!'../../static/blog/image/md.jpeg'}" alt="">
-                        </div>
-                        <div class="content">
-                            <input id="id" value="${bg.blogId}" type="hidden" name="id">
-                            <div class="mate" id="mate">
-                                <span class="categories">#${bg.blogCategoryName!'分类不存在'}</span>
+                    <div class="layui-row">
+                        <div class="blog-article">
+                            <div class="blog-article-img">
+                                <div class="post-date">
+                                    13
+
+                                    <span><#--${bg.createTime?date('yyyy-MM-dd')}-->2021年10月</span>
+                                </div>
+                                <div class="post-preview">
+                                    <a href="javaScript:;"><img src="${bg.blogCoverImage!'../../static/blog/image/md.jpeg'}" alt=""></a>
+                                </div>
+
                             </div>
-                            <h2>${bg.blogTitle!'这是一个标题'}</h2>
-                            <p>
-                                ${bg.blogIntroduce!'这是一个文章简介'}
-                            </p>
-                            <a href="./toBlog/${bg.blogId}" ><span>查看全文>>></span></a>
+                            <div class="content">
+                                <input id="id" value="${bg.blogId}" type="hidden" name="id">
+                                <div class="mate" id="mate">
+                                    <span class="categories">#${bg.blogCategoryName!'分类不存在'}</span>
+                                </div>
+                                <h2>
+                                    <a href="https://halo.hshan.fun/archives/theme-xue-showcase" rel="bookmark">
+                                        <i class="iconfont icon-zhiding zhiding"></i> ${bg.blogTitle!'这是一个标题'}
+                                    </a>
+                                </h2>
+                                <p>
+                                    ${bg.blogIntroduce!'这是一个文章简介'}
+                                </p>
+                                <a href="./toBlog/${bg.blogId}" class="blog-link"><span class="text">查看全文</span></a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </#list>
-            </div>
         </div>
     </div>
 </div>

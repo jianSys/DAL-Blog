@@ -9,7 +9,7 @@
                     <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
                 </div>
                 <p class="mt05">
-                    Copyright &copy; 2019-2020 ZQ博客 All Rights Reserved V.3.1.3 Power by ZQ博客
+                    Copyright &copy; ${copyRight} All Rights Reserved V.3.1.3 Power by ZQ博客
                 </p>
             </div>
         </div>

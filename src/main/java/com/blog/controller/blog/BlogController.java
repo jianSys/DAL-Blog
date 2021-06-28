@@ -28,10 +28,7 @@ import java.util.Map;
  */
 @Controller
 public class BlogController {
-   /* @GetMapping({"","/","index"})
-    private String toIndex(){
-        return "/blog/index";
-    }*/
+
 
    @Autowired
    private AdminService adminService;
@@ -41,13 +38,12 @@ public class BlogController {
     @GetMapping({"","/","index"})
     private ModelAndView index(HttpServletRequest request,
                                HttpServletResponse response){
-        Map<String, Object> site = adminService.getWebSite();
+        Map<String, String> config = adminService.getWebSite();
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/blog/index");
         mv.addObject("logo","jian");
-        mv.addObject("copyRight",site.get("footerCopyRight"));
-        mv.addObject("siteName",site.get("websiteName"));
-        mv.addObject("websiteDescription",site.get("websiteDescription"));
+        mv.addObject("webSiteConfig",config);
+        mv.addObject("copyRight",config.get("footerCopyRight"));
         mv.addObject("allBlog",articleService.getAllBlog());
         mv.addObject("hotBlog",articleService.getHotBlog());
         return mv;
@@ -74,7 +70,7 @@ public class BlogController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/blog/blog");
         mv.addObject("blog",tbBlog);
-        mv.addObject("content", tbBlog.getBlogContent().toString());
+        mv.addObject("content", tbBlog.getBlogContent());
         return mv;
     }
     @GetMapping("getBlog/{id}")

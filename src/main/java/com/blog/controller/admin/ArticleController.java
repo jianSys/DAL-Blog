@@ -133,12 +133,12 @@ public class ArticleController {
     @PostMapping("saveArticle")
     @ResponseBody
     private Result saveArticle(@RequestBody TbBlog tbBlogEntity) {
-        log.info("保存文章的入参为===========[{}]",JSONUtil.parse(tbBlogEntity));
+        log.info("===============保存文章的入参为===========[{}]",JSONUtil.parse(tbBlogEntity));
         try{
             TbBlog save = articleService.save(tbBlogEntity);
             return new Result(0, "成功", save);
         }catch (Exception e){
-            log.error("保存文章信息异常",e);
+            log.error("=====================保存文章信息异常=============",e);
             return new Result(500, "失败");
         }
     }

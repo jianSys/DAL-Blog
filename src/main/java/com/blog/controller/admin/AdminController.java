@@ -1,9 +1,12 @@
 package com.blog.controller.admin;
 
 import com.blog.commons.Result;
+import com.blog.dao.BlogLogDao;
 import com.blog.pojo.TbBlogConfig;
+import com.blog.pojo.TbBlogLog;
 import com.blog.service.AdminService;
 import com.blog.service.ArticleService;
+import com.blog.service.LogService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +36,9 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private LogService logService;
 
     @GetMapping({"", "/", "/index", "/index.ftl"})
     private ModelAndView toIndex(HttpServletRequest request,
@@ -73,6 +79,7 @@ public class AdminController {
             List<TbBlogConfig> configs = adminService.saveWebSite(map);
             return new Result(0,"成功");
         }catch (Exception e){
+            log.error("==============修改网站设置失败===========",e);
             return new Result(500,"失败");
 
         }
@@ -83,10 +90,10 @@ public class AdminController {
     private Result getWebSite(){
         log.info("=======================开始查询所有网站设置===================");
         try{
-            Map<String, Object> webSite = adminService.getWebSite();
+            Map<String, String> webSite = adminService.getWebSite();
             return new Result(0,"成功",webSite);
         }catch (Exception e){
-            log.error("查询网站设置异常=====================",e);
+            log.error("======================查询网站设置异常=====================",e);
             return new Result(500,"查询失败");
         }
     }
@@ -102,10 +109,12 @@ public class AdminController {
                                      HttpServletResponse response) {
         Integer viewsCount = articleService.getArticleViewsCount();
         Integer articleCount = articleService.getArticleCount();
+        List<TbBlogLog> log = logService.getLatestLog();
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/admin/home/homepage2");
         mv.addObject("viewsCount",viewsCount);
         mv.addObject("articleCount",articleCount);
+        mv.addObject("logs",log);
         return mv;
     }
 }

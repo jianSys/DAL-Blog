@@ -1,23 +1,10 @@
-<#--<div id="menu" class="hover_animation menu_open" data-mark="false">
-    <span></span>
-    <span></span>
-    <span></span>
-</div>
-<div id="navgation" class="navgation navgation_close">
-    <ul class="point">
-        <li><a href="#">首页</a></li>
-        <li><a href="article.html">博客</a></li>
-        <li><a href="message.html">留言</a></li>
-    </ul>
-    <div class="logo"><a>jian</a></div>
-</div>-->
 <header class="blog-header">
     <div class="blog-header-fixed">
         <div class="blog-header-inner">
             <!-- <a href="javascript:void(0)" class="header-logo" id="logo">jian</a> -->
             <nav class="nav-list" id="nav-list">
                 <ul>
-                    <li><a href="index.html">首页</a></li>
+                    <li><a href="../index">首页</a></li>
                     <li><a href="article.html">归档</a></li>
                     <li><a href="message.html">分类</a></li>
                     <li><a href="link.html">关于</a></li>

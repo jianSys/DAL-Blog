@@ -17,8 +17,6 @@
     --cd-hover-color: #E53A40;
     --btn-pri-bg-color: #E53A40;
     --base-txt-color: #363636;
-
-
     /*--btn-pri-bg-color: #ff5f5f;*/
     --text-color: #333333;
     --text-hover-color: #4facfe;
@@ -42,7 +40,7 @@
 * {
     padding: 0;
     margin: 0;
-    cursor:url(../../../static/blog/image/normal.cur),auto!important;
+    cursor: url(../../../static/blog/image/normal.cur), auto!important;
 }
 
 ul li {
@@ -56,22 +54,27 @@ img {
 }
 
 .night {
-
     background-color: var(--night-background);
     color: var(--night-txt-color)!important
-
 }
-.night .editormd-html-preview{
+
+.night .editormd-html-preview {
     padding: 20px 40px;
     background-color: var(--night-background)!important;
-    border: 1px solid rgba(30,35,42,.06);
+    border: 1px solid rgba(30, 35, 42, .06);
     box-shadow: 0 4px 10px 10px rgb(0 0 0 / 5%);
 }
 
-.night .markdown-body{
+.night .markdown-body {
     color: var(--night-txt-color)!important;
 }
 
+.editormd-html-preview {
+    padding: 20px 40px;
+    background-color: var(--base-bg-color)!important;
+    border: 1px solid rgba(30, 35, 42, .06);
+    box-shadow: 0 4px 10px 10px rgb(0 0 0 / 5%);
+}
 
 .blog-header {
     width: 100%;
@@ -84,6 +87,7 @@ img {
     /*border-bottom: 1px solid #e8e9e7;*/
     font-size: 14px;
 }
+
 .night .blog-header {
     width: 100%;
     min-height: 60px;
@@ -162,6 +166,7 @@ img {
     -webkit-transition: all .2s;
     transition: all .2s
 }
+
 .night .nav-list li a {
     display: block;
     line-height: 32px;
@@ -183,7 +188,7 @@ img {
     color: #c30d0d
 }
 
-.blog-skin{
+.blog-skin {
     position: absolute;
     line-height: 60px;
     font-size: 24px
@@ -237,7 +242,7 @@ img {
     line-height: 20px;
     margin-top: 40px;
     overflow: hidden;
-    border-top: 1px solid rgba(30,35,42,.06);
+    border-top: 1px solid rgba(30, 35, 42, .06);
     box-shadow: 0 4px 10px 10px rgb(0 0 0 / 5%);
 }
 
@@ -255,9 +260,10 @@ img {
     font-size: 13px
 }
 
-.blog-copyright .blog-footer-contact{
+.blog-copyright .blog-footer-contact {
     margin: 20px 0;
 }
+
 .blog-copyright .blog-footer-contact a {
     display: inline-block;
     width: 30px;
@@ -296,9 +302,8 @@ img {
     background-color: #06a2c9
 }
 
-.blog-copyright blog-footer-info p{
-
-    margin-top:5px;
+.blog-copyright blog-footer-info p {
+    margin-top: 5px;
 }
 
 .doc-container {
@@ -450,10 +455,6 @@ img {
     font-weight: 400;
     font-style: normal
 }
-
-
-
-
 
 .day-night-switch {
     display: inline-block;

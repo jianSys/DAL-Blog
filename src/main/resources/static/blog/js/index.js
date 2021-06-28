@@ -25,8 +25,8 @@
             $(this).attr({ 'data-mark': "false" });
         }
     });
-    $(".blog-article").hover(function() {
+    /*$(".blog-article").hover(function() {
             $(this).stop().find("#mate").animate({ height: 'toggle', opacity: 'toggle' }, 100);
             $(this).stop().find('a').animate({ height: 'toggle', opacity: 'toggle' }, 500);
-     });
+     });*/
 });

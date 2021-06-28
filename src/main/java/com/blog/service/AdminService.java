@@ -14,6 +14,6 @@ import java.util.Map;
  * @Version: 1.0
  */
 public interface AdminService {
-    Map<String,Object> getWebSite();
+    Map<String,String> getWebSite();
     List<TbBlogConfig> saveWebSite(Map<String,Object> map);
 }
