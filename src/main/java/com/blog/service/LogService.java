@@ -1,6 +1,7 @@
 package com.blog.service;
 
 import com.blog.pojo.TbBlogLog;
+import com.blog.pojo.vo.BlogLogVO;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface LogService {
      * 获取最新的日志
      * @return
      */
-    List<TbBlogLog> getLatestLog();
+    List<BlogLogVO> getLatestLog();
 }

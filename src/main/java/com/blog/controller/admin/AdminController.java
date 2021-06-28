@@ -4,6 +4,7 @@ import com.blog.commons.Result;
 import com.blog.dao.BlogLogDao;
 import com.blog.pojo.TbBlogConfig;
 import com.blog.pojo.TbBlogLog;
+import com.blog.pojo.vo.BlogLogVO;
 import com.blog.service.AdminService;
 import com.blog.service.ArticleService;
 import com.blog.service.LogService;
@@ -109,7 +110,7 @@ public class AdminController {
                                      HttpServletResponse response) {
         Integer viewsCount = articleService.getArticleViewsCount();
         Integer articleCount = articleService.getArticleCount();
-        List<TbBlogLog> log = logService.getLatestLog();
+        List<BlogLogVO> log = logService.getLatestLog();
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/admin/home/homepage2");
         mv.addObject("viewsCount",viewsCount);

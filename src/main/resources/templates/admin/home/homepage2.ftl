@@ -63,9 +63,8 @@
                       <#list logs as logs>
                         <dd>
                             <div>
-                                <p>胡歌 在 <a lay-href="http://fly.layui.com/vipclub/list/layuiadmin/">layuiadmin专区</a>
-                                    回答问题</p>
-                                <span>timeAgo()</span>
+                                <p>${logs.operation}</p>
+                                <span>${logs.time}</span>
                             </div>
                         </dd>
                         </#list>

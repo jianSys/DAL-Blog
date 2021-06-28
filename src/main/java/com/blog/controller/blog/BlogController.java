@@ -63,13 +63,14 @@ public class BlogController {
     @GetMapping("toBlog/{id}")
     private ModelAndView toBlog(@PathVariable("id") Integer id,HttpServletRequest request,
                           HttpServletResponse response) throws ParseException {
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        TbBlog tbBlog = articleService.findById(id);
+         TbBlog tbBlog = articleService.findById(id);
+        Map<String, String> webSite = adminService.getWebSite();
         //更新观看人数
         articleService.updateBlogViews(id);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/blog/blog");
         mv.addObject("blog",tbBlog);
+        mv.addObject("copyRight",webSite.get("footerCopyRight"));
         mv.addObject("content", tbBlog.getBlogContent());
         return mv;
     }
