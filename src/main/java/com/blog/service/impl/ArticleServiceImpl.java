@@ -1,6 +1,7 @@
 package com.blog.service.impl;
 
 import com.blog.commons.enums.LogEnum;
+import com.blog.commons.utils.DateUtils;
 import com.blog.dao.BlogCategoryDao;
 import com.blog.dao.BlogDao;
 import com.blog.dao.BlogLogDao;
@@ -9,7 +10,9 @@ import com.blog.pojo.TbBlogCategory;
 import com.blog.pojo.TbBlog;
 import com.blog.pojo.TbBlogLog;
 import com.blog.pojo.TbBlogTag;
+import com.blog.pojo.vo.BlogVO;
 import com.blog.service.ArticleService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,7 +21,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.util.CollectionUtils;
 
+import javax.persistence.Tuple;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -247,13 +252,29 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     /**
+     * 前端页面展示开始
+     */
+
+    /**
      * 获取最热文章
      *
      * @return
      */
     @Override
-    public List<TbBlog> getHotBlog() {
-        return articleDao.getHotBlog();
+    public List<BlogVO> getHotBlog() {
+        List<TbBlog> hotBlog = articleDao.getHotBlog();
+        ArrayList<BlogVO> blogVOS = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(hotBlog)){
+            hotBlog.forEach(
+                    blog->{
+                        BlogVO blogVO = new BlogVO();
+                        BeanUtils.copyProperties(blog,blogVO);
+                        blogVOS.add(blogVO);
+                    }
+            );
+        }
+
+        return blogVOS;
     }
 
     /**
@@ -262,7 +283,7 @@ public class ArticleServiceImpl implements ArticleService {
      * @return
      */
     @Override
-    public List<TbBlog> getAllBlog() {
+    public List<BlogVO> getAllBlog() {
 
         Specification<TbBlog> spec = (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
@@ -270,12 +291,70 @@ public class ArticleServiceImpl implements ArticleService {
             list.add(criteriaBuilder.equal(root.get("blogStatus"), 1));
             //未删除
             list.add(criteriaBuilder.equal(root.get("isDeleted"), 0));
+            //有地址的是页面,没有地址的是文章
+            list.add(criteriaBuilder.isNull(root.get("blogSubUrl")));
+
             Predicate predicate = criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
             criteriaQuery.where(predicate);
+            //根据创建时间排序
             criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createTime")));
             return criteriaQuery.getRestriction();
         };
         List<TbBlog> blogs = articleDao.findAll(spec);
-        return blogs;
+        ArrayList<BlogVO> blogVOS = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(blogs)){
+            blogs.forEach(
+                    blog->{
+                        BlogVO blogVO = new BlogVO();
+                        BeanUtils.copyProperties(blog,blogVO);
+                        if (null != blogVO.getCreateTime()){
+                            try {
+                                //处理页面显示时间
+                                blogVO.setTime(DateUtils.parseDate2String(blogVO.getCreateTime(),"yyyy年MM月"));
+                                blogVO.setDay(DateUtils.parseDate2String(blogVO.getCreateTime(),"dd"));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        blogVOS.add(blogVO);
+
+                    }
+            );
+        }
+        return blogVOS;
     }
+
+    @Override
+    public BlogVO getPageByUrl(String url) {
+        TbBlog blog = articleDao.findByBlogSubUrl(url);
+        BlogVO blogVO = new BlogVO();
+        BeanUtils.copyProperties(blog,blogVO);
+        try {
+            String time = DateUtils.parseDate2String(blogVO.getCreateTime(), "yyyy-MM-dd");
+            blogVO.setTime(time);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return blogVO;
+    }
+
+    @Override
+    public BlogVO getBlogById(Integer id) {
+        TbBlog blog = articleDao.getOne(id);
+        BlogVO blogVO = new BlogVO();
+        BeanUtils.copyProperties(blog,blogVO);
+        String time = null;
+        try {
+            //处理时间
+            time = DateUtils.parseDate2String(blogVO.getCreateTime(),"yyyy-MM-dd");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        blogVO.setTime(time);
+        return blogVO;
+    }
+
+    /**
+     * 前端页面展示结束
+     */
 }

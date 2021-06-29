@@ -23,7 +23,7 @@
         <div class="page1">
             <div class="nav wow zoomIn" data-wow-duration="2s">
                 <h1>${blog.blogTitle!''}</h1>
-                <span>${blog.createTime!'时间未知'}
+                <span>${blog.time!'时间未知'}
                     <div class="blog-views">${blog.blogViews!'0'}浏览</div>
                 </span>
             </div>
@@ -101,6 +101,9 @@
        }
    });
 </script>
+<script>
+    console.clear();
+    console.log("%c 一天很短,开心了就笑,不开心了就一会在笑", "background:#24272A; color:#ffffff", "");
+</script>
 </body>
-
 </html>

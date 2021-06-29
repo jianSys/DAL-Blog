@@ -9,9 +9,6 @@
     <link rel="stylesheet" href="../static/layui/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../static/layui/style/admin.css" media="all">
 
-    <script>
-        /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
-    </script>
 </head>
 <body class="layui-layout-body">
 
@@ -126,7 +123,7 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd><a lay-href="template/personalpage.html">所有页面</a></dd>
-                            <dd><a lay-href="template/addresslist.html">新建页面</a></dd>
+                            <dd><a lay-href="toPageAdd">新建页面</a></dd>
                         </dl>
                     </li>
                     <li data-name="app" class="layui-nav-item">
@@ -223,6 +220,9 @@
 
 <script src="../../../static/layui/layui/layui.js"></script>
 <script>
+    //console.log("%c Gitee %c", "background:#24272A; color:#ffffff", "", "https://github.com/xzhuz");
+</script>
+<script>
     layui.config({
         base: '../../../static/layui/' //静态资源所在路径
     }).extend({
@@ -255,6 +255,10 @@
             })
         })
     });
+</script>
+<script>
+    console.clear();
+    console.log("%c 一天很短,开心了就笑,不开心了就一会在笑", "background:#24272A; color:#ffffff", "");
 </script>
 </body>
 </html>

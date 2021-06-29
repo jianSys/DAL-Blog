@@ -194,7 +194,7 @@
                 form.render();
             }
 
-            $('.editormd-markdown-textarea').val(parent_json.blogContent);
+            $('.editormd-markdown-textarea').val(decodeURIComponent(parent_json.blogContent));
             //testEditor.setMarkdown(parent_json.blogContent)
             categoryId = parent_json.blogCategoryId;
         });

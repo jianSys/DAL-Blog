@@ -2,6 +2,7 @@ package com.blog.service;
 
 import com.blog.pojo.TbBlogCategory;
 import com.blog.pojo.TbBlog;
+import com.blog.pojo.vo.BlogVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -45,14 +46,24 @@ public interface ArticleService {
 
     void updateBlogViews(Integer id);
 
+    //前端页面显示开始
     /**
      * 获取最热的文章
      * @return
      */
-    List<TbBlog> getHotBlog();
+    List<BlogVO> getHotBlog();
     /**
      * 首页显示所有文章
      * @return
      */
-    List<TbBlog> getAllBlog();
+    List<BlogVO> getAllBlog();
+    /**
+     * 根据url查找文章
+     */
+    BlogVO getPageByUrl(String url);
+    /**
+     * 根据id查询文章
+     */
+    BlogVO getBlogById(Integer id);
+    //前端页面显示结束
 }

@@ -3,6 +3,7 @@ package com.blog.controller.blog;
 import cn.hutool.json.JSONUtil;
 import com.blog.commons.Result;
 import com.blog.pojo.TbBlog;
+import com.blog.pojo.vo.BlogVO;
 import com.blog.service.AdminService;
 import com.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class BlogController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/blog/index");
         mv.addObject("logo","jian");
-        mv.addObject("webSiteConfig",config);
+        mv.addObject("config",config);
         mv.addObject("copyRight",config.get("footerCopyRight"));
         mv.addObject("allBlog",articleService.getAllBlog());
         mv.addObject("hotBlog",articleService.getHotBlog());
@@ -56,21 +57,21 @@ public class BlogController {
     @PostMapping("getArticleList")
     @ResponseBody
     private Result getIndex(){
-        List<TbBlog> allBlog = articleService.getAllBlog();
+        List<BlogVO> allBlog = articleService.getAllBlog();
         return new Result(0,"成功",allBlog);
     }
 
     @GetMapping("toBlog/{id}")
     private ModelAndView toBlog(@PathVariable("id") Integer id,HttpServletRequest request,
                           HttpServletResponse response) throws ParseException {
-         TbBlog tbBlog = articleService.findById(id);
+         BlogVO tbBlog = articleService.getBlogById(id);
         Map<String, String> webSite = adminService.getWebSite();
         //更新观看人数
         articleService.updateBlogViews(id);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/blog/blog");
         mv.addObject("blog",tbBlog);
-        mv.addObject("copyRight",webSite.get("footerCopyRight"));
+        mv.addObject("config",webSite);
         mv.addObject("content", tbBlog.getBlogContent());
         return mv;
     }
@@ -79,6 +80,20 @@ public class BlogController {
     private Result toBlog(@PathVariable("id") Integer id){
         TbBlog tbBlog = articleService.findById(id);
         return new Result(0,"成功",tbBlog);
+    }
+
+    @GetMapping("s/{url}")
+    private ModelAndView getPage(HttpServletRequest request, @PathVariable("url") String url){
+        BlogVO tbBlog = articleService.getPageByUrl(url);
+        Map<String, String> webSite = adminService.getWebSite();
+        //更新观看人数
+        articleService.updateBlogViews(tbBlog.getBlogId());
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/blog/blog");
+        mv.addObject("blog",tbBlog);
+        mv.addObject("config",webSite);
+        mv.addObject("content", tbBlog.getBlogContent());
+        return mv;
     }
     @GetMapping("article")
     private String toArticle(){

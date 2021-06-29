@@ -5,9 +5,9 @@
             <nav class="nav-list" id="nav-list">
                 <ul>
                     <li><a href="../index">首页</a></li>
-                    <li><a href="article.html">归档</a></li>
-                    <li><a href="message.html">分类</a></li>
-                    <li><a href="link.html">关于</a></li>
+                    <li><a href="../index">归档</a></li>
+                    <li><a href="../index">分类</a></li>
+                    <li><a href="../s/about">关于</a></li>
                 </ul>
             </nav>
             <#--<a href="JavaScript:;" class="blog-skin">

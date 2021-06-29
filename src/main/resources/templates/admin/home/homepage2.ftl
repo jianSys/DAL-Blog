@@ -98,7 +98,7 @@
                 success: function (res) {
                     if (res.code === 0) {
                         var data = res.data;
-                        console.log("返回的数据是=================+" + JSON.stringify(data))
+                        //console.log("返回的数据是=================+" + JSON.stringify(data))
 
                     } else {
                         layer.msg("查询失败")

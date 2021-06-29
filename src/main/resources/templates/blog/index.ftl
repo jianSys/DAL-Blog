@@ -18,8 +18,8 @@
     <div class="fp-tablecell">
         <div class="page1">
             <div class="nav wow zoomIn" data-wow-duration="2s">
-                <h1>DAL-Blog</h1>
-                <p>一天很短，开心了就笑，不开心了就过会儿再笑。</p>
+                <h1>${config["websiteName"]}</h1>
+                <p>${config['websiteDescription']}</p>
 <#--                <a class="layui-btn layui-btn-normal" style="margin-top: 20px" href="article.html">Enter Blog</a>-->
             </div>
             <a class="next wow fadeInUp" data-wow-duration="2s" id="next"></a>
@@ -73,9 +73,8 @@
                         <div class="blog-article">
                             <div class="blog-article-img">
                                 <div class="post-date">
-                                    13
-
-                                    <span><#--${bg.createTime?date('yyyy-MM-dd')}-->2021年10月</span>
+                                    ${bg.day!''}
+                                    <span><#--${bg.createTime?date('yyyy-MM-dd')}-->${bg.time!''}</span>
                                 </div>
                                 <div class="post-preview">
                                     <a href="javaScript:;"><img src="${bg.blogCoverImage!'../../static/blog/image/md.jpeg'}" alt=""></a>
@@ -106,4 +105,8 @@
 </div>
 <#include "./footer.ftl">
 </body>
+<script>
+    console.clear();
+    console.log("%c 一天很短,开心了就笑,不开心了就一会在笑", "background:#24272A; color:#ffffff", "");
+</script>
 </html>
