@@ -13,7 +13,7 @@
             <#--<a href="JavaScript:;" class="blog-skin">
                 <i class="fa fa-qq"></i>
             </a>-->
-            <div class="day-switch" style="position: absolute; right: 40px">
+            <div class="day-switch">
                 <div class="day-night-switch" role="button" <#--onClick="dayNightSwitch()"--> id="day-night-switch">
                     <div class="onOff daySwitch" id="daySwitch">
                         <div class="star star1"></div>

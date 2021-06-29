@@ -27,9 +27,9 @@
     </div>
 </div>
 <div class="section" id="section2">
-    <div class="fp-tablecell container1">
+    <div class="fp-tablecell">
         <div class="page2">
-            <div class="warp-box article">
+            <div class="warp-box">
                 <div class="new-article">
                     <div class="inner wow fadeInDown" data-wow-delay=".2s">
                         <h3><i class="layui-icon layui-icon-fire" style="font-size: 16px; color: #f1404b"></i> 最热文章</h3>
@@ -87,7 +87,7 @@
                                     <span class="categories">#${bg.blogCategoryName!'分类不存在'}</span>
                                 </div>
                                 <h2>
-                                    <a href="https://halo.hshan.fun/archives/theme-xue-showcase" rel="bookmark">
+                                    <a href="./toBlog/${bg.blogId}" rel="bookmark">
                                         <i class="iconfont icon-zhiding zhiding"></i> ${bg.blogTitle!'这是一个标题'}
                                     </a>
                                 </h2>
