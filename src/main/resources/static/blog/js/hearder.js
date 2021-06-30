@@ -9,7 +9,7 @@ layui.use(['jquery', 'layer', 'util'], function() {
 var slider = 0;
 var pathname = window.location.pathname.replace('Read', 'Article');
 var master = {};
-master.start = function($) {
+    master.start = function($) {
     $('#nav-list li').hover(function() {
         $(this).addClass('current');
     }, function() {
@@ -32,13 +32,14 @@ master.start = function($) {
     $('.phone-menu').on('click', function() {
         $('#nav-list').toggle(500);
     });
-    $(".day-switch").hover(function() {
+
+  /*  $(".day-switch").hover(function() {
         var tips = layer.tips('点击退出', '.day-switch', {
             tips: [3, '#009688'],
         });
     }, function() {
         layer.closeAll('tips');
-    })
+    })*/
 
     var autoNightMode = false
     autoNightMode = true;

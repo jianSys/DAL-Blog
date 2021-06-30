@@ -33,14 +33,14 @@
 <div class="blog-section" id="blog-section2">
     <div class="fp-tablecell">
         <div class="page2">
-            <div class="warp-box article" >
-                <!-- 页面解析markdown为HTML显示 -->
-                <div id="test-editormd">
-                    <textarea style="display: none" name="test-editormd-markdown-doc">${blog.blogContent}</textarea>
-                </div>
-                <aside class="blog-rights">
-                    <p>本站文章除注明转载/出处外，皆为作者原创，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文链接，否则保留追究法律责任的权利。</p>
-                </aside>
+            <div class="warp-box" >
+                    <!-- 页面解析markdown为HTML显示 -->
+                    <div id="test-editormd">
+                        <textarea style="display: none" name="test-editormd-markdown-doc">${blog.blogContent}</textarea>
+                    </div>
+                    <aside class="blog-rights">
+                        <p>本站文章除注明转载/出处外，皆为作者原创，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文链接，否则保留追究法律责任的权利。</p>
+                    </aside>
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
-.container {
+/*.container {
     margin: auto;
     width: 70%;
-}
+}*/
 
 .blog-section {
     overflow: hidden;
@@ -10,12 +10,6 @@
     width: 100%;
     position: relative;
     padding: 30px 0 0 0;
-}
-
-.post-header {
-    width: 100px;
-    height: 100px;
-    background-color: pink;
 }
 
 .fp-tablecell {
@@ -76,193 +70,12 @@
     position: relative
 }
 
-.article {
-    margin: 0 auto;
-    width: 60%;
-}
-
-.warp {
-    display: table;
-    margin: 0 auto;
-    height: 100%;
-    position: relative
-}
-
-.page2 .single-news {
-    /* margin-top: 50px; */
-    background: #faf9f9;
-    border-radius: 7px
-}
-
-.page2 .single-news:hover .news-head img {
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    transform: scale(1.2)
-}
-
-.page2 .single-news:hover .news-head:before {
-    opacity: 1;
-    visibility: visible;
-    -webkit-transform: translateY(0);
-    -moz-transform: translateY(0);
-    transform: translateY(0)
-}
-
-.page2 .single-news:hover .link {
-    top: 50%;
-    opacity: 1;
-    visibility: visible
-}
-
-.page2 .news-head {
-    position: relative;
-    overflow: hidden;
-}
-
-.page2 .news-head::before {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background: rgba(255, 255, 255, .51);
-    content: "";
-    opacity: 0;
-    visibility: hidden;
-    -webkit-transition: all .4s ease;
-    -moz-transition: all .4s ease;
-    transition: all .4s ease;
-    -webkit-transform: translateY(-100%);
-    -moz-transform: translateY(-100%);
-    transform: translateY(-100%);
-    z-index: 8
-}
-
-.page2 .news-head img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 7px;
-    -webkit-transition: all .4s ease;
-    -moz-transition: all .4s ease;
-    transition: all .4s ease
-}
-
-.page2 .link {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 40px;
-    height: 40px;
-    background: #333;
-    color: #fff;
-    opacity: 0;
-    visibility: hidden;
-    text-align: center;
-    left: 50%;
-    margin: -20px 0 0 -20px;
-    line-height: 40px;
-    z-index: 9;
-    -webkit-transition: all .4s ease;
-    -moz-transition: all .4s ease;
-    transition: all .4s ease
-}
-
-.page2 .news-content {
-    padding: 30px 15px
-}
-
-.page2 .news-content h4 {
-    margin-bottom: 10px
-}
-
-.page2 .news-content .date {
-    color: #bbb;
-    font-size: 12px;
-    margin-bottom: 15px
-}
-
-.page2 .news-content p {
-    color: #999;
-    height: 55px;
-    overflow: hidden
-}
-
-.page2 .news-content .btn {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 0;
-    background: 0 0;
-    border: none;
-    color: #29B6F6;
-    -webkit-transition: all .4s ease;
-    -moz-transition: all .4s ease;
-    transition: all .4s ease
-}
-
-.page2 .news-content .btn:hover {
-    color: #333
-}
-
-.page2 .new-article {
-    text-align: left;
-    padding: 20px 0 20px 10px;
-}
-
-.page2 .inner {
-    display: inline-block;
-    vertical-align: middle
-}
-
-.page2 .new-article h1 {
-    font-size: 32px;
-    /* padding-bottom: 30px; */
-    position: relative;
-    font-weight: 500
-}
-
-.page2 .new-article p {
-    margin-top: 20px;
-    line-height: 22px;
-    color: #888
-}
-
-.blog-article {
-    border-top: 1px solid #e6e6e670;
-    width: 100%;
-    padding-top: 25px;
-    padding-bottom: 15px;
-    margin-top: 0;
-    display: inline-block;
-}
-
-.blog-article-img {
-    position: relative;
-    margin-right: 20px;
-    flex-shrink: 0;
-    height: 130px;
-    width: 130px;
-    overflow: hidden;
-    float: left;
-    border: 1px solid #eae8e842;
-    background-color: #eae8e842;
-}
-
-.blog-article-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover
-}
-
-/*#test-editormd{
-    height: 100%;
-    overflow: hidden;
-}*/
 .blog-rights {
-    padding-top: 5px;
+    padding: 5px 10px 10px 15px;
+    /*padding-top: 5px;
     padding-right: 10px;
     padding-bottom: 10px;
-    padding-left: 15px;
+    padding-left: 15px;*/
     font-family: 微软雅黑;
     font-size: 12px;
 }
@@ -276,3 +89,105 @@
     display: inline-block;
 }
 
+
+/*第二屏 结束*/
+/*@media screen and (max-width: 668px) {
+    .page2 {
+        !*width: 750px;*!
+        width: 80%;
+    }
+    .editormd-html-preview {
+        padding: 0;
+        border: 0;
+        box-shadow:none;
+    }
+    .editormd-html-preview, .editormd-preview-container{
+        padding: 0;
+    }
+}
+@media screen and (min-width: 768px) {
+    .page2 {
+        !*width: 750px;*!
+        width: 70%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .page2 {
+        !*width: 970px;*!
+        width: 60%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .page2 {
+        !*width: 1170px;*!
+        width: 50%;
+    }
+}*/
+
+
+@media screen and  (min-width: 1200px){
+    .page2 {
+        /*width: 1170px;*/
+        width: 50%;
+    }
+}
+@media screen and (min-width: 992px) and (max-width: 1199px){
+    .page2 {
+        /*width: 970px;*/
+        width: 60%;
+    }
+}
+
+@media screen and  (max-width: 991px){
+    .page2 {
+        /*width: 970px;*/
+        width: 70%;
+    }
+}
+@media screen and (max-width: 768px){
+    .page2 {
+        /*width: 970px;*/
+        width: 80%;
+    }
+    .editormd-html-preview {
+        padding: 0;
+        border: 0;
+        box-shadow:none;
+    }
+    .editormd-html-preview, .editormd-preview-container{
+        padding: 0;
+    }
+    .night .editormd-html-preview {
+        padding: 0;
+        border: 0;
+        box-shadow:none;
+    }
+    .night .editormd-html-preview, .editormd-preview-container{
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .page2 {
+        /*width: 970px;*/
+        width: 90%;
+    }
+    .editormd-html-preview {
+        padding: 0;
+        border: 0;
+        box-shadow:none;
+    }
+    .editormd-html-preview, .editormd-preview-container{
+        padding: 0;
+    }
+    .night .editormd-html-preview {
+        padding: 0;
+        border: 0;
+        box-shadow:none;
+    }
+    .night .editormd-html-preview, .night .editormd-preview-container{
+        padding: 0;
+    }
+}

@@ -10,9 +10,6 @@
                     <li><a href="../s/about">关于</a></li>
                 </ul>
             </nav>
-            <#--<a href="JavaScript:;" class="blog-skin">
-                <i class="fa fa-qq"></i>
-            </a>-->
             <div class="day-switch">
                 <div class="day-night-switch" role="button" <#--onClick="dayNightSwitch()"--> id="day-night-switch">
                     <div class="onOff daySwitch" id="daySwitch">

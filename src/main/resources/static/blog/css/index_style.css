@@ -530,7 +530,54 @@
 	transform: translateY(-100%);
 }
 
-@media screen and (max-width:800px) {
+@media screen and  (min-width: 1200px){
+	.page2 {
+		/*width: 1170px;*/
+		width: 50%;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199px){
+	.page2 {
+		/*width: 970px;*/
+		width: 60%;
+	}
+}
+
+@media screen and  (max-width: 991px){
+	.page2 {
+		/*width: 970px;*/
+		width: 70%;
+	}
+}
+@media screen and (max-width: 768px){
+	.page2 {
+		/*width: 970px;*/
+		width: 80%;
+	}
+	/*.blog-article {
+		padding-top: 20px;
+		padding-bottom: 10px;
+		margin-top: 0
+	}
+	.blog-article .blog-article-img {
+		display: none
+	}
+	.blog-article .content {
+		width: 100%
+	}
+	.content h2 a::after{
+		left: 0;
+	}
+	.blog-article .blog-link {
+		opacity: 1
+	}*/
+}
+
+@media screen and (max-width: 480px){
+	.page2 {
+		/*width: 970px;*/
+		width: 90%;
+	}
 	.blog-article {
 		padding-top: 20px;
 		padding-bottom: 10px;
@@ -545,59 +592,8 @@
 	.content h2 a::after{
 		left: 0;
 	}
-	/* .posts-list .post-mobile-date {
-        color: #718096;
-        font-size: 12px;
-        display: inline-block
-    } */
 	.blog-article .blog-link {
 		opacity: 1
-	}
-}
-
-
-/*第二屏 结束*/
-@media screen and (min-width: 668px) {
-	.page2 {
-		/*width: 750px;*/
-		width: 80%;
-	}
-}
-
-
-@media screen and (min-width: 768px) {
-	.page2 {
-		/*width: 750px;*/
-		width: 70%;
-	}
-}
-
-@media screen and (min-width: 992px) {
-	.page2 {
-		/*width: 970px;*/
-		width: 60%;
-	}
-}
-
-@media screen and (min-width: 1200px) {
-	.page2 {
-		/*width: 1170px;*/
-		width: 50%;
-	}
-}
-
-@media screen and (max-width:768px) {
-	.navgation:before,
-	.navgation_open:before,
-	.navgation_close:before {
-		width: 50%;
-		transform: none;
-		-webkit-transform: none;
-	}
-	.logo {
-		width: 50%;
-		padding: 0;
-		text-align: center;
 	}
 }
 
@@ -608,101 +604,4 @@
 	src: url('../font/barbarahand-webfont.eot?#iefix') format('embedded-opentype'), url('../font/barbarahand-webfont.woff2') format('woff2'), url('../font/barbarahand-webfont.woff') format('woff'), url('../font/barbarahand-webfont.ttf') format('truetype'), url('../font/barbarahand-webfont.svg#BarbaraHand') format('svg');
 	font-weight: normal;
 	font-style: normal;
-}
-
-#loading {
-	background-color: #374140;
-	height: 100%;
-	width: 100%;
-	position: fixed;
-	z-index: 1;
-	margin-top: 0px;
-	top: 0px;
-}
-
-#loading-center {
-	width: 100%;
-	height: 100%;
-	position: relative;
-}
-
-#loading-center-absolute {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	height: 150px;
-	width: 150px;
-	margin-top: -75px;
-	margin-left: -75px;
-}
-
-.object {
-	width: 20px;
-	height: 20px;
-	background-color: #FFF;
-	float: left;
-	margin-right: 15px;
-	margin-left: 15px;
-	margin-top: 65px;
-	-moz-border-radius: 50% 50% 50% 50%;
-	-webkit-border-radius: 50% 50% 50% 50%;
-	border-radius: 50% 50% 50% 50%;
-}
-
-#object_one {
-	-webkit-animation: object_one 1.5s infinite;
-	animation: object_one 1.5s infinite;
-}
-
-#object_two {
-	-webkit-animation: object_two 1.5s infinite;
-	animation: object_two 1.5s infinite;
-	-webkit-animation-delay: 0.25s;
-	animation-delay: 0.25s;
-}
-
-#object_three {
-	-webkit-animation: object_three 1.5s infinite;
-	animation: object_three 1.5s infinite;
-	-webkit-animation-delay: 0.5s;
-	animation-delay: 0.5s;
-}
-
-@-webkit-keyframes object_one {
-	75% {
-		-webkit-transform: scale(0);
-	}
-}
-
-@keyframes object_one {
-	75% {
-		transform: scale(0);
-		-webkit-transform: scale(0);
-	}
-}
-
-@-webkit-keyframes object_two {
-	75% {
-		-webkit-transform: scale(0);
-	}
-}
-
-@keyframes object_two {
-	75% {
-		transform: scale(0);
-		-webkit-transform: scale(0);
-	}
-}
-
-@-webkit-keyframes object_three {
-	75% {
-		-webkit-transform: scale(0);
-	}
-}
-
-@keyframes object_three {
-	75% {
-		transform: scale(0);
-		-webkit-transform: scale(0);
-	}
 }
