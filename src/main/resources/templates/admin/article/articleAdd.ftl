@@ -146,10 +146,13 @@
                 //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
                 imageUpload: true,
                 imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                imageUploadURL: "./php/upload.php", // 文件上传路径，返回值为图片加载的路径
+                imageUploadURL: "../upload/images", // 文件上传路径，返回值为图片加载的路径
                 onload: function () {
                     // 加载后富文本编辑器成功后的回调
                     console.log('onload', this);
+                    //加载完成后生成目录
+                    testEditor.config("tocDropdown", true);
+                    initPasteDragImg(this); //允许粘贴和拖拉图片到editormd
                     //this.fullscreen();
                     //this.unwatch();
                     //this.watch().fullscreen();

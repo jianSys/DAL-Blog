@@ -1,16 +1,13 @@
 package com.blog.commons.utils;
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;
 import sun.net.ftp.FtpClient;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.MalformedURLException;
+import java.net.SocketException;
 import java.util.Map;
 
 import org.apache.commons.net.ftp.FTPClient;
@@ -22,6 +19,8 @@ import org.apache.commons.net.ftp.FTPReply;
  * @author: jian
  * @create: 2021-06-30 23:25
  **/
+
+@Log4j2
 public class FtpUtil {
 
     /** ftp服务器地址 */
@@ -41,6 +40,7 @@ public class FtpUtil {
     /** 指定要下载的文件名 */
     private String downloadFileName;
 
+    FTPClient ftp=null;
     /*
      *@Description: 获取ftp连接
      *@param host        服务器地址
@@ -61,13 +61,17 @@ public class FtpUtil {
             ftp.login(username, password);// 登录
             reply = ftp.getReplyCode();
             if (!FTPReply.isPositiveCompletion(reply)) {
-                System.out.println("用户名密码错误");
+                log.info("=====================未连接到FTP，用户名或密码错误==================");
                 ftp.disconnect();
                 return null;
+            }else {
+                log.info("=======================FTP连接成功================");
             }
+        } catch (SocketException e) {
+            log.error("==================FTP的IP地址可能错误，请正确配置。异常：", e);
         } catch (IOException e) {
-            System.out.println("端口错误");
             e.printStackTrace();
+            log.error("==================FTP的端口错误,请正确配置。异常：", e);
         }
         return ftp;
     }
@@ -79,10 +83,11 @@ public class FtpUtil {
      *@Date:  2019/5/20 10:39
      */
     public static void disConnect(FTPClient ftp){
-        if (ftp.isConnected()) {
+        if (null != ftp && ftp.isConnected()) {
             try {
                 ftp.disconnect();
-            } catch (IOException ioe) {
+            } catch (IOException e) {
+                log.error("============================关闭FTP连接异常：", e);
             }
         }
     }
@@ -98,9 +103,8 @@ public class FtpUtil {
      * @param input 输入流
      * @return 成功返回true，否则返回false
      */
-    public static boolean uploadFile(String host, int port, String username, String password, String basePath, String filePath, String filename, InputStream input) {
+    public static boolean uploadFile(FTPClient ftp, String basePath, String filePath, String filename, InputStream input) {
         boolean result = false;
-        FTPClient ftp = getConnect(host,port,username,password);
         try {
             if(ftp == null){
                 return result;
@@ -115,7 +119,9 @@ public class FtpUtil {
                         continue;
                     }
                     tempPath += "/" + dir;
+                    //切换目录
                     if (!ftp.changeWorkingDirectory(tempPath)) {
+                        //没有文件夹,创建文件夹
                         if (!ftp.makeDirectory(tempPath)) {
                             return result;
                         } else {
@@ -124,10 +130,12 @@ public class FtpUtil {
                     }
                 }
             }
+            ftp.setControlEncoding("UTF-8"); // 中文支持
             //设置为被动模式
             ftp.enterLocalPassiveMode();
             //设置上传文件的类型为二进制类型
             ftp.setFileType(FTP.BINARY_FILE_TYPE);
+
             //上传文件
             if (!ftp.storeFile(filename, input)) {
                 return result;
@@ -146,18 +154,13 @@ public class FtpUtil {
 
     /**
      * Description: 从FTP服务器下载文件
-     * @param host FTP服务器hostname
-     * @param port FTP服务器端口
-     * @param username FTP登录账号
-     * @param password FTP登录密码
      * @param remotePath FTP服务器上的相对路径
      * @param fileName 要下载的文件名
      * @param localPath 下载后保存到本地的路径
      * @return
      */
-    public static boolean downloadFile(String host, int port, String username, String password, String remotePath, String fileName, String localPath) {
+    public static boolean downloadFile(FTPClient ftp, String remotePath, String fileName, String localPath) {
         boolean result = false;
-        FTPClient ftp = getConnect(host,port,username,password);
         try {
             if(ftp == null){
                 return result;
@@ -310,7 +313,7 @@ public class FtpUtil {
             //获取上传路径
             String uploadPath  = newPath.substring(0,newPath.lastIndexOf("/"));
             String fileTempPath = uploadPath.substring(uploadPath.lastIndexOf("img/")+4,uploadPath.length());
-            uploadFile(host, port, username, password,"/home/ftpuser/www/img",fileTempPath,uploadFileName,inputStream);
+            uploadFile(ftp,"/home/ftpuser/www/img",fileTempPath,uploadFileName,inputStream);
             ftp.deleteFile(filePath);
             inputStream.close();
             ftp.logout();
@@ -325,7 +328,14 @@ public class FtpUtil {
 
 
     public static void main(String[] args) {
-        FTPClient connect = getConnect("49.232.1.128", 21, "root", "123456");
+        FTPClient connect = getConnect("49.232.1.128", 21, "ftp", "123456");
+        try {
+            FileInputStream input = new FileInputStream(new File("E:\\image\\1.jpg"));
+            boolean b = uploadFile(connect, "/var/www","image", "9", input);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+       // boolean downloadFile = downloadFile(connect, "/var/www", "4.jpg", "E:\\images");
         System.out.println(connect.toString());
     }
 }
