@@ -2,7 +2,6 @@ package com.blog.controller.admin;
 
 import cn.hutool.json.JSONObject;
 import com.blog.commons.Result;
-import com.blog.commons.utils.FileUtil;
 import com.blog.pojo.TbBlog;
 import com.blog.service.ArticleService;
 import lombok.extern.log4j.Log4j2;
@@ -21,6 +20,7 @@ import java.io.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -133,13 +133,66 @@ public class UploadController {
         }
     }
 
+
+
+
+
+    @ResponseBody
+    @PostMapping( "uploadFile")
+    public String uploadFile(HttpServletRequest request, HttpServletResponse response,
+                             @RequestParam(value = "editormd-image-file", required = false) MultipartFile attach){
+        JSONObject jsonObject=new JSONObject();
+
+        try {
+            //获取上传的名字
+            String filename = attach.getOriginalFilename();
+            //截取后缀名
+            String suffix = filename.substring(filename.lastIndexOf("."));
+            //Random r = new Random();
+            //生成新的文件名
+            String newFileName = UUID.randomUUID().toString() + suffix;
+
+            request.setCharacterEncoding("utf-8");
+            response.setHeader("Content-Type", "text/html");
+            //获取到c盘下一个tomcat路径
+            String rootPath = request.getSession().getServletContext().getRealPath("/resource/img");
+            //获取项目路径
+            String property = System.getProperty("user.dir");
+/*
+            System.out.println("editormd上传图片："+property);
+
+            String path = "/Users/jian/Desktop/IO/";*/
+            /**
+             * 文件路径不存在则需要创建文件路径
+             */
+            File path = new File(filePath);
+            if (!path.exists()) {
+                path.mkdirs();
+            }
+
+            // 最终文件名
+            File realFile = new File(filePath + File.separator + newFileName);
+            Files.copy(attach.getInputStream(),realFile.toPath());
+            //FileUtils.copyInputStreamToFile(attach.getInputStream(), realFile);
+
+            // 下面response返回的json格式是editor.md所限制的，规范输出就OK
+            jsonObject.put("success", 1);
+            jsonObject.put("message", "上传成功");
+            jsonObject.put("url", filePath+newFileName);
+        } catch (Exception e) {
+            jsonObject.put("success", 0);
+        }
+        return jsonObject.toString();
+    }
+
+
     /**
      * md文档内图片
      * @param
      * @return
      * @throws IOException
      */
-    @RequestMapping("/editormdPicUpload")
+   /* @RequestMapping("uploadFile")
     @ResponseBody
     public void uploadFileByEditormd(HttpServletRequest request,
                                      HttpServletResponse response,
@@ -173,7 +226,7 @@ public class UploadController {
             response.getWriter().write("{\"success\":0}");
         }
     }
-
+*/
 
 
 
