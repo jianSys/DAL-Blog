@@ -1,7 +1,9 @@
 package com.blog.controller.admin;
 
 import cn.hutool.json.JSONObject;
+import com.blog.commons.MessageConstant;
 import com.blog.commons.Result;
+import com.blog.commons.utils.BlogUtil;
 import com.blog.pojo.TbBlog;
 import com.blog.service.ArticleService;
 import lombok.extern.log4j.Log4j2;
@@ -137,7 +139,7 @@ public class UploadController {
 
 
 
-    @ResponseBody
+   /* @ResponseBody
     @PostMapping( "uploadFile")
     public String uploadFile(HttpServletRequest request, HttpServletResponse response,
                              @RequestParam(value = "editormd-image-file", required = false) MultipartFile attach){
@@ -158,42 +160,44 @@ public class UploadController {
             String rootPath = request.getSession().getServletContext().getRealPath("/resource/img");
             //获取项目路径
             String property = System.getProperty("user.dir");
-/*
+*//*
             System.out.println("editormd上传图片："+property);
 
-            String path = "/Users/jian/Desktop/IO/";*/
-            /**
+            String path = "/Users/jian/Desktop/IO/";*//*
+            File file = new File("/opt/deploy/upload/" + newFileName);
+            String fileUrl = BlogUtil.getHost(new URI(request.getRequestURL() + "")) + "/upload/" + newFileName;
+
+            *//**
              * 文件路径不存在则需要创建文件路径
-             */
+             *//*
             File path = new File(filePath);
             if (!path.exists()) {
                 path.mkdirs();
             }
 
             // 最终文件名
-            File realFile = new File(filePath + File.separator + newFileName);
-            Files.copy(attach.getInputStream(),realFile.toPath());
+           // File realFile = new File(filePath + File.separator + newFileName);
+            //Files.copy(attach.getInputStream(),realFile.toPath());
             //FileUtils.copyInputStreamToFile(attach.getInputStream(), realFile);
-
+            attach.transferTo(file);
             // 下面response返回的json格式是editor.md所限制的，规范输出就OK
             jsonObject.put("success", 1);
             jsonObject.put("message", "上传成功");
-            jsonObject.put("url", filePath+newFileName);
+            jsonObject.put("url", fileUrl);
         } catch (Exception e) {
             jsonObject.put("success", 0);
         }
         return jsonObject.toString();
     }
 
-
+*/
     /**
      * md文档内图片
      * @param
      * @return
      * @throws IOException
      */
-   /* @RequestMapping("uploadFile")
-    @ResponseBody
+    @PostMapping("uploadFile")
     public void uploadFileByEditormd(HttpServletRequest request,
                                      HttpServletResponse response,
                                      @RequestParam(name = "editormd-image-file", required = true)
@@ -207,9 +211,9 @@ public class UploadController {
         tempName.append(sdf.format(new Date())).append(r.nextInt(100)).append(suffixName);
         String newFileName = tempName.toString();
         //创建文件
-        File destFile = new File(filePath + newFileName);
-        //String fileUrl = MyBlogUtils.getHost(new URI(request.getRequestURL() + "")) + "/upload/" + newFileName;
-        File fileDirectory = new File(filePath);
+        File destFile = new File(MessageConstant.FILE_UPLOAD_DIC + newFileName);
+        String fileUrl = BlogUtil.getHost(new URI(request.getRequestURL() + "")) + "/upload/" + newFileName;
+        File fileDirectory = new File(MessageConstant.FILE_UPLOAD_DIC);
         try {
             if (!fileDirectory.exists()) {
                 if (!fileDirectory.mkdir()) {
@@ -219,14 +223,14 @@ public class UploadController {
             file.transferTo(destFile);
             request.setCharacterEncoding("utf-8");
             response.setHeader("Content-Type", "text/html");
-            response.getWriter().write("{\"success\": 1, \"message\":\"success\",\"url\":\"" + fileName + "\"}");
+            response.getWriter().write("{\"success\": 1, \"message\":\"success\",\"url\":\"" + fileUrl + "\"}");
         } catch (UnsupportedEncodingException e) {
             response.getWriter().write("{\"success\":0}");
         } catch (IOException e) {
             response.getWriter().write("{\"success\":0}");
         }
     }
-*/
+
 
 
 

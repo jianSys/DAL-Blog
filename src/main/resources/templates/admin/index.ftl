@@ -69,7 +69,7 @@
                         <dd><a lay-href="set/user/info.html">基本资料</a></dd>
                         <dd><a lay-href="toPassword">修改密码</a></dd>
                         <hr>
-                        <dd id="logout" layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+                        <dd id="logout" <#--layadmin-event="logout"--> style="text-align: center;"><a>退出</a></dd>
                     </dl>
                 </li>
 
@@ -122,8 +122,8 @@
                             <cite>页面</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd><a lay-href="template/personalpage.html">所有页面</a></dd>
-                            <dd><a lay-href="toPageAdd">新建页面</a></dd>
+                            <dd><a lay-href="page/toPageList">所有页面</a></dd>
+                            <dd><a lay-href="page/toPageAdd">新建页面</a></dd>
                         </dl>
                     </li>
                     <li data-name="app" class="layui-nav-item">
@@ -231,7 +231,8 @@
         var $ = layui.$
             , form = layui.form
             , layer = layui.layer
-            , upload = layui.upload;
+            , upload = layui.upload
+        ,admin = layui.admin;
         $("#logout").on("click",function () {
             $.ajax({
                 type: 'get',//方法类型

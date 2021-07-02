@@ -28,6 +28,8 @@
         <hr class="hr15">
         <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
         <hr class="hr15">
+        <div id="slider"></div>
+        <hr class="hr15">
         <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
         <hr class="hr20" >
     </form>
@@ -35,13 +37,21 @@
 
 <script>
     $(function  () {
-        layui.use(['form'], function(){
+        layui.config({
+            base: '/static/x-admin/js/'
+        }).use(['form','sliderVerify','layer'], function(){
             var form = layui.form,
             layer = layui.layer,
-                $ = layui.jquery;
+                $ = layui.jquery,
+                sliderVerify = layui.sliderVerify;
             // layer.msg('玩命卖萌中', function(){
             //   //关闭后的操作
             //   });
+            //滑块生成
+            var slider = sliderVerify.render({
+                elem: '#slider',
+            });
+            var flag=true;
             //监听提交
             form.on('submit(login)', function(data){
                 // data = data.field;
@@ -58,32 +68,39 @@
                     layer.msg('密码不能为空');
                     return false;
                 }
-                console.log("数据......."+data.field);
-                //发送ajax请求
-                $.ajax({
-                    type: 'POST',
-                    url: '/admin/login',
-                    dataType: "JSON",
-                    data: JSON.stringify(data.field),
-                    contentType: "application/json",
-                    success: function (res) {
-                        console.log(res);
-                        if (res.code === 0) {
-                            layui.data('LocalData', {
-                                key: "access_token",
-                                value: res.data.accessToken
-                            });
-                            //登陆成功跳转页面
-                            layer.msg('登录成功', {time: 1000}, function () {
-                                window.location = '/admin/index';
-                            });
-                        } else {
-                            layer.msg(res.msg);
-                            $("#img").click();
+                if(slider.isOk() && flag){
+                    //防止表单重复提交
+                    flag = false;
+                    //发送ajax请求
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/login',
+                        dataType: "JSON",
+                        data: JSON.stringify(data.field),
+                        contentType: "application/json",
+                        success: function (res) {
+                            console.log(res);
+                            if (res.code === 0) {
+                                layui.data('LocalData', {
+                                    key: "access_token",
+                                    value: res.data.accessToken
+                                });
+                                //登陆成功跳转页面
+                                layer.msg('登录成功', {time: 1000}, function () {
+                                    window.location = '/admin/index';
+                                });
+                            } else {
+                                flag = true;
+                                layer.msg(res.msg);
+                                $("#img").click();
+                            }
                         }
-                    }
 
-                });
+                    });
+                }else{
+                    layer.msg("滑块验证通过");
+                }
+
                 return false;
             });
         });

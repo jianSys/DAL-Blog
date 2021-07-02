@@ -97,6 +97,7 @@
 <script src="../../../static/editormd/lib/sequence-diagram.min.js"></script>
 <script src="../../../static/editormd/lib/flowchart.min.js"></script>
 <script src="../../../static/editormd/lib/jquery.flowchart.min.js"></script>
+<script src="../../../static/editormd/js/uploadImg.js"></script>
 <script>
     layui.config({
         base: '../../../static/layui/' //静态资源所在路径
@@ -152,7 +153,7 @@
                     console.log('onload', this);
                     //加载完成后生成目录
                     testEditor.config("tocDropdown", true);
-                    // initPasteDragImg(this); //允许粘贴和拖拉图片到editormd
+                    initPasteDragImg(this); //允许粘贴和拖拉图片到editormd
                     //this.fullscreen();
                     //this.unwatch();
                     //this.watch().fullscreen();

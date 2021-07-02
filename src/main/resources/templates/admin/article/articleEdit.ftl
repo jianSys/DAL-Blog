@@ -51,6 +51,7 @@
 <script src="../../../static/editormd/lib/sequence-diagram.min.js"></script>
 <script src="../../../static/editormd/lib/flowchart.min.js"></script>
 <script src="../../../static/editormd/lib/jquery.flowchart.min.js"></script>
+<script src="../../../static/editormd/js/uploadImg.js"></script>
 <script src="../../../static/admin/js/articleedit.js"></script>
 </body>
 </html>

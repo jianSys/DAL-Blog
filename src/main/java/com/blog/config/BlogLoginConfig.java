@@ -1,5 +1,6 @@
 package com.blog.config;
 
+import com.blog.commons.MessageConstant;
 import com.blog.interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,9 +37,8 @@ public class BlogLoginConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:" + "usrl");
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:" + MessageConstant.FILE_UPLOAD_DIC);
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");//配置浏览器直接访问static下的静态资源
-        registry.addResourceHandler("/upload-images/**").addResourceLocations("file:" + "imageSavePath");//配置图片物理存储路径和虚拟访问路径
-    }
+         }
 
 }

@@ -82,9 +82,10 @@ public class LoginController {
 
 
     @GetMapping("logout")
-    private String logout(HttpSession session) {
+    @ResponseBody
+    private Result logout(HttpSession session) {
         session.removeAttribute("loginUser");
-        return "redirect:/admin/login";
+        return new Result(0,"退出成功");
     }
 
 
