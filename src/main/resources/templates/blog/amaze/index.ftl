@@ -9,11 +9,11 @@
     <title>DAL个人博客</title>
     <meta name="keywords" content="个人博客，个人网站，个人博客模板，好看的个人博客">
     <meta name="description" content="个人博客搭建，个人博客免费建站，个人博客网站html源码，个人博客网站制作模板，源码下载，织梦，前端，java，PHP模板源码分享">
-   <#include "./common.ftl">
+   <#include "common.ftl">
 </head>
 
 <body >
-<#include "./header.ftl">
+<#include "header.ftl">
 <div class="section" id="section1">
     <div class="fp-tablecell">
         <div class="page1">
@@ -87,14 +87,14 @@
                                     <span class="categories">#${bg.blogCategoryName!'分类不存在'}</span>
                                 </div>
                                 <h2>
-                                    <a href="./toBlog/${bg.blogId}" rel="bookmark">
+                                    <a href="../toBlog/${bg.blogId}" rel="bookmark">
                                         <i class="iconfont icon-zhiding zhiding"></i> ${bg.blogTitle!'这是一个标题'}
                                     </a>
                                 </h2>
                                 <p>
                                     ${bg.blogIntroduce!'这是一个文章简介'}
                                 </p>
-                                <a href="./toBlog/${bg.blogId}" class="blog-link"><span class="text">查看全文</span></a>
+                                <a href="../toBlog/${bg.blogId}" class="blog-link"><span class="text">查看全文</span></a>
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
     </div>
 </div>
 </div>
-<#include "./footer.ftl">
+<#include "footer.ftl">
 </body>
 <script>
     console.clear();

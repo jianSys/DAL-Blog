@@ -47,7 +47,20 @@ var master = {};
     $(".day-night-switch").on("click",function (){
        dayNightSwitch();
     })
-
+        //返回顶部
+    $(window).scroll(function() {
+        if ($(window).scrollTop() >= 120) {
+            $("#lolijump").fadeIn();
+        } else {
+            $("#lolijump").fadeOut();
+        }
+    });
+    $("#lolijump").click(function(event) {
+        $('html,body').animate({
+              scrollTop: 0
+         }, 500);
+        return false;
+    });
 // 夜间模式
     function dayNightSwitch() {
         const key = 'nightMode';

@@ -5,7 +5,7 @@
         $("#loading").fadeOut(500);
         new WOW().init();
     })
-    util.fixbar();;
+    //util.fixbar();
     $('.next').click(function () {
         $('html,body').animate({
             scrollTop: $('#section1').outerHeight() + 1

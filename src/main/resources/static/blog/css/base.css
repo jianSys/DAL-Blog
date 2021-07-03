@@ -971,3 +971,14 @@ img {
         right: 0px;
     }
 }
+.lolijump{
+    position: fixed;
+    height: 60px;
+    width: 60px;
+    right: 15px;
+    bottom: 40px;
+    z-index: 999;
+}
+.lolijump img{
+    width: 100%;
+}

@@ -7,17 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DAL</title>
 
-    <link href="../../static/blog/css/animate.min.css" rel="stylesheet" type="text/css">
-    <link href="../../static/layui/layui/css/layui.css" rel="stylesheet" type="text/css">
+    <link href="../../../static/blog/css/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="../../../static/layui/layui/css/layui.css" rel="stylesheet" type="text/css">
     <!-- 页面解析markdown为HTML显示需要的css -->
-    <link rel="stylesheet" href="../../static/editormd/css/editormd.preview.min.css" />
-    <link href="../../static/blog/css/base.css" rel="stylesheet" type="text/css">
-    <link href="../../static/blog/css/details.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../../static/editormd/css/editormd.preview.min.css" />
+    <link href="../../../static/blog/css/base.css" rel="stylesheet" type="text/css">
+    <link href="../../../static/blog/css/details.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body class="">
-<#include "./header.ftl">
+<#include "header.ftl">
 <div class="blog-section" id="blog-section1">
     <div class="fp-tablecell">
         <div class="page1">
@@ -45,20 +45,20 @@
         </div>
     </div>
 </div>
-<#include "./footer.ftl">
-<script src="../../static/blog/js/jquery.min.js"></script>
-<script src="../../static/editormd/js/editormd.min.js"></script>
-<script src="../../static/blog/layui/layui.js"></script>
-<script src="../../static/blog/js/hearder.js"></script>
+<#include "footer.ftl">
+<script src="../../../static/blog/js/jquery.min.js"></script>
+<script src="../../../static/editormd/js/editormd.min.js"></script>
+<script src="../../../static/blog/layui/layui.js"></script>
+<script src="../../../static/blog/js/hearder.js"></script>
 
 <!-- 页面markdown解析成HTML需要的js -->
-<script src="../../static/editormd/lib/marked.min.js"></script>
-<script src="../../static/editormd/lib/prettify.min.js"></script>
-<script src="../../static/editormd/lib/raphael.min.js"></script>
-<script src="../../static/editormd/lib/underscore.min.js"></script>
-<script src="../../static/editormd/lib/sequence-diagram.min.js"></script>
-<script src="../../static/editormd/lib/flowchart.min.js"></script>
-<script src="../../static/editormd/lib/jquery.flowchart.min.js"></script>
+<script src="../../../static/editormd/lib/marked.min.js"></script>
+<script src="../../../static/editormd/lib/prettify.min.js"></script>
+<script src="../../../static/editormd/lib/raphael.min.js"></script>
+<script src="../../../static/editormd/lib/underscore.min.js"></script>
+<script src="../../../static/editormd/lib/sequence-diagram.min.js"></script>
+<script src="../../../static/editormd/lib/flowchart.min.js"></script>
+<script src="../../../static/editormd/lib/jquery.flowchart.min.js"></script>
 <#--<script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>-->
 <#--<script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>-->
 

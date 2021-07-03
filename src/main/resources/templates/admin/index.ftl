@@ -145,7 +145,7 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd>
-                                <a lay-href="user/user/list.html">主题</a>
+                                <a lay-href="theme/toThemeList">主题</a>
                             </dd>
                             <dd>
                                 <a lay-href="user/administrators/list.html">菜单</a>

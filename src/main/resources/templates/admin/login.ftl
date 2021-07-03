@@ -91,7 +91,7 @@
                                 });
                             } else {
                                 flag = true;
-                                layer.msg(res.msg);
+                                layer.msg(res.data.msg);
                                 $("#img").click();
                             }
                         }
