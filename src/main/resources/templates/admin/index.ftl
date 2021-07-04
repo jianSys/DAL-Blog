@@ -127,7 +127,7 @@
                         </dl>
                     </li>
                     <li data-name="app" class="layui-nav-item">
-                        <a href="javascript:;" lay-tips="应用" lay-direction="2">
+                        <a href="javascript:;" lay-href="file/toFileList" lay-tips="应用" lay-direction="2">
                             <i class="layui-icon layui-icon-app"></i>
                             <cite>附件</cite>
                         </a>
