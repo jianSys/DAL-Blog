@@ -7,10 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="stylesheet" href="../../static/x-admin/css/font.css">
-    <link rel="stylesheet" href="../../static/x-admin/css/login.css">
-    <link rel="stylesheet" href="../../static/x-admin/css/xadmin.css">
-    <script type="text/javascript" src="../../static/jquery/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="../../static/admin/css/font.css">
+    <link rel="stylesheet" href="../../static/admin/css/login.css">
+    <link rel="stylesheet" href="../../static/admin/css/xadmin.css">
+    <script type="text/javascript" src="../../static/admin/jquery/jquery-3.2.1.min.js"></script>
     <script src="../../static/layui/layui/layui.js" charset="utf-8"></script>
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -38,7 +38,7 @@
 <script>
     $(function  () {
         layui.config({
-            base: '/static/x-admin/js/'
+            base: '/static/admin/js/'
         }).use(['form','sliderVerify','layer'], function(){
             var form = layui.form,
             layer = layui.layer,

@@ -48,7 +48,7 @@
 <#include "footer.ftl">
 <script src="../../../static/blog/js/jquery.min.js"></script>
 <script src="../../../static/editormd/js/editormd.min.js"></script>
-<script src="../../../static/blog/layui/layui.js"></script>
+<script src="../../../static/layui/layui/layui.js"></script>
 <script src="../../../static/blog/js/hearder.js"></script>
 
 <!-- 页面markdown解析成HTML需要的js -->

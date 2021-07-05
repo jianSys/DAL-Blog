@@ -17,29 +17,25 @@
             cursor: pointer;
             color: #01AAED;
         }
-        .layui-card:hover{
+        /*.layui-card:hover{
             border: 1px solid rgba(30, 35, 42, .06);
-            box-shadow: 0 4px 10px 10px rgb(0 0 0 / 5%);
-        }
+            box-shadow: 0 1px 1px 0px rgb(0 0 0 / 5%);
+        }*/
     </style>
 </head>
 <body>
 
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
-<#--        <#list  themeList as theme>-->
+        <#list  fileList as files>
             <div class="layui-col-sm6 layui-col-md2">
             <div class="layui-card">
-<#--                <div class="layui-card-header">-->
-<#--                    ${theme.name}-->
-<#--                </div>-->
-<#--                <input id="themeId" name="id" type="hidden" value="${theme.id}">-->
                 <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
+                    <img class="" src="${files.fileUrl}" style="width: 100%">
                 </div>
                 <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
                     <p style="text-align: center">
-                        name
+                        ${files.fileName}
 <#--                        <#if theme.status=1>-->
 <#--                            <span id="theme_open" class="theme_open"><i class="layui-icon layui-icon-password" style="color: #01AAED"></i>已启动</span>-->
 <#--                        <#else>-->
@@ -51,224 +47,8 @@
                 </div>
             </div>
         </div>
-<#--        </#list>-->
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                   <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="../../../static/blog/image/bgc.jpg" style="width: 100%">
-                </div>
-                <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
-                    <p style="text-align: center">
-                        name
-                    </p>
-                </div>
-            </div>
-        </div>
 
+        </#list>
     </div>
 </div>
 </div>
@@ -279,12 +59,14 @@
         base: '../../static/layui/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'sample'], function () {
+    }).use(['index', 'sample','laypage'], function () {
         var layer = layui.layer
             , $ = layui.jquery
             , form = layui.form
             , admin = layui.admin
-            , upload = layui.upload;
+            , upload = layui.upload
+        ,laypage=layui.laypage;
+
         $(".theme_set").on('click',function (){
             layer.alert('拼命开发中', {icon: 6});
         })
