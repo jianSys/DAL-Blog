@@ -10,7 +10,7 @@
     <link href="../../../static/blog/css/animate.min.css" rel="stylesheet" type="text/css">
     <link href="../../../static/layui/layui/css/layui.css" rel="stylesheet" type="text/css">
     <!-- 页面解析markdown为HTML显示需要的css -->
-    <link rel="stylesheet" href="../../../static/editormd/css/editormd.preview.min.css" />
+    <link rel="stylesheet" href="../../../static/admin/plugins/editormd/css/editormd.preview.min.css" />
     <link href="../../../static/blog/css/base.css" rel="stylesheet" type="text/css">
     <link href="../../../static/blog/css/details.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
@@ -47,18 +47,18 @@
 </div>
 <#include "footer.ftl">
 <script src="../../../static/blog/js/jquery.min.js"></script>
-<script src="../../../static/editormd/js/editormd.min.js"></script>
+<script src="../../../static/admin/plugins/editormd/js/editormd.min.js"></script>
 <script src="../../../static/blog/layui/layui.js"></script>
 <script src="../../../static/blog/js/hearder.js"></script>
 
 <!-- 页面markdown解析成HTML需要的js -->
-<script src="../../../static/editormd/lib/marked.min.js"></script>
-<script src="../../../static/editormd/lib/prettify.min.js"></script>
-<script src="../../../static/editormd/lib/raphael.min.js"></script>
-<script src="../../../static/editormd/lib/underscore.min.js"></script>
-<script src="../../../static/editormd/lib/sequence-diagram.min.js"></script>
-<script src="../../../static/editormd/lib/flowchart.min.js"></script>
-<script src="../../../static/editormd/lib/jquery.flowchart.min.js"></script>
+<script src="../../../static/admin/plugins/editormd/lib/marked.min.js"></script>
+<script src="../../../static/admin/plugins/editormd/lib/prettify.min.js"></script>
+<script src="../../../static/admin/plugins/editormd/lib/raphael.min.js"></script>
+<script src="../../../static/admin/plugins/editormd/lib/underscore.min.js"></script>
+<script src="../../../static/admin/plugins/editormd/lib/sequence-diagram.min.js"></script>
+<script src="../../../static/admin/plugins/editormd/lib/flowchart.min.js"></script>
+<script src="../../../static/admin/plugins/editormd/lib/jquery.flowchart.min.js"></script>
 <#--<script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>-->
 <#--<script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>-->
 

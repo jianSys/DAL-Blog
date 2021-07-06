@@ -5,7 +5,10 @@ import com.blog.commons.MessageConstant;
 import com.blog.commons.Result;
 import com.blog.commons.utils.BlogUtil;
 import com.blog.pojo.TbBlog;
+import com.blog.pojo.TbBlogFile;
 import com.blog.service.ArticleService;
+import com.blog.service.FileService;
+import com.mysql.cj.protocol.x.MessageConstants;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,11 +48,11 @@ public class UploadController {
     @Value("${blog.upload.dir}")
     private String filePath;
 
-    @Value("${blog.upload.file.dir}")
-    private String fileDirPath;
-
+    @Autowired
+    private FileService fileService;
     @Autowired
     private ArticleService articleService;
+/*
 
     @PostMapping("images")
     @ResponseBody
@@ -78,11 +81,14 @@ public class UploadController {
             log.error("=========保存图片异常============",e);
             e.printStackTrace();
         }
-//        生成图片的url
+        //生成图片的url
         String imgUrl = filePath + newFileName;
         System.out.println(imgUrl);
         return new Result(0, "成功", imgUrl);
     }
+
+*/
+
 
     @PostMapping("file")
     @ResponseBody
@@ -99,8 +105,6 @@ public class UploadController {
             String line="";
             int lineNum=0;
             while((line=br.readLine())!=null /*&& Format.isNotNull(line)*/){
-                //替换字符
-                //String replace = line.replace("\n", "你在干什么");
                 str = str + line;
                 System.out.println(line);
             }
@@ -120,7 +124,6 @@ public class UploadController {
     }
 
     public static void inputStreamToFile(InputStream ins, File file) {
-
         try {
             OutputStream os = new FileOutputStream(file);
             int bytesRead = 0;
@@ -135,68 +138,49 @@ public class UploadController {
         }
     }
 
-
-
-
-
-   /* @ResponseBody
-    @PostMapping( "uploadFile")
-    public String uploadFile(HttpServletRequest request, HttpServletResponse response,
-                             @RequestParam(value = "editormd-image-file", required = false) MultipartFile attach){
-        JSONObject jsonObject=new JSONObject();
-
-        try {
-            //获取上传的名字
-            String filename = attach.getOriginalFilename();
-            //截取后缀名
-            String suffix = filename.substring(filename.lastIndexOf("."));
-            //Random r = new Random();
-            //生成新的文件名
-            String newFileName = UUID.randomUUID().toString() + suffix;
-
-            request.setCharacterEncoding("utf-8");
-            response.setHeader("Content-Type", "text/html");
-            //获取到c盘下一个tomcat路径
-            String rootPath = request.getSession().getServletContext().getRealPath("/resource/img");
-            //获取项目路径
-            String property = System.getProperty("user.dir");
-*//*
-            System.out.println("editormd上传图片："+property);
-
-            String path = "/Users/jian/Desktop/IO/";*//*
-            File file = new File("/opt/deploy/upload/" + newFileName);
-            String fileUrl = BlogUtil.getHost(new URI(request.getRequestURL() + "")) + "/upload/" + newFileName;
-
-            *//**
-             * 文件路径不存在则需要创建文件路径
-             *//*
-            File path = new File(filePath);
-            if (!path.exists()) {
-                path.mkdirs();
-            }
-
-            // 最终文件名
-           // File realFile = new File(filePath + File.separator + newFileName);
-            //Files.copy(attach.getInputStream(),realFile.toPath());
-            //FileUtils.copyInputStreamToFile(attach.getInputStream(), realFile);
-            attach.transferTo(file);
-            // 下面response返回的json格式是editor.md所限制的，规范输出就OK
-            jsonObject.put("success", 1);
-            jsonObject.put("message", "上传成功");
-            jsonObject.put("url", fileUrl);
-        } catch (Exception e) {
-            jsonObject.put("success", 0);
-        }
-        return jsonObject.toString();
-    }
-
-*/
     /**
-     * md文档内图片
-     * @param
+     * 新上传图片
+     * @param file
+     * @param httpServletRequest
      * @return
      * @throws IOException
      */
+    @PostMapping("images")
+    @ResponseBody
+    private Result uploadImages(@RequestParam("file") MultipartFile file, HttpServletRequest httpServletRequest) throws IOException {
+        String fileName = file.getOriginalFilename();
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        //生成文件名称通用方法
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        Random r = new Random();
+        StringBuilder tempName = new StringBuilder();
+        tempName.append(sdf.format(new Date())).append(r.nextInt(100)).append(suffixName);
+        String newFileName = tempName.toString();
+        File fileDirectory = new File(MessageConstant.FILE_UPLOAD_DIC);
+        //创建文件
+        File destFile = new File(MessageConstant.FILE_UPLOAD_DIC + newFileName);
+        try {
+            if (!fileDirectory.exists()) {
+                if (!fileDirectory.mkdir()) {
+                    throw new IOException("文件夹创建失败,路径为：" + fileDirectory);
+                }
+            }
+            file.transferTo(destFile);
+            String url = BlogUtil.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName;
+            //保存到数据库
+            fileService.saveBlogFile(TbBlogFile.builder().fileUrl(url).fileName(newFileName).fileType(suffixName).createTime(new Date()).build());
+            return new Result(0,"上传成功",url);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(500,"文件上传失败");
+        }
+    }
+        /**
+         * md文档内图片
+         * @param
+         * @return
+         * @throws IOException
+         */
     @PostMapping("uploadFile")
     public void uploadFileByEditormd(HttpServletRequest request,
                                      HttpServletResponse response,
@@ -221,6 +205,8 @@ public class UploadController {
                 }
             }
             file.transferTo(destFile);
+            //保存到数据库
+            fileService.saveBlogFile(TbBlogFile.builder().fileUrl(fileUrl).fileName(newFileName).fileType(suffixName).createTime(new Date()).build());
             request.setCharacterEncoding("utf-8");
             response.setHeader("Content-Type", "text/html");
             response.getWriter().write("{\"success\": 1, \"message\":\"success\",\"url\":\"" + fileUrl + "\"}");
@@ -237,22 +223,14 @@ public class UploadController {
 
     //上传文件到本地
     public static void main(String[] args) throws Exception {
-
         String lineTxt = null;
-
         File file = new File("E://redis.md");
         String encoding="UTF-8";
-
         File path=new File("F://redis.md");
-
         if(file.isFile() && file.exists()){ //判断文件是否存在
-
             InputStreamReader read = new InputStreamReader(
-
                     new FileInputStream(file),encoding);//考虑到编码格式
-
             BufferedReader bufferedReader = new BufferedReader(read);
-
             //bufferedReader.
             while((lineTxt = bufferedReader.readLine()) != null){
                 //str = str +

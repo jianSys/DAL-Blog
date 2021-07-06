@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class BlogLoginConfig implements WebMvcConfigurer {
+
     //    @Autowired
 //    private LoginInterceptor loginInterceptor;
     //无法注入拦截器

@@ -35,7 +35,7 @@ layui.config({
         testEditor = editormd("test-editormd", {
             width: "100%",
             height: 640,
-            path: '../../static/editormd/lib/',
+            path: '../../../static/admin/plugins/editormd/lib/',
             theme: "default",
             previewTheme: "default",
             editorTheme: "default",
