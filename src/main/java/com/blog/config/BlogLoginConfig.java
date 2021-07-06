@@ -3,6 +3,7 @@ package com.blog.config;
 import com.blog.commons.MessageConstant;
 import com.blog.interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -23,12 +24,17 @@ public class BlogLoginConfig implements WebMvcConfigurer {
 
     //    @Autowired
 //    private LoginInterceptor loginInterceptor;
+
+    @Value("${blog.upload.dir}")
+    private String filePath;
+
     //无法注入拦截器
     @Bean
     public LoginInterceptor loginInterceptor() {
         System.out.println("注册一下===============");
         return new LoginInterceptor();
     }
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -38,7 +44,7 @@ public class BlogLoginConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:" + MessageConstant.FILE_UPLOAD_DIC);
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:" + filePath);
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");//配置浏览器直接访问static下的静态资源
          }
 

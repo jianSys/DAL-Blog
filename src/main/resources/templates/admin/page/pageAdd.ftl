@@ -39,7 +39,7 @@
         </div>
     </div>
 </div>
-<script src="../../../static/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../../static/admin/jquery/jquery-3.2.1.min.js"></script>
 <script src="../../../static/layui/layui/layui.js"></script>
 <script src="../../../static/admin/plugins/editormd/js/editormd.min.js"></script>
 <!-- 页面markdown解析成HTML需要的js -->

@@ -40,7 +40,7 @@
                 <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
                     <p style="text-align: center">
                         <#if theme.status=1>
-                            <span id="theme_open" class="theme_open"><i class="layui-icon layui-icon-password"></i>已启动</span>
+                            <span id="theme_open" class="theme_open"><i class="layui-icon layui-icon-password" style="color: #01AAED"></i>已启动</span>
                         <#else>
                             <span id="theme_open" class="theme_open"><i class="layui-icon layui-icon-password"></i>启动</span>
                         </#if>
