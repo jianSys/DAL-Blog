@@ -72,7 +72,7 @@
 </div>
 
 <script src="../../../static/layui/layui/layui.js"></script>
-<script src="../../../static/admin/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../../static/jquery/jquery-3.2.1.min.js"></script>
 <script src="../../../static/admin/js/listfrom.js"></script>
 </body>
 </html>

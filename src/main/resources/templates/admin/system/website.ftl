@@ -119,7 +119,7 @@
             $("input[name='footerCopyRight']").val(res.data.footerCopyRight);
             $("input[name='footerPoweredBy']").val(res.data.footerPoweredBy);
             $("input[name='footerPoweredByURL']").val(res.data.footerPoweredByURL);
-            console.log("看看请求到的数据是啥"+JSON.stringify(res));
+          //  console.log("看看请求到的数据是啥"+JSON.stringify(res));
           } else {
             layer.msg(res.msg);
             $("#img").click();
@@ -154,7 +154,7 @@
         "footerPoweredBy":poweredBy,
         "footerPoweredByURL":poweredByUrl
       };
-      console.log("==================================="+JSON.stringify(map));
+      //console.log("==================================="+JSON.stringify(map));
       $.ajax({
         type: 'POST',//方法类型
         url: "./saveSite",

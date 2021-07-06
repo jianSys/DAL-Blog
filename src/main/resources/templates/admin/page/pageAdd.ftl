@@ -39,7 +39,7 @@
         </div>
     </div>
 </div>
-<script src="../../../static/admin/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../../static/jquery/jquery-3.2.1.min.js"></script>
 <script src="../../../static/layui/layui/layui.js"></script>
 <script src="../../../static/admin/plugins/editormd/js/editormd.min.js"></script>
 <!-- 页面markdown解析成HTML需要的js -->
@@ -68,7 +68,7 @@
             testEditor = editormd("test-editormd", {
                 width: "100%",
                 height: 640,
-                path: '../../static/editormd/lib/',
+                path: '../../static/admin/plugins/editormd/lib/',
                 theme: "default",
                 previewTheme: "default",
                 editorTheme: "default",

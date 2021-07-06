@@ -10,7 +10,7 @@
     <link href="../../../static/blog/css/animate.min.css" rel="stylesheet" type="text/css">
     <link href="../../../static/layui/layui/css/layui.css" rel="stylesheet" type="text/css">
     <!-- 页面解析markdown为HTML显示需要的css -->
-    <link rel="stylesheet" href="../../../static/editormd/css/editormd.preview.min.css" />
+    <link rel="stylesheet" href="../../../static/admin/plugins/editormd/css/editormd.preview.min.css" />
     <link href="../../../static/blog/css/base.css" rel="stylesheet" type="text/css">
     <link href="../../../static/blog/css/details.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
@@ -47,8 +47,8 @@
 </div>
 <#include "footer.ftl">
 <script src="../../../static/blog/js/jquery.min.js"></script>
-<script src="../../../static/editormd/js/editormd.min.js"></script>
-<script src="../../../static/blog/layui/layui.js"></script>
+<script src="../../../static/admin/plugins/editormd/js/editormd.min.js"></script>
+<script src="../../../static/layui/layui/layui.js"></script>
 <script src="../../../static/blog/js/hearder.js"></script>
 
 <!-- 页面markdown解析成HTML需要的js -->
