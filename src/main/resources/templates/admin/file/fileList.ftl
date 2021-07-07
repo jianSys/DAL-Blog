@@ -30,19 +30,12 @@
         <#list  fileList as files>
             <div class="layui-col-sm6 layui-col-md2">
             <div class="layui-card">
-                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="${files.fileUrl}" style="width: 100%">
+                <div class="layui-card-body layuiadmin-card-list" style="padding: 3px;height: 115px;">
+                    <img class="" src="${files.fileUrl}" style="width: 100%;background-size: cover">
                 </div>
                 <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
                     <p style="text-align: center">
                         ${files.fileName}
-<#--                        <#if theme.status=1>-->
-<#--                            <span id="theme_open" class="theme_open"><i class="layui-icon layui-icon-password" style="color: #01AAED"></i>已启动</span>-->
-<#--                        <#else>-->
-<#--                            <span id="theme_open" class="theme_open"><i class="layui-icon layui-icon-password"></i>启动</span>-->
-<#--                        </#if>-->
-<#--                        <span style="border: 1px solid #000;width: 1px"></span>-->
-<#--                        <span  id="theme_set" class="theme_set"><i class="layui-icon layui-icon-set"></i>设置</span>-->
                     </p>
                 </div>
             </div>

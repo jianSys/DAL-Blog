@@ -198,7 +198,8 @@
                 form.render();
             }
 
-            $('.editormd-markdown-textarea').val(decodeURIComponent(parent_json.blogContent));
+            //$('.editormd-markdown-textarea').val(decodeURIComponent(parent_json.blogContent));
+            $('.editormd-markdown-textarea').val(parent_json.blogContent);
             //testEditor.setMarkdown(parent_json.blogContent)
             categoryId = parent_json.blogCategoryId;
         });
@@ -254,11 +255,6 @@
             });
         });
 
-
-
-
-
-
         upload.render({
             elem: '#uploadImages'
             , url: "../upload/images"
@@ -268,6 +264,8 @@
             , done: function (res) {
                 if (res.code === 0) {
                     $("#photoUrl").prop("value", res.data);
+                }else{
+                    layer.msg(res.msg)
                 }
                 //$(this.item).prev("div").children("input").val(res.data.data)
             }

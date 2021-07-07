@@ -25,9 +25,6 @@ public class BlogLoginConfig implements WebMvcConfigurer {
     //    @Autowired
 //    private LoginInterceptor loginInterceptor;
 
-    @Value("${blog.upload.dir}")
-    private String filePath;
-
     //无法注入拦截器
     @Bean
     public LoginInterceptor loginInterceptor() {
@@ -44,7 +41,7 @@ public class BlogLoginConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:" + filePath);
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:" + MessageConstant.FILE_UPLOAD_DIC);
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");//配置浏览器直接访问static下的静态资源
          }
 

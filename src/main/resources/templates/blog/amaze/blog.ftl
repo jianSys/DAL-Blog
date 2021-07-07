@@ -18,7 +18,7 @@
 
 <body class="">
 <#include "header.ftl">
-<div class="blog-section" id="blog-section1">
+<div class="blog-section" id="blog-section1" style="background-image:url(${blog.blogCoverImage})!important;">
     <div class="fp-tablecell">
         <div class="page1">
             <div class="nav wow zoomIn" data-wow-duration="2s">
@@ -117,7 +117,8 @@
        }
    });*/
 </script>
-<script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+<#--看版娘升级版-->
+<#--<script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>-->
 <script>
     console.clear();
     console.log("%c 一天很短,开心了就笑,不开心了就一会在笑", "background:#24272A; color:#ffffff", "");

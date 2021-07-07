@@ -170,6 +170,8 @@
     </profiles>-->
 
     <build>
+        <!--设置打包名称-->
+<!--        <finalName>dal-blog</finalName>-->
         <!--<resources>
             <resource>
                 <directory>src/main/resources</directory>

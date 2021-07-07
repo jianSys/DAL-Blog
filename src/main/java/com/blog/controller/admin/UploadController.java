@@ -45,8 +45,8 @@ import java.util.UUID;
 public class UploadController {
 
 
-    @Value("${blog.upload.dir}")
-    private String filePath;
+    /*@Value("${blog.upload.dir}")
+    private String filePath;*/
 
     @Autowired
     private FileService fileService;
