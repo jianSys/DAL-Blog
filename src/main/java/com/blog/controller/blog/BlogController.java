@@ -35,95 +35,104 @@ public class BlogController {
     /**
      * 默认主题
      */
-   private static String theme = "amaze";
+    private static String theme = "amaze";
 
-   @Autowired
-   private AdminService adminService;
+    @Autowired
+    private AdminService adminService;
 
-   @Autowired
-   private ArticleService articleService;
+    @Autowired
+    private ArticleService articleService;
 
-   @Autowired
-   private RedisTemplate redisTemplate;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * 查询主题
      */
     public void getRedisTemplate() {
         String t = (String) redisTemplate.opsForValue().get("theme");
-        if (StringUtils.isNotBlank(t)){
+        if (StringUtils.isNotBlank(t)) {
             theme = t;
         }
     }
 
-    @GetMapping({"","/","index"})
+    @GetMapping({"", "/", "index"})
     private ModelAndView index(HttpServletRequest request,
-                               HttpServletResponse response){
+                               HttpServletResponse response) {
         getRedisTemplate();
         Map<String, String> config = adminService.getWebSite();
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/blog/"+theme+"/index");
-        mv.addObject("logo","jian");
-        mv.addObject("config",config);
-        mv.addObject("copyRight",config.get("footerCopyRight"));
-        mv.addObject("allBlog",articleService.getAllBlog());
-        mv.addObject("hotBlog",articleService.getHotBlog());
+        mv.setViewName("/blog/" + theme + "/index");
+        mv.addObject("logo", "jian");
+        mv.addObject("config", config);
+        mv.addObject("copyRight", config.get("footerCopyRight"));
+        mv.addObject("allBlog", articleService.getAllBlog());
+        mv.addObject("hotBlog", articleService.getHotBlog());
         return mv;
     }
 
     /**
      * 组装返回数据
+     *
      * @return
      */
     @PostMapping("getArticleList")
     @ResponseBody
-    private Result getIndex(){
+    private Result getIndex() {
         List<BlogVO> allBlog = articleService.getAllBlog();
-        return new Result(0,"成功",allBlog);
+        return new Result(0, "成功", allBlog);
     }
 
     @GetMapping("toBlog/{id}")
-    private ModelAndView toBlog(@PathVariable("id") Integer id,HttpServletRequest request,
-                          HttpServletResponse response) throws ParseException {
+    private ModelAndView toBlog(@PathVariable("id") Integer id, HttpServletRequest request,
+                                HttpServletResponse response) throws ParseException {
         getRedisTemplate();
-         BlogVO tbBlog = articleService.getBlogById(id);
+        ModelAndView mv = new ModelAndView();
+        BlogVO tbBlog = articleService.getBlogById(id);
+        if (null == tbBlog) {
+            mv.setViewName("/error/404");
+            return mv;
+        }
         Map<String, String> webSite = adminService.getWebSite();
         //更新观看人数
         articleService.updateBlogViews(id);
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("/blog/"+theme+"/blog");
-        mv.addObject("blog",tbBlog);
-        mv.addObject("config",webSite);
+
+        mv.setViewName("/blog/" + theme + "/blog");
+        mv.addObject("blog", tbBlog);
+        mv.addObject("config", webSite);
         mv.addObject("content", tbBlog.getBlogContent());
         return mv;
     }
+
     @GetMapping("getBlog/{id}")
     @ResponseBody
-    private Result toBlog(@PathVariable("id") Integer id){
+    private Result toBlog(@PathVariable("id") Integer id) {
         TbBlog tbBlog = articleService.findById(id);
-        return new Result(0,"成功",tbBlog);
+        return new Result(0, "成功", tbBlog);
     }
 
     @GetMapping("s/{url}")
-    private ModelAndView getPage(HttpServletRequest request, @PathVariable("url") String url){
-       getRedisTemplate();
+    private ModelAndView getPage(HttpServletRequest request, @PathVariable("url") String url) {
+        getRedisTemplate();
         BlogVO tbBlog = articleService.getPageByUrl(url);
         Map<String, String> webSite = adminService.getWebSite();
         //更新观看人数
         articleService.updateBlogViews(tbBlog.getBlogId());
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/blog/"+theme+"/blog");
-        mv.addObject("blog",tbBlog);
-        mv.addObject("config",webSite);
+        mv.setViewName("/blog/" + theme + "/blog");
+        mv.addObject("blog", tbBlog);
+        mv.addObject("config", webSite);
         mv.addObject("content", tbBlog.getBlogContent());
         return mv;
     }
+
     @GetMapping("article")
-    private String toArticle(){
-        return "/blog/"+theme+"/article";
+    private String toArticle() {
+        return "/blog/" + theme + "/article";
     }
+
     @GetMapping("read")
-    private String toRead(){
-        return "/blog/"+theme+"/read";
+    private String toRead() {
+        return "/blog/" + theme + "/read";
     }
 }

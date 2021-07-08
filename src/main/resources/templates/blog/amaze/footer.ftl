@@ -16,5 +16,5 @@
     </div>
 </footer>
 <div id="lolijump" class="lolijump">
-    <img src="../../../static/blog/image/top.gif">
+    <img src="../../../static/blog/amaze/image/top.gif">
 </div>

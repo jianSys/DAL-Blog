@@ -2,12 +2,14 @@ package com.blog.controller.admin;
 
 import com.blog.commons.Result;
 import com.blog.dao.BlogLogDao;
+import com.blog.pojo.TbAdminUser;
 import com.blog.pojo.TbBlogConfig;
 import com.blog.pojo.TbBlogLog;
 import com.blog.pojo.vo.BlogLogVO;
 import com.blog.service.AdminService;
 import com.blog.service.ArticleService;
 import com.blog.service.LogService;
+import com.blog.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +42,8 @@ public class AdminController {
 
     @Autowired
     private LogService logService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping({"", "/", "/index", "/index.ftl"})
     private ModelAndView toIndex(HttpServletRequest request,
@@ -62,6 +66,22 @@ public class AdminController {
     @GetMapping("toWebSite")
     private String toWebSite() {
         return "/admin/system/website";
+    }
+
+
+    @GetMapping("toUserInfo")
+    private ModelAndView toUserInfo(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/admin/system/userInfo");
+        return mv;
+    }
+
+    @ResponseBody
+    @GetMapping("getUserInfo")
+    private Result getUserInfo(HttpServletRequest request){
+        String username = (String) request.getSession().getAttribute("loginUser");
+        TbAdminUser userInfo = userService.getUserInfo(username);
+        return new Result(0,"获取用户成功",userInfo);
     }
 
     @GetMapping("getIndexShow")
@@ -105,14 +125,14 @@ public class AdminController {
      * @param response
      * @return
      */
-    @GetMapping("home/homepage2")
+    @GetMapping("home")
     private ModelAndView toHomePage2(HttpServletRequest request,
                                      HttpServletResponse response) {
         Integer viewsCount = articleService.getArticleViewsCount();
         Integer articleCount = articleService.getArticleCount();
         List<BlogLogVO> log = logService.getLatestLog();
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/admin/home/homepage2");
+        mv.setViewName("/admin/home/home");
         mv.addObject("viewsCount",viewsCount);
         mv.addObject("articleCount",articleCount);
         mv.addObject("logs",log);

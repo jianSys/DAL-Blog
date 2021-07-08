@@ -6,8 +6,8 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="../static/layui/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="../static/layui/style/admin.css" media="all">
+    <link rel="stylesheet" href="../static/admin/plugins/layui/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../static/admin/plugins/layui/style/admin.css" media="all">
 
 </head>
 <body class="layui-layout-body">
@@ -66,7 +66,7 @@
                         <cite id="login_name">${loginUser}</cite>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a lay-href="set/user/info.html">基本资料</a></dd>
+                        <dd><a lay-href="toUserInfo">基本资料</a></dd>
                         <dd><a lay-href="toPassword">修改密码</a></dd>
                         <hr>
                         <dd id="logout" <#--layadmin-event="logout"--> style="text-align: center;"><a>退出</a></dd>
@@ -209,7 +209,7 @@
         <!-- 主体内容 -->
         <div class="layui-body" id="LAY_app_body">
             <div class="layadmin-tabsbody-item layui-show">
-                <iframe src="home/homepage2" frameborder="0" class="layadmin-iframe"></iframe>
+                <iframe src="home" frameborder="0" class="layadmin-iframe"></iframe>
             </div>
         </div>
 
@@ -218,13 +218,13 @@
     </div>
 </div>
 
-<script src="../../../static/layui/layui/layui.js"></script>
+<script src="../../../static/admin/plugins/layui/layui/layui.js"></script>
 <script>
     //console.log("%c Gitee %c", "background:#24272A; color:#ffffff", "", "https://github.com/xzhuz");
 </script>
 <script>
     layui.config({
-        base: '../../../static/layui/' //静态资源所在路径
+        base: '../../../static/admin/plugins/layui/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index'],function () {

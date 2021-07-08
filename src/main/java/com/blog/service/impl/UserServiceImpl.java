@@ -6,6 +6,7 @@ import com.blog.dao.BlogLogDao;
 import com.blog.dao.UserDao;
 import com.blog.pojo.TbAdminUser;
 import com.blog.pojo.TbBlogLog;
+import com.blog.pojo.User;
 import com.blog.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,10 +71,10 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public Boolean validation(String oldPassword) {
-        String loginPassword = userDao.findAll().get(0).getLoginPassword();
+    public Boolean validation(String username ,String oldPassword) {
+        TbAdminUser userInfo = userDao.findTbAdminUserByLoginUserName(username);
         String s = MD5Util.MD5Encode(oldPassword, "UTF-8");
-        boolean b = s.equals(loginPassword);
+        boolean b = s.equals(userInfo.getLoginPassword());
         if (b){
             return true;
         }
@@ -91,6 +92,12 @@ public class UserServiceImpl implements UserService {
         TbAdminUser adminUser = userDao.findAll().get(0);
         adminUser.setLoginPassword(password);
         TbAdminUser user = userDao.save(adminUser);
+        return user;
+    }
+
+    @Override
+    public TbAdminUser getUserInfo(String username) {
+        TbAdminUser user = userDao.findTbAdminUserByLoginUserName(username);
         return user;
     }
 }

@@ -5,12 +5,14 @@ import com.blog.pojo.LoginUser;
 import com.blog.pojo.TbAdminUser;
 import com.blog.pojo.User;
 import com.blog.service.UserService;
+import com.sun.xml.internal.bind.v2.TODO;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
@@ -56,14 +58,20 @@ public class LoginController {
         loginUser.setId(login.getAdminUserId());
         loginUser.setUsername(login.getLoginUserName());
         loginUser.setPhone(login.getEmail());
-        loginUser.setAccessToken("是jvgvggjhfg");
+        //TODO生成token(待做....)
+        loginUser.setAccessToken("iuhfiuadhfjahfakjdfhakjfhakjhfakjh");
         return new Result(0, "成功", 200, loginUser);
     }
 
     @ResponseBody
     @PostMapping("validation")
-    private Result validation(@RequestBody Map<String,String>  oldPassword) {
-        Boolean validation = userService.validation(oldPassword.get("oldPassword"));
+    private Result validation(@RequestBody Map<String,String>  oldPassword, HttpServletRequest request) {
+        String username = (String) request.getSession().getAttribute("loginUser");
+        String password = oldPassword.get("oldPassword");
+        if (StringUtils.isBlank(password)){
+            return new Result(400,"密码不能为空");
+        }
+        Boolean validation = userService.validation(username, password);
         if (validation){
             return new Result(0,"成功");
         }else {

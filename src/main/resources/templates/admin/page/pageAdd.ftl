@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>博客|文章添加</title>
-    <link rel="stylesheet" href="../../../static/layui/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../static/admin/plugins/layui/layui/css/layui.css">
     <link rel="stylesheet" href="../../../static/admin/plugins/editormd/css/editormd.css"/>
     <!-- 页面解析markdown为HTML显示需要的css -->
     <link rel="stylesheet" href="../../../static/admin/plugins/editormd/css/editormd.preview.css"/>
@@ -39,8 +39,8 @@
         </div>
     </div>
 </div>
-<script src="../../../static/jquery/jquery-3.2.1.min.js"></script>
-<script src="../../../static/layui/layui/layui.js"></script>
+<script src="../../../static/admin/plugins/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../../static/admin/plugins/layui/layui/layui.js"></script>
 <script src="../../../static/admin/plugins/editormd/js/editormd.min.js"></script>
 <!-- 页面markdown解析成HTML需要的js -->
 <script src="../../../static/admin/plugins/editormd/lib/marked.min.js"></script>
@@ -52,7 +52,7 @@
 <script src="../../../static/admin/plugins/editormd/lib/jquery.flowchart.min.js"></script>
 <script>
     layui.config({
-        base: '../../../static/layui/' //静态资源所在路径
+        base: '../../../static/admin/plugins/layui/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index', 'layer', 'jquery', 'form', 'laydate'], function () {

@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DAL</title>
 
-    <link href="../../../static/blog/css/animate.min.css" rel="stylesheet" type="text/css">
-    <link href="../../../static/layui/layui/css/layui.css" rel="stylesheet" type="text/css">
+    <link href="../../../static/blog/amaze/css/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="../../../static/blog/plugins/layui/css/layui.css" rel="stylesheet" type="text/css">
     <!-- 页面解析markdown为HTML显示需要的css -->
     <link rel="stylesheet" href="../../../static/admin/plugins/editormd/css/editormd.preview.min.css" />
-    <link href="../../../static/blog/css/base.css" rel="stylesheet" type="text/css">
-    <link href="../../../static/blog/css/details.css" rel="stylesheet" type="text/css">
+    <link href="../../../static/blog/amaze/css/base.css" rel="stylesheet" type="text/css">
+    <link href="../../../static/blog/amaze/css/details.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
 </head>
 
@@ -46,10 +46,10 @@
     </div>
 </div>
 <#include "footer.ftl">
-<script src="../../../static/blog/js/jquery.min.js"></script>
+<script src="../../../static/blog/amaze/js/jquery.min.js"></script>
 <script src="../../../static/admin/plugins/editormd/js/editormd.min.js"></script>
-<script src="../../../static/layui/layui/layui.js"></script>
-<script src="../../../static/blog/js/hearder.js"></script>
+<script src="../../../static/blog/plugins/layui/layui.js"></script>
+<script src="../../../static/blog/amaze/js/hearder.js"></script>
 
 <!-- 页面markdown解析成HTML需要的js -->
 <script src="../../../static/admin/plugins/editormd/lib/marked.min.js"></script>

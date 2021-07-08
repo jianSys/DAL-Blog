@@ -1,6 +1,7 @@
 package com.blog.service;
 
 import com.blog.pojo.TbAdminUser;
+import com.blog.pojo.User;
 
 /**
  * @ProjectName: dal-blog
@@ -14,7 +15,9 @@ public interface UserService {
 
     TbAdminUser login(String username,String password);
 
-    Boolean validation(String oldPassword);
+    Boolean validation(String username,String oldPassword);
 
     TbAdminUser updatePassword(String newPassword);
+
+    TbAdminUser getUserInfo(String username);
 };
