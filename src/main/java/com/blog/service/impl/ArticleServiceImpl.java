@@ -2,14 +2,8 @@ package com.blog.service.impl;
 
 import com.blog.commons.enums.LogEnum;
 import com.blog.commons.utils.DateUtils;
-import com.blog.dao.BlogCategoryDao;
-import com.blog.dao.BlogDao;
-import com.blog.dao.BlogLogDao;
-import com.blog.dao.BlogTagDao;
-import com.blog.pojo.TbBlogCategory;
-import com.blog.pojo.TbBlog;
-import com.blog.pojo.TbBlogLog;
-import com.blog.pojo.TbBlogTag;
+import com.blog.dao.*;
+import com.blog.pojo.*;
 import com.blog.pojo.vo.BlogVO;
 import com.blog.service.ArticleService;
 import org.springframework.beans.BeanUtils;
@@ -57,6 +51,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private BlogLogDao logDao;
+
+    @Autowired
+    private BlogTagRelationDao tagRelationDao;
 
     @Override
     public TbBlog findById(Integer id) {
@@ -125,6 +122,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public TbBlog save(TbBlog tbBlogEntity) {
         Integer blogId = tbBlogEntity.getBlogId();
+        String blogTags = tbBlogEntity.getBlogTags();
         if (null != blogId) {
             tbBlogEntity.setUpdateTime(new Date());
             //更新
@@ -132,8 +130,9 @@ public class ArticleServiceImpl implements ArticleService {
                 TbBlogCategory category = this.findCategoryById(tbBlogEntity.getBlogCategoryId());
                 tbBlogEntity.setBlogCategoryName(category.getCategoryName());
             }
-            if (StringUtils.isNotBlank(tbBlogEntity.getBlogTags())) {
-                String tagsNames = getTagsNames(tbBlogEntity.getBlogTags());
+            if (StringUtils.isNotBlank(blogTags)) {
+                saveTagRelation(blogTags,blogId);
+                String tagsNames = getTagsNames(blogTags);
                 tbBlogEntity.setBlogTags(tagsNames);
             }
             TbBlog update = blogDao.save(tbBlogEntity);
@@ -155,8 +154,8 @@ public class ArticleServiceImpl implements ArticleService {
                 TbBlogCategory category = this.findCategoryById(tbBlogEntity.getBlogCategoryId());
                 tbBlogEntity.setBlogCategoryName(category.getCategoryName());
             }
-            if (StringUtils.isNotBlank(tbBlogEntity.getBlogTags())) {
-                String tagsNames = getTagsNames(tbBlogEntity.getBlogTags());
+            if (StringUtils.isNotBlank(blogTags)) {
+                String tagsNames = getTagsNames(blogTags);
                 tbBlogEntity.setBlogTags(tagsNames);
             }
             TbBlog save = blogDao.save(tbBlogEntity);
@@ -244,6 +243,26 @@ public class ArticleServiceImpl implements ArticleService {
      */
     public void saveTagRelation(String tagsIds,Integer blogId) {
         String[] split = tagsIds.split(",");
+        List<TbBlogTagRelation> all = tagRelationDao.findAllByBlogId(blogId);
+        all.forEach(
+                t->{
+                    tagRelationDao.deleteById(t.getRelationId());
+                }
+        );
+        List<TbBlogTagRelation> list = new ArrayList<>();
+        for (int i = 0; i < split.length; i++) {
+            TbBlogTagRelation relation = new TbBlogTagRelation();
+            relation.setBlogId(blogId);
+            relation.setTagId(Integer.parseInt(split[i]));
+            relation.setCreateTime(new Date());
+            list.add(relation);
+        }
+        try {
+            List<TbBlogTagRelation> saveAll = tagRelationDao.saveAll(list);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     /**
