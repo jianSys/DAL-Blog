@@ -40,7 +40,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">简介</label>
         <div class="layui-input-block">
-            <textarea name="introduce" placeholder="文章简介" class="layui-textarea"></textarea>
+            <textarea id="introduce" name="introduce" placeholder="文章简介" class="layui-textarea"></textarea>
         </div>
     </div>
     <div class="layui-form-item">
@@ -52,6 +52,20 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">是否置顶</label>
+        <div class="layui-input-block">
+            <input type="radio" lay-filter="top" name="top" value="0" title="否" checked="">
+            <input type="radio" lay-filter="top" name="top" value="1" title="是">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">发布状态</label>
+        <div class="layui-input-block">
+            <input type="radio" lay-filter="status" name="status" value="0" title="草稿" checked="">
+            <input type="radio" lay-filter="status" name="status" value="1" title="发布">
+        </div>
+    </div>
+  <#--  <div class="layui-form-item">
+        <label class="layui-form-label">是否置顶</label>
         <div class="layui-input-inline">
             <input type="checkbox" lay-verify="required" lay-filter="top" name="top" lay-skin="switch" lay-text="开启|关闭">
         </div>
@@ -62,7 +76,7 @@
             <input type="checkbox" lay-verify="required" lay-filter="status" name="status" lay-skin="switch"
                    lay-text="发布|草稿">
         </div>
-    </div>
+    </div>-->
     <div class="layui-form-item layui-hide">
         <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit"
                value="确认添加">

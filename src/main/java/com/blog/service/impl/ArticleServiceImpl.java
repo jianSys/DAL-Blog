@@ -240,6 +240,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     /**
+     * 根据标签添加中间表数据
+     */
+    public void saveTagRelation(String tagsIds,Integer blogId) {
+        String[] split = tagsIds.split(",");
+    }
+
+    /**
      * 添加观看人数
      * @param id
      */

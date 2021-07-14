@@ -109,16 +109,16 @@ layui.config({
                 var othis = layero.find('iframe').contents().find("#blogEditFrom"),
                     photoUrl = othis.find('#photoUrl').val(),
                     comments = othis.find('input[name="comments"]:checked').val(),
-                    status = othis.find('input[name="status"]').val(),
+                    status = othis.find('input[name="status"]:checked').val(),
                     tags = othis.find('input[name="tags"]:checked').each(function () {
                         arr.push($(this).val());
                     }),
-                    top = othis.find('input[name="top"]').val(),
-                    introduce = othis.find('input[name="introduce"]').val(),
+                    top = othis.find('input[name="top"]:checked').val(),
+                    introduce = othis.find("#introduce").val(),
                     category = othis.find('#category').val();
                 console.log("组装请求数据开始");
                 // var content = encodeURIComponent(testEditor.getMarkdown());
-                 var content = testEditor.getMarkdown();
+                var content = testEditor.getMarkdown();
                 var title = $('#title').val();
                 /*if (title == ''){
                     layer.msg('标题不能为空',function(){time:2000});
@@ -129,9 +129,15 @@ layui.config({
                     return flase;
                 }*/
                 var data = {
-                    "blogTitle": title, "blogCategoryId": category, "blogCoverImage": photoUrl, "blogContent": content,
-                    "blogTags": arr.toString(), "blogStatus": status === "on" ? 1 : 0, "enableComment": comments,
-                    "blogTop": status === "on" ? 1 : 0,"blogIntroduce":introduce
+                    "blogTitle": title,
+                    "blogCategoryId": category,
+                    "blogCoverImage": photoUrl,
+                    "blogContent": content,
+                    "blogTags": arr.toString(),
+                    "blogStatus": status,
+                    "enableComment": comments,
+                    "blogTop": status,
+                    "blogIntroduce": introduce
                 };
                 console.log("组装请求数据成功=============开始发送请求" + data)
                 $.ajax({

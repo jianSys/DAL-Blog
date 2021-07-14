@@ -109,7 +109,28 @@
             , form = layui.form
             , admin = layui.admin
         ,upload = layui.upload;
-
+        $(document).ready(function () {
+            $.ajax({
+                url: "../tags/getAllTags",
+                type: 'GET',
+                dataType: 'json',
+                contentType: "application/json;charset=utf-8",
+                success: function (res) {
+                    if (res.code === 0) {
+                        var data = res.data;
+                        console.log(data)
+                        $("#tags").empty();
+                        for (var i = 0; i < data.length; i++) {
+                            $("#tags").append('<input type="checkbox" value="' + data[i].tagId + '"name="tags" lay-skin="primary" title="' + data[i].tagName + '">')
+                        }
+                        //渲染表单
+                        form.render();
+                    } else {
+                        layer.msg("查询失败")
+                    }
+                }
+            });
+        });
 
 
 
@@ -185,18 +206,34 @@
             $("input[name='top'][value="+parent_json.blogTop+"]").prop("checked","true");
             $("input[name='status'][value="+parent_json.blogStatus+"]").prop("checked","true");
 
-            var unitType = parent_json.blogTags.split(",");
+            //var t = parent_json.blogTags.split(",");
             //console.log("这是获取到的arr"+arr);
-            for (var j = 0; j <unitType.length ; j++) {
-                var unitTypeCheckbox=$("input[name='tags']");
-                for(var i=0;i<unitTypeCheckbox.length;i++){
-                    if(unitTypeCheckbox[i].title===unitType[j]){
-                        unitTypeCheckbox[i].value=unitType[j];
-                        unitTypeCheckbox[i].checked=true;
-                    }
+            //console.log("zheshiyige"+JSON.stringify())
+            // var tags = document.getElementsByName('tags');
+            //var tags = document.querySelectorAll("tags");
+            // console.log(tags);
+            // console.log("................"+tags[1].getAttribute('value'))
+            // for (var i = 0; i < tags.length; i++) {
+            //     for (var j = 0; j < t.length; j++) {
+            //         if (t[j]===tags[i].title){
+            //             //$("input[name='tags'][value="+tags[i].val()+"]").prop("checked","true");
+            //         }
+            //         console.log("............."+t[j])
+            //     }
+            // }
+            //console.log(tags)
+            /*tags.forEach(function(ele){
+                console.log("ninininini")
+                console.log("................"+ele)
+            });*/
+           /* //var tags = $("input[name='tags']");
+            for (let i = 0; i < t.length; i++) {
+                for (let j = 0; j < tags.length; j++) {
+                    console.log("==============="+tags[j].title)
+                    // if ()
                 }
-                form.render();
-            }
+                console.log(t[i])
+            }*/
 
             //$('.editormd-markdown-textarea').val(decodeURIComponent(parent_json.blogContent));
             $('.editormd-markdown-textarea').val(parent_json.blogContent);
@@ -232,28 +269,7 @@
                 }
             });
         });
-        $(document).ready(function () {
-            $.ajax({
-                url: "../tags/getAllTags",
-                type: 'GET',
-                dataType: 'json',
-                contentType: "application/json;charset=utf-8",
-                success: function (res) {
-                    if (res.code === 0) {
-                        var data = res.data;
-                        console.log(data)
-                        $("#tags").empty();
-                        for (var i = 0; i < data.length; i++) {
-                            $("#tags").append('<input type="checkbox" value="' + data[i].tagId + '"name="tags" lay-skin="primary" title="' + data[i].tagName + '">')
-                        }
-                        //渲染表单
-                        form.render();
-                    } else {
-                        layer.msg("查询失败")
-                    }
-                }
-            });
-        });
+
 
         upload.render({
             elem: '#uploadImages'
