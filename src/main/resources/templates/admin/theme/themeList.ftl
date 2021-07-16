@@ -35,7 +35,7 @@
                 </div>
                 <input id="themeId" name="id" type="hidden" value="${theme.id}">
                 <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="${theme.imgUrl}" style="width: 100%">
+                    <img class="" src="${theme.imgUrl}" style="width: 100%;height: 170px">
                 </div>
                 <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
                     <p style="text-align: center">

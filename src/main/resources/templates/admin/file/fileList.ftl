@@ -29,7 +29,8 @@
     <div class="layui-row layui-col-space15">
         <#list  fileList as files>
             <div class="layui-col-sm6 layui-col-md2">
-            <div class="layui-card">
+            <div class="layui-card" id="file_details">
+                <input id="fileId" name="id" type="hidden" value="${files.fileId}">
                 <div class="layui-card-body layuiadmin-card-list" style="padding: 3px;height: 115px;">
                     <img class="" src="${files.fileUrl}" style="width: 100%;background-size: cover">
                 </div>
@@ -40,12 +41,10 @@
                 </div>
             </div>
         </div>
-
         </#list>
     </div>
 </div>
 </div>
-
 <script src="../../static/admin/plugins/layui/layui/layui.js"></script>
 <script>
     layui.config({
@@ -59,7 +58,6 @@
             , admin = layui.admin
             , upload = layui.upload
         ,laypage=layui.laypage;
-
         $(".theme_set").on('click',function (){
             layer.alert('拼命开发中', {icon: 6});
         })
@@ -81,6 +79,22 @@
                    }
                }
            })
+        })
+        $(".layui-card").on('click',function () {
+            var id = $(this).children("input").val()
+            layer.open({
+                type: 2,
+                //shadeClose: true,
+                area:'atuo',
+                skin: 'yourClass',
+                content: 'toFileDetails/'+id,
+                shadeClose: false,
+                resize:false,
+                btn: ['保存', '取消'],
+                yes: function (index, layero) {
+                    console.log(index,layero)
+                }
+            });
         })
     });
 </script>

@@ -21,4 +21,8 @@ public interface FileService {
      * 保存数据
      */
     TbBlogFile saveBlogFile(TbBlogFile tbBlogFile);
+    /**
+     * 根据id获取
+     */
+    TbBlogFile getFileById(Integer id);
 }

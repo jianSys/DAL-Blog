@@ -36,4 +36,9 @@ public class FileServiceImpl implements FileService {
         TbBlogFile save = fileDao.save(tbBlogFile);
         return save;
     }
+
+    @Override
+    public TbBlogFile getFileById(Integer id) {
+        return fileDao.getOne(id);
+    }
 }

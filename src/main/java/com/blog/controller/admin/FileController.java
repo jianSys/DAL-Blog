@@ -35,6 +35,15 @@ public class FileController {
     private ModelAndView toFileList(HttpServletRequest request){
         return this.getFileListByPage(request,1);
     }
+
+    @GetMapping("toFileDetails/{id}")
+    private ModelAndView toFileDetails(@PathVariable("id")Integer id){
+        TbBlogFile file = fileService.getFileById(id);
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/admin/file/fileDetails");
+        mv.addObject("file",file);
+        return mv;
+    }
     @ResponseBody
     @GetMapping("page/{pageNum}")
     private ModelAndView getFileListByPage(HttpServletRequest request,@PathVariable("pageNum") int pageNum){
