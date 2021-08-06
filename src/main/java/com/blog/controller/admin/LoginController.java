@@ -1,6 +1,7 @@
 package com.blog.controller.admin;
 
-import com.blog.commons.Result;
+import com.blog.commons.web.domain.response.Result;
+import com.blog.commons.constant.ControllerConstant;
 import com.blog.pojo.LoginUser;
 import com.blog.pojo.TbAdminUser;
 import com.blog.pojo.User;
@@ -23,7 +24,7 @@ import java.util.Map;
  **/
 @Log4j2
 @Controller
-@RequestMapping("/admin")
+@RequestMapping(ControllerConstant.API_ADMIN_PREFIX)
 public class LoginController {
 
     @Autowired

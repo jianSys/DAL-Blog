@@ -1,7 +1,8 @@
 package com.blog.controller.admin;
 
 import cn.hutool.json.JSONUtil;
-import com.blog.commons.Result;
+import com.blog.commons.web.domain.response.Result;
+import com.blog.commons.constant.ControllerConstant;
 import com.blog.pojo.TbBlogTag;
 import com.blog.service.TagsService;
 import lombok.extern.log4j.Log4j2;
@@ -24,7 +25,7 @@ import java.util.List;
  */
 @Log4j2
 @Controller
-@RequestMapping("/admin/tags")
+@RequestMapping(ControllerConstant.API_ADMIN_PREFIX+"/tags")
 public class TagsController {
 
     @Autowired

@@ -1,14 +1,12 @@
 package com.blog.controller.blog;
 
-import com.blog.commons.Result;
+import com.blog.commons.web.domain.response.Result;
 import com.blog.pojo.TbBlog;
 import com.blog.pojo.vo.BlogVO;
 import com.blog.service.AdminService;
 import com.blog.service.ArticleService;
 import org.apache.commons.lang.StringUtils;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +27,7 @@ import java.util.Map;
  * @Version: 1.0
  */
 @Controller
+@RequestMapping
 public class BlogController {
     /**
      * 默认主题

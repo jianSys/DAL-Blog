@@ -1,7 +1,9 @@
 package com.blog.controller.admin;
 
 import cn.hutool.json.JSONUtil;
-import com.blog.commons.Result;
+import com.blog.commons.web.base.BaseController;
+import com.blog.commons.web.domain.response.Result;
+import com.blog.commons.constant.ControllerConstant;
 import com.blog.pojo.TbBlogCategory;
 import com.blog.pojo.TbBlog;
 import com.blog.service.ArticleService;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,12 +29,14 @@ import java.util.List;
  * @Version: 1.0
  */
 @Log4j2
-@Controller
-@RequestMapping("/admin/article")
-public class ArticleController {
+@RestController
+@RequestMapping(ControllerConstant.API_ADMIN_PREFIX + "article")
+public class ArticleController extends BaseController {
 
     @Autowired
     private ArticleService articleService;
+
+    public static String MODULE_PATH = "/admin/article/";
 
     /**
      * 跳转到文章列表页面
@@ -39,8 +44,8 @@ public class ArticleController {
      * @return
      */
     @GetMapping("toArticleList")
-    private String toArticleList() {
-        return "/admin/article/articleList";
+    private ModelAndView toArticleList() {
+        return jumpPage(MODULE_PATH + "articleList");
     }
 
     /**
@@ -49,8 +54,8 @@ public class ArticleController {
      * @return
      */
     @GetMapping("toArticleEdit")
-    private String toArticleListFrom() {
-        return "/admin/article/articleEdit";
+    private ModelAndView toArticleListFrom() {
+        return jumpPage(MODULE_PATH + "articleEdit");
     }
 
     /**
@@ -59,14 +64,14 @@ public class ArticleController {
      * @return
      */
     @GetMapping("toListForm")
-    private String toListFrom() {
-        return "/admin/article/listform";
+    private ModelAndView toListFrom() {
+        return jumpPage(MODULE_PATH + "listForm");
     }
 
 
     @GetMapping("toArticleAdd")
-    private String toArticleListAdd() {
-        return "/admin/article/articleAdd";
+    private ModelAndView toArticleListAdd() {
+        return jumpPage(MODULE_PATH + "articleAdd");
     }
 
     /**
@@ -86,7 +91,7 @@ public class ArticleController {
                                @RequestParam(value = "id", required = false) Integer id,
                                @RequestParam(value = "title", required = false) String title,
                                @RequestParam(value = "blogCategoryName", required = false) String blogCategoryName) {
-        log.info("分页查询文章列表的入参为==========>>>>[{},{},{},{},{}]",page,limit,id,title,blogCategoryName);
+        log.info("分页查询文章列表的入参为==========>>>>[{},{},{},{},{}]", page, limit, id, title, blogCategoryName);
         //创建查询条件
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", id);
@@ -94,16 +99,15 @@ public class ArticleController {
         map.put("blogCategoryName", blogCategoryName);
         Sort sort = new Sort(Sort.Direction.DESC, "blogId");
         Pageable pageable = new PageRequest(page - 1, limit);
-        try{
+        try {
             Page<TbBlog> byPage = articleService.findByPage(map, pageable);
             Long total = byPage.getTotalElements();
             List<TbBlog> content = byPage.getContent();
             Result result = new Result(0, "成功", total.intValue(), content);
             return result;
-        }catch (Exception e){
-            log.error("查询文章列表异常==============",e);
-            Result result = new Result(500, "失败");
-            return result;
+        } catch (Exception e) {
+            log.error("查询文章列表异常==============", e);
+            return Result.error("查询文章列表失败");
         }
     }
 
@@ -116,9 +120,9 @@ public class ArticleController {
             Page<TbBlogCategory> category = articleService.findCategoryByPage(pageable);
             List<TbBlogCategory> content = category.getContent();
             return new Result(0, "成功", content.size(), content);
-        }catch (Exception e){
-            log.error("查询分类列表异常",e);
-            return new Result(500, "失败");
+        } catch (Exception e) {
+            log.error("查询分类列表异常", e);
+            return Result.error("失败");
 
         }
     }
@@ -133,26 +137,26 @@ public class ArticleController {
     @PostMapping("saveArticle")
     @ResponseBody
     private Result saveArticle(@RequestBody TbBlog tbBlogEntity) {
-        log.info("===============保存文章的入参为===========[{}]",JSONUtil.parse(tbBlogEntity));
-        try{
+        log.info("===============保存文章的入参为===========[{}]", JSONUtil.parse(tbBlogEntity));
+        try {
             TbBlog save = articleService.save(tbBlogEntity);
-            return new Result(0, "成功", save);
-        }catch (Exception e){
-            log.error("=====================保存文章信息异常=============",e);
-            return new Result(500, "失败");
+            return Result.ok("成功", save);
+        } catch (Exception e) {
+            log.error("=====================保存文章信息异常=============", e);
+            return Result.error("失败");
         }
     }
 
     @DeleteMapping("delArticle/{blogId}")
     @ResponseBody
     private Result delArticleById(@PathVariable("blogId") Integer id) {
-        log.info("删除文章的入参为[{}]",id);
-        try{
+        log.info("删除文章的入参为[{}]", id);
+        try {
             articleService.delArticleById(id);
-            return new Result(0, "成功");
-        }catch (Exception e){
-            log.error("删除文章异常",e);
-            return new Result(500, "失败");
+            return Result.ok("删除成功");
+        } catch (Exception e) {
+            log.error("删除文章异常", e);
+            return Result.error("删除失败");
         }
     }
 }

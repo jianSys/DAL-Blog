@@ -16,7 +16,7 @@ layui.config({
         limit: 10,
         cols: [[
             //渲染表头
-            {type: "checkbox", fixed: "left", width: 50},
+            {type: "checkbox", fixed: "left", width: 30},
             {field: 'blogId', title: 'id', minWidth: 30, align: "center"},
             {field: 'blogTitle', title: '文章标题', align: 'center'},
             {field: 'blogCategoryName', title: '文章分类', align: 'center'},
@@ -30,6 +30,7 @@ layui.config({
             },
             {title: '置顶', minWidth: 30, templet: "#buttonTop", fixed: "right", align: 'center'},
             {title: '状态', minWidth: 30, templet: "#buttonTpl", fixed: "right", align: 'center'},
+            {title: '删除', minWidth: 30, templet: "#buttonDel", fixed: "right", align: 'center'},
             {title: '操作', minWidth: 175, templet: '#table-content-list', fixed: "right", align: "center"}
         ]]
         //data:data

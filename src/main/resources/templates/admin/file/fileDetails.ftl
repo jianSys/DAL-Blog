@@ -23,9 +23,9 @@
             <input name="avatar" lay-verify="required" id="photoUrl" placeholder="图片地址" value="${file.fileUrl}" class="layui-input">
         </div>
         <div class="layui-input-inline layui-btn-container" style="width: auto;">
-            <button type="button" class="layui-btn layui-btn-primary" id="uploadImages">
+            <#--<button type="button" class="layui-btn layui-btn-primary" id="uploadImages">
                 <i class="layui-icon">&#xe67c;</i>上传图片
-            </button>
+            </button>-->
 <#--            <button class="layui-btn layui-btn-primary" layadmin-event="avartatPreview">查看图片</button >-->
         </div>
     </div>

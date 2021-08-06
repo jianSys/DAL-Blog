@@ -1,6 +1,6 @@
 package com.blog.controller.admin;
 
-import com.blog.commons.Result;
+import com.blog.commons.constant.ControllerConstant;
 import com.blog.pojo.TbBlogFile;
 import com.blog.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 
 /**
  * @program: dal-blog
@@ -25,7 +24,7 @@ import java.util.ArrayList;
  * @create: 2021-07-04 22:31
  **/
 @Controller
-@RequestMapping("/admin/file")
+@RequestMapping(ControllerConstant.API_ADMIN_PREFIX+"/file")
 public class FileController {
 
     @Autowired

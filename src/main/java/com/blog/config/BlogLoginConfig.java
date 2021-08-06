@@ -1,6 +1,7 @@
 package com.blog.config;
 
-import com.blog.commons.MessageConstant;
+
+import com.blog.commons.constant.MessageConstant;
 import com.blog.interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package com.blog.commons;
+package com.blog.commons.constant;
 
 /**
  * @ProjectName: dal-blog

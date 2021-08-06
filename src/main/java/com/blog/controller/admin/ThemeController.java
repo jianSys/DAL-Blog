@@ -1,6 +1,7 @@
 package com.blog.controller.admin;
 
-import com.blog.commons.Result;
+import com.blog.commons.web.domain.response.Result;
+import com.blog.commons.constant.ControllerConstant;
 import com.blog.pojo.TbBlogTheme;
 import com.blog.service.ThemeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.List;
  * @create: 2021-07-03 15:44
  **/
 @Controller
-@RequestMapping("/admin/theme")
+@RequestMapping(ControllerConstant.API_ADMIN_PREFIX+"theme")
 public class ThemeController {
 
     @Autowired

@@ -28,14 +28,14 @@
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <#list  themeList as theme>
-            <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-col-sm6 layui-col-md2">
             <div class="layui-card">
                 <div class="layui-card-header">
                     ${theme.name}
                 </div>
                 <input id="themeId" name="id" type="hidden" value="${theme.id}">
                 <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="${theme.imgUrl}" style="width: 100%;height: 170px">
+                    <img class="" src="${theme.imgUrl}" style="width: 100%;height: 130px">
                 </div>
                 <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
                     <p style="text-align: center">

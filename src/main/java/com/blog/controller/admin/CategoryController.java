@@ -1,6 +1,8 @@
 package com.blog.controller.admin;
 
-import com.blog.commons.Result;
+import com.blog.commons.web.base.BaseController;
+import com.blog.commons.web.domain.response.Result;
+import com.blog.commons.constant.ControllerConstant;
 import com.blog.pojo.TbBlogCategory;
 import com.blog.service.CategoryService;
 import lombok.extern.log4j.Log4j2;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -22,21 +25,23 @@ import java.util.List;
  * @Version: 1.0
  */
 @Log4j2
-@Controller
-@RequestMapping("/admin/category")
-public class CategoryController {
+@RestController
+@RequestMapping(ControllerConstant.API_ADMIN_PREFIX + "category")
+public class CategoryController extends BaseController {
 
     @Autowired
     private CategoryService categoryService;
 
+    public static String MODULE_PATH = "/admin/category/";
+
     @GetMapping("toCategoryList")
-    private String toCategoryList() {
-        return "/admin/category/categoryList";
+    private ModelAndView toCategoryList() {
+        return jumpPage(MODULE_PATH + "categoryList");
     }
 
     @GetMapping("toCategoryEdit")
-    private String toCategoryEdit() {
-        return "/admin/category/categoryEdit";
+    private ModelAndView toCategoryEdit() {
+        return jumpPage(MODULE_PATH + "categoryEdit");
     }
 
 
@@ -57,11 +62,12 @@ public class CategoryController {
             Long total = category.getTotalElements();
             List<TbBlogCategory> content = category.getContent();
             return new Result(0, "成功", total.intValue(), content);
-        }catch (Exception e){
-            log.error("查询分类列表异常",e);
-            return new Result(500, "失败");
+        } catch (Exception e) {
+            log.error("查询分类列表异常", e);
+            return Result.error("失败");
 
-        } }
+        }
+    }
 
     /**
      * Save the article category

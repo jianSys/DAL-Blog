@@ -1,4 +1,4 @@
-package com.blog.commons;
+package com.blog.commons.web.domain.response;
 
 /**
  * @program: SpringBoot
@@ -62,6 +62,42 @@ public class Result {
 
     public void setData(Object data) {
         this.data = data;
+    }
+
+    /**
+     * 操作成功返回
+     * @param message
+     * @return
+     */
+    public static Result ok(String message){
+        return new Result(0,message);
+    }
+    /**
+     * 带参数返回
+     * @param message
+     * @return
+     */
+    public static Result ok(String message,Object data){
+        return new Result(0,message,data);
+    }
+
+    /**
+     * 错误返回
+     * @param message
+     * @return
+     */
+    public static Result error(String message){
+        return new Result(500,message);
+    }
+
+    /**
+     * 自定义错误码返回
+     * @param code
+     * @param message
+     * @return
+     */
+    public static Result error(Integer code , String message){
+        return new Result(code,message);
     }
 
 }

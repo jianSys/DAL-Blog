@@ -9,6 +9,7 @@
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../../../static/admin/plugins/layui/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../../static/admin/plugins/layui/style/admin.css" media="all">
+    <link rel="stylesheet" href="../../../static/admin/plugins/layui/style/admin.css" media="all">
 </head>
 <body>
 
@@ -66,11 +67,20 @@
                 <button class="layui-btn layui-btn-primary layui-btn-xs">未置顶</button>
                 {{#  } }}
             </script>
+
+            <script type="text/html" id="buttonDel">
+                {{#  if(d.isDeleted){ }}
+                <button class="layui-btn layui-btn-xs">已删除</button>
+                {{#  } else { }}
+                <button class="layui-btn layui-btn-primary layui-btn-xs">未删除</button>
+                {{#  } }}
+            </script>
+
             <script type="text/html" id="table-content-list">
                 <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
-                            class="layui-icon layui-icon-edit"></i>编辑</a>
+                            class="layui-icon layui-icon-edit" style="margin-right: 0"></i></a>
                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
-                            class="layui-icon layui-icon-delete"></i>删除</a>
+                            class="layui-icon layui-icon-delete" style="margin-right: 0"></i></a>
             </script>
         </div>
     </div>

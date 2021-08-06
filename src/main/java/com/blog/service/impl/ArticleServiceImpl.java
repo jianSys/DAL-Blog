@@ -178,7 +178,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void delArticleById(Integer id) {
-        blogDao.deleteById(id);
+        TbBlog blog = blogDao.getOne(id);
+        blog.setIsDeleted(1);
+        blog.setBlogStatus(0);
+        blogDao.save(blog);
     }
 
     @Override
