@@ -87,8 +87,8 @@ public class UploadController {
 
     @PostMapping("file")
     @ResponseBody
-    private Result uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request){
-        String str="";
+    private Result uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        String str = "";
         String filename = file.getOriginalFilename();
         try {
             InputStream ins = null;
@@ -97,9 +97,9 @@ public class UploadController {
             inputStreamToFile(ins, toFile);
             FileReader fr = new FileReader(toFile);
             BufferedReader br = new BufferedReader(fr);
-            String line="";
-            int lineNum=0;
-            while((line=br.readLine())!=null /*&& Format.isNotNull(line)*/){
+            String line = "";
+            int lineNum = 0;
+            while ((line = br.readLine()) != null /*&& Format.isNotNull(line)*/) {
                 str = str + line;
                 System.out.println(line);
             }
@@ -135,6 +135,7 @@ public class UploadController {
 
     /**
      * 新上传图片
+     *
      * @param file
      * @param httpServletRequest
      * @return
@@ -164,18 +165,20 @@ public class UploadController {
             String url = BlogUtil.getHost(new URI(httpServletRequest.getRequestURL() + "")) + "/upload/" + newFileName;
             //保存到数据库
             fileService.saveBlogFile(TbBlogFile.builder().fileUrl(url).fileName(newFileName).fileType(suffixName).createTime(new Date()).build());
-            return new Result(0,"上传成功",url);
+            return new Result(0, "上传成功", url);
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result(500,"文件上传失败");
+            return new Result(500, "文件上传失败");
         }
     }
-        /**
-         * md文档内图片
-         * @param
-         * @return
-         * @throws IOException
-         */
+
+    /**
+     * md文档内图片
+     *
+     * @param
+     * @return
+     * @throws IOException
+     */
     @PostMapping("uploadFile")
     public void uploadFileByEditormd(HttpServletRequest request,
                                      HttpServletResponse response,
@@ -213,21 +216,18 @@ public class UploadController {
     }
 
 
-
-
-
     //上传文件到本地
     public static void main(String[] args) throws Exception {
         String lineTxt = null;
         File file = new File("E://redis.md");
-        String encoding="UTF-8";
-        File path=new File("F://redis.md");
-        if(file.isFile() && file.exists()){ //判断文件是否存在
+        String encoding = "UTF-8";
+        File path = new File("F://redis.md");
+        if (file.isFile() && file.exists()) { //判断文件是否存在
             InputStreamReader read = new InputStreamReader(
-                    new FileInputStream(file),encoding);//考虑到编码格式
+                    new FileInputStream(file), encoding);//考虑到编码格式
             BufferedReader bufferedReader = new BufferedReader(read);
             //bufferedReader.
-            while((lineTxt = bufferedReader.readLine()) != null){
+            while ((lineTxt = bufferedReader.readLine()) != null) {
                 //str = str +
                 //list.add(Integer.parseInt(lineTxt));
                 System.out.println(lineTxt);

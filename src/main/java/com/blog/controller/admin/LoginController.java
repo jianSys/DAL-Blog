@@ -30,6 +30,7 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+
     /**
      * 跳转登录页面
      *
@@ -48,51 +49,51 @@ public class LoginController {
      */
     @ResponseBody
     @PostMapping(value = "login")
-    private Result login(@RequestBody User user, HttpSession session,HttpServletRequest request) {
-        if (StringUtils.isBlank(user.getVercode())){
+    private Result login(@RequestBody User user, HttpSession session, HttpServletRequest request) {
+        if (StringUtils.isBlank(user.getVercode())) {
             return Result.error("验证码不能为空");
         }
-        if (!CaptchaUtil.ver(user.getVercode(),request)){
+        if (!CaptchaUtil.ver(user.getVercode(), request)) {
             return Result.error("验证码错误");
         }
         TbAdminUser login = userService.login(user.getUsername(), user.getPassword());
-        if (null == login){
-            return  Result.error( "登录失败");
+        if (null == login) {
+            return Result.error("登录失败");
         }
         System.out.println(user);
-        session.setAttribute("loginUser",login.getLoginUserName());
+        session.setAttribute("loginUser", login.getLoginUserName());
         LoginUser loginUser = new LoginUser();
         loginUser.setId(login.getAdminUserId());
         loginUser.setUsername(login.getLoginUserName());
         loginUser.setPhone(login.getEmail());
         //TODO生成token(待做....)
         loginUser.setAccessToken("iuhfiuadhfjahfakjdfhakjfhakjhfakjh");
-        return  Result.ok( "登录成功", loginUser);
+        return Result.ok("登录成功", loginUser);
     }
 
     @ResponseBody
     @PostMapping("validation")
-    private Result validation(@RequestBody Map<String,String>  oldPassword, HttpServletRequest request) {
+    private Result validation(@RequestBody Map<String, String> oldPassword, HttpServletRequest request) {
         String username = (String) request.getSession().getAttribute("loginUser");
         String password = oldPassword.get("oldPassword");
-        if (StringUtils.isBlank(password)){
-            return new Result(400,"密码不能为空");
+        if (StringUtils.isBlank(password)) {
+            return new Result(400, "密码不能为空");
         }
         Boolean validation = userService.validation(username, password);
-        if (validation){
-            return new Result(0,"成功");
-        }else {
-            return new Result(500,"失败");
+        if (validation) {
+            return new Result(0, "成功");
+        } else {
+            return new Result(500, "失败");
         }
     }
 
     @ResponseBody
     @PostMapping("updatePassword")
-    private Result updatePassword(@RequestBody Map<String,String>  map, HttpSession session) {
+    private Result updatePassword(@RequestBody Map<String, String> map, HttpSession session) {
         System.out.println(map);
         TbAdminUser adminUser = userService.updatePassword(map.get("repassword"));
         session.removeAttribute("loginUser");
-        return new Result(0,"成功",adminUser);
+        return new Result(0, "成功", adminUser);
     }
 
 
@@ -100,7 +101,7 @@ public class LoginController {
     @ResponseBody
     private Result logout(HttpSession session) {
         session.removeAttribute("loginUser");
-        return new Result(0,"退出成功");
+        return new Result(0, "退出成功");
     }
 
 

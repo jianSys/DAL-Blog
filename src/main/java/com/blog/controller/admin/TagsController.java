@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Log4j2
 @Controller
-@RequestMapping(ControllerConstant.API_ADMIN_PREFIX+"/tags")
+@RequestMapping(ControllerConstant.API_ADMIN_PREFIX + "/tags")
 public class TagsController {
 
     @Autowired
@@ -46,15 +46,15 @@ public class TagsController {
     private Result tagsListByPage(@RequestParam(value = "page", required = true) Integer page,
                                   @RequestParam(value = "limit", required = true) Integer limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
-        log.info("查询标签列表的入参为[{},{}]",page,limit);
+        log.info("查询标签列表的入参为[{},{}]", page, limit);
         try {
             Page<TbBlogTag> tagPage = tagsService.findTagByPage(pageable);
             Long total = tagPage.getTotalElements();
             List<TbBlogTag> content = tagPage.getContent();
             System.out.println(content);
             return new Result(0, "成功", total.intValue(), content);
-        }catch (Exception e){
-            log.error("查询标签列表异常",e);
+        } catch (Exception e) {
+            log.error("查询标签列表异常", e);
             return new Result(500, "失败");
         }
     }
@@ -66,8 +66,8 @@ public class TagsController {
         try {
             TbBlogTag entity = tagsService.saveTags(tagEntity);
             return new Result(0, "成功", entity);
-        }catch (Exception e){
-            log.error("=============保存标签异常===========",e);
+        } catch (Exception e) {
+            log.error("=============保存标签异常===========", e);
             return new Result(500, "失败");
         }
 
@@ -80,8 +80,8 @@ public class TagsController {
         try {
             List<TbBlogTag> allTags = tagsService.getAllTags();
             return new Result(0, "成功", allTags);
-        }catch (Exception e){
-            log.error("==============查询便签列表失败================",e);
+        } catch (Exception e) {
+            log.error("==============查询便签列表失败================", e);
             return new Result(500, "失败");
         }
 

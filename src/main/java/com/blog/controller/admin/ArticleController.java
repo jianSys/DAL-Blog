@@ -98,7 +98,7 @@ public class ArticleController extends BaseController {
         map.put("title", title);
         map.put("blogCategoryName", blogCategoryName);
         Sort sort = new Sort(Sort.Direction.DESC, "blogId");
-        Pageable pageable = new PageRequest(domain.getPage()-1, domain.getLimit());
+        Pageable pageable = new PageRequest(domain.getPage() - 1, domain.getLimit());
         try {
             Page<TbBlog> byPage = articleService.findByPage(map, pageable);
             Long total = byPage.getTotalElements();

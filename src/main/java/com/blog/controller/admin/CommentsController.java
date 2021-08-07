@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  **/
 @Log4j2
 @Controller
-@RequestMapping(ControllerConstant.API_ADMIN_PREFIX+"/comments")
+@RequestMapping(ControllerConstant.API_ADMIN_PREFIX + "/comments")
 public class CommentsController {
 
     @GetMapping("toCommentsList")
-    private String toCommentsList(){return "/admin/comments/commentsList"; };
+    private String toCommentsList() {
+        return "/admin/comments/commentsList";
+    }
+
+    ;
 }

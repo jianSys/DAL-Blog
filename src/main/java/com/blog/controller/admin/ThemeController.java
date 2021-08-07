@@ -21,24 +21,25 @@ import java.util.List;
  * @create: 2021-07-03 15:44
  **/
 @Controller
-@RequestMapping(ControllerConstant.API_ADMIN_PREFIX+"theme")
+@RequestMapping(ControllerConstant.API_ADMIN_PREFIX + "theme")
 public class ThemeController {
 
     @Autowired
     private ThemeService themeService;
 
     @GetMapping("toThemeList")
-    private ModelAndView toThemeList(){
+    private ModelAndView toThemeList() {
         List<TbBlogTheme> themeList = themeService.getAllTheme();
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/admin/theme/themeList");
-        mv.addObject("themeList",themeList);
+        mv.addObject("themeList", themeList);
         return mv;
     }
+
     @ResponseBody
     @GetMapping("replaceTheme/{id}")
-    private Result replaceTheme(@PathVariable("id")Integer id){
+    private Result replaceTheme(@PathVariable("id") Integer id) {
         themeService.replaceTheme(id);
-        return new Result(0,"修改成功");
+        return new Result(0, "修改成功");
     }
 }

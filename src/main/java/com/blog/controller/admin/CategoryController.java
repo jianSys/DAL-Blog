@@ -56,7 +56,7 @@ public class CategoryController extends BaseController {
     @GetMapping("categoryList")
     @ResponseBody
     private Result categoryList(PageDomain domain) {
-        Pageable pageable = new PageRequest(domain.getPage() - 1,domain.getLimit());
+        Pageable pageable = new PageRequest(domain.getPage() - 1, domain.getLimit());
         try {
             Page<TbBlogCategory> category = categoryService.findCategoryByPage(pageable);
             Long total = category.getTotalElements();

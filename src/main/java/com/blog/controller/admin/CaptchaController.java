@@ -19,9 +19,10 @@ public class CaptchaController {
 
     /**
      * 验证码生成
-     * @param request 请求报文
+     *
+     * @param request  请求报文
      * @param response 响应报文
-     * */
+     */
     @RequestMapping("generate")
     public void generate(HttpServletRequest request, HttpServletResponse response) throws Exception {
         CaptchaUtil.out(request, response);

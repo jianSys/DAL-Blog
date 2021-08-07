@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>layuiAdmin 主页示例模板二</title>
+    <title>导航页</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -72,10 +72,31 @@
                 </div>
             </div>
         </div>
+        <div class="layui-col-sm12 layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">折线图</div>
+                <div class="layui-card-body">
+
+                    <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-normline">
+                        <div carousel-item id="LAY-index-normline">
+                            <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>
 </div>
 <script src="../../static/admin/plugins/layui/layui/layui.js"></script>
-</body>
+<script>
+    layui.config({
+        base: '../../../static/admin/plugins/layui/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'senior']);
+</script>
+    </body>
 </html>
