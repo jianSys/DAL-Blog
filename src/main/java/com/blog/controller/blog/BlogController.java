@@ -1,5 +1,6 @@
 package com.blog.controller.blog;
 
+import com.blog.commons.utils.IpUtil;
 import com.blog.commons.web.domain.response.Result;
 import com.blog.pojo.TbBlog;
 import com.blog.pojo.vo.BlogVO;
@@ -56,6 +57,7 @@ public class BlogController {
     @GetMapping({"", "/", "index"})
     private ModelAndView index(HttpServletRequest request,
                                HttpServletResponse response) {
+        String ipAddr = IpUtil.getIpAddr(request);
         getRedisTemplate();
         Map<String, String> config = adminService.getWebSite();
         ModelAndView mv = new ModelAndView();

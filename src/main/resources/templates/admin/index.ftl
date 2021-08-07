@@ -234,6 +234,7 @@
             , upload = layui.upload
         ,admin = layui.admin;
         $("#logout").on("click",function () {
+            let loader = layer.load();
             $.ajax({
                 type: 'get',//方法类型
                 url: "./logout",
@@ -241,6 +242,7 @@
                 //dataType: "json",
                 contentType: "application/json;charset=utf-8",
                 success: function (res) {
+                    layer.close(loader);
                     if (res.code === 0) {
                         layer.msg('退出登陆成功', {time: 1000},function () {
                             //window.location.href= '/admin/login';

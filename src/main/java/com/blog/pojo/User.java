@@ -9,13 +9,15 @@ package com.blog.pojo;
 public class User {
     String username;
     String password;
+    String vercode;
 
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password,String vercode) {
         this.username = username;
         this.password = password;
+        this.vercode = vercode;
     }
 
     public String getUsername() {
@@ -30,6 +32,16 @@ public class User {
         return password;
     }
 
+
+
+    public String getVercode() {
+        return vercode;
+    }
+
+    public void setVercode(String vercode) {
+        this.vercode = vercode;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -39,6 +51,7 @@ public class User {
         return "User{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", vercode='" + vercode + '\'' +
                 '}';
     }
 }

@@ -2,6 +2,7 @@ package com.blog.controller.admin;
 
 import cn.hutool.json.JSONUtil;
 import com.blog.commons.web.base.BaseController;
+import com.blog.commons.web.domain.request.PageDomain;
 import com.blog.commons.web.domain.response.Result;
 import com.blog.commons.constant.ControllerConstant;
 import com.blog.pojo.TbBlogCategory;
@@ -86,19 +87,18 @@ public class ArticleController extends BaseController {
      */
     @ResponseBody
     @GetMapping("articleList")
-    private Result articleList(@RequestParam(value = "page", required = true) Integer page,
-                               @RequestParam(value = "limit", required = true) Integer limit,
+    private Result articleList(PageDomain domain,
                                @RequestParam(value = "id", required = false) Integer id,
                                @RequestParam(value = "title", required = false) String title,
                                @RequestParam(value = "blogCategoryName", required = false) String blogCategoryName) {
-        log.info("分页查询文章列表的入参为==========>>>>[{},{},{},{},{}]", page, limit, id, title, blogCategoryName);
+        log.info("分页查询文章列表的入参为==========>>>>[{},{},{},{},{}]", domain.getPage(), domain.getLimit(), id, title, blogCategoryName);
         //创建查询条件
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", id);
         map.put("title", title);
         map.put("blogCategoryName", blogCategoryName);
         Sort sort = new Sort(Sort.Direction.DESC, "blogId");
-        Pageable pageable = new PageRequest(page - 1, limit);
+        Pageable pageable = new PageRequest(domain.getPage()-1, domain.getLimit());
         try {
             Page<TbBlog> byPage = articleService.findByPage(map, pageable);
             Long total = byPage.getTotalElements();
@@ -113,9 +113,8 @@ public class ArticleController extends BaseController {
 
     @GetMapping("categoryList")
     @ResponseBody
-    private Result categoryList(@RequestParam(value = "page", required = true) Integer page,
-                                @RequestParam(value = "limit", required = true) Integer limit) {
-        Pageable pageable = new PageRequest(page - 1, limit);
+    private Result categoryList(PageDomain domain) {
+        Pageable pageable = new PageRequest(domain.getPage() - 1, domain.getLimit());
         try {
             Page<TbBlogCategory> category = articleService.findCategoryByPage(pageable);
             List<TbBlogCategory> content = category.getContent();

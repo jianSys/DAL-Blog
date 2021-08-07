@@ -6,6 +6,7 @@ import com.blog.pojo.LoginUser;
 import com.blog.pojo.TbAdminUser;
 import com.blog.pojo.User;
 import com.blog.service.UserService;
+import com.wf.captcha.utils.CaptchaUtil;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +48,16 @@ public class LoginController {
      */
     @ResponseBody
     @PostMapping(value = "login")
-    private Result login(@RequestBody User user, HttpSession session) {
+    private Result login(@RequestBody User user, HttpSession session,HttpServletRequest request) {
+        if (StringUtils.isBlank(user.getVercode())){
+            return Result.error("验证码不能为空");
+        }
+        if (!CaptchaUtil.ver(user.getVercode(),request)){
+            return Result.error("验证码错误");
+        }
         TbAdminUser login = userService.login(user.getUsername(), user.getPassword());
         if (null == login){
-            return new Result(500, "登录失败");
+            return  Result.error( "登录失败");
         }
         System.out.println(user);
         session.setAttribute("loginUser",login.getLoginUserName());
@@ -60,7 +67,7 @@ public class LoginController {
         loginUser.setPhone(login.getEmail());
         //TODO生成token(待做....)
         loginUser.setAccessToken("iuhfiuadhfjahfakjdfhakjfhakjhfakjh");
-        return new Result(0, "成功", 200, loginUser);
+        return  Result.ok( "登录成功", loginUser);
     }
 
     @ResponseBody

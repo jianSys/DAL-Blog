@@ -1,6 +1,7 @@
 package com.blog.controller.admin;
 
 import com.blog.commons.web.base.BaseController;
+import com.blog.commons.web.domain.request.PageDomain;
 import com.blog.commons.web.domain.response.Result;
 import com.blog.commons.constant.ControllerConstant;
 import com.blog.pojo.TbBlogCategory;
@@ -54,9 +55,8 @@ public class CategoryController extends BaseController {
      */
     @GetMapping("categoryList")
     @ResponseBody
-    private Result categoryList(@RequestParam(value = "page", required = true) Integer page,
-                                @RequestParam(value = "limit", required = true) Integer limit) {
-        Pageable pageable = new PageRequest(page - 1, limit);
+    private Result categoryList(PageDomain domain) {
+        Pageable pageable = new PageRequest(domain.getPage() - 1,domain.getLimit());
         try {
             Page<TbBlogCategory> category = categoryService.findCategoryByPage(pageable);
             Long total = category.getTotalElements();
