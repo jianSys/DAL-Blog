@@ -10,6 +10,64 @@
     <meta name="keywords" content="个人博客，个人网站，个人博客模板，好看的个人博客">
     <meta name="description" content="个人博客搭建，个人博客免费建站，个人博客网站html源码，个人博客网站制作模板，源码下载，织梦，前端，java，PHP模板源码分享">
    <#include "common.ftl">
+    <style>
+        .justify-center {
+            justify-content: center;
+        }
+        .flex {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .is-invisible {
+            display: none;
+        }
+
+        .pagination-circle {
+            display: inline-block;
+            margin: 0 2px;
+            width: 2.4rem;
+            height: 2.4rem;
+            border-radius: 50%;
+            line-height: 2.4rem;
+            color: #000;
+            text-align: center;
+        }
+
+        .iconfont {
+            font-family: iconfont;
+            font-size: 16px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .pagination-circle.is-current,
+        .pagination-circle:hover {
+            background-color: #f1404b;
+            background-image: none;
+            color: var(--page-text-color);
+        }
+
+        .pagination-list .disabled {
+            display: none;
+        }
+
+        /*.page2,
+        .page3,
+        .page4,
+        .page5 {
+            width: 70%;
+            position: relative;
+            margin: 0 auto;
+            padding-top: .1px;
+            font-family: "Microsoft YaHei";
+        }*/
+
+        /*.icon-right:before {
+            content: "\E638";
+        }*/
+    </style>
 </head>
 
 <body >
@@ -99,8 +157,20 @@
                         </div>
                     </div>
                 </#list>
-
         </div>
+            <div class="pagination flex  justify-center" style="padding-top: 20px" role="navigation" aria-label="pagination">
+                <ul class="pagination-list flex">
+                    <li class="previous disabled">
+                        <a class="pagination-circle" tabindex="0" role="button" aria-disabled="true" aria-label="Previous page"></a>
+                    </li>
+                    <li class=" selected"><a role="button" class="pagination-circle is-current" tabindex="0" aria-label="Page 1 is your current page" aria-current="page">1</a></li>
+                    <li class=""><a role="button" class="pagination-circle" tabindex="0" aria-label="Page 2">2</a></li>
+                    <li class=""><a role="button" class="pagination-circle" tabindex="0" aria-label="Page 3">3</a></li>
+                    <li class=""><a role="button" class="pagination-circle" tabindex="0" aria-label="Page 4">4</a></li>
+                    <li class=""><a role="button" class="pagination-circle" tabindex="0" aria-label="Page 5">5</a></li>
+                    <li class="next"><a class="pagination-circle" tabindex="0" role="button" aria-disabled="false" aria-label="Next page"><span class="iconfont icon-right"> <i class="fa fa-angle-right fa-lg"></i></span></a></li>
+                </ul>
+            </div>
     </div>
 </div>
 </div>

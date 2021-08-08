@@ -1,6 +1,7 @@
 package com.blog.controller.blog;
 
 import com.blog.commons.utils.IpUtil;
+import com.blog.commons.web.base.BaseController;
 import com.blog.commons.web.domain.response.Result;
 import com.blog.pojo.TbBlog;
 import com.blog.pojo.vo.BlogVO;
@@ -133,5 +134,13 @@ public class BlogController {
     @GetMapping("read")
     private String toRead() {
         return "/blog/" + theme + "/read";
+    }
+    @GetMapping("archive")
+    private ModelAndView archive(){
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("blog",articleService.getAllBlog());
+        mv.addObject("config", adminService.getWebSite());
+        mv.setViewName("/blog/" + theme + "/archive");
+        return mv;
     }
 }

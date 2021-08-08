@@ -44,10 +44,10 @@
         </div>
         <div class="layui-form-item" style="margin-bottom: 20px;">
           <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
-          <a href="forget.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">忘记密码？</a>
+<#--          <a href="forget.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">忘记密码？</a>-->
         </div>
         <div class="layui-form-item">
-          <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登 入</button>
+          <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登 录</button>
         </div>
         <div class="layui-trans layui-form-item layadmin-user-login-other">
           <label>社交账号登入</label>
@@ -91,7 +91,7 @@
     base: '../../../static/admin/plugins/layui/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'user'], function(){
+  }).use(['index', 'user','popup'], function(){
     var $ = layui.$
     ,setter = layui.setter
     ,admin = layui.admin
@@ -119,11 +119,11 @@
         ,success: function(res){
           layer.close(loader);
           if (res.code === 0){
-            layer.msg(res.msg,function(){
+            popup.success(res.msg,function(){
               location.href = "/admin/index";
             })
           }else{
-            layer.msg(res.msg,function(){
+            popup.failure(res.msg,function(){
               document.getElementById("captchaImage").src=captchaPath + "?" + Math.random();
             });
           }
@@ -138,6 +138,7 @@
       document.getElementById("captchaImage").src= captchaPath + "?" + Math.random();
     },30 * 1000);
   });
+  if(window!=top){ top.location.href = location.href; }
   </script>
 </body>
 </html>

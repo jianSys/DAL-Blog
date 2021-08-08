@@ -5,7 +5,7 @@
             <nav class="nav-list" id="nav-list">
                 <ul>
                     <li><a href="../index">首页</a></li>
-                    <li><a href="../index">归档</a></li>
+                    <li><a href="../archive">归档</a></li>
                     <li><a href="../index">分类</a></li>
                     <li><a href="../s/about">关于</a></li>
                 </ul>

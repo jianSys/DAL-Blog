@@ -32,7 +32,7 @@ import java.util.Map;
  */
 @Log4j2
 @RestController
-@RequestMapping(ControllerConstant.API_ADMIN_PREFIX)
+@RequestMapping("admin")
 public class AdminController extends BaseController {
 
     @Autowired

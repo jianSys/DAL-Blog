@@ -31,7 +31,7 @@ layui.config({
             {title: '置顶', minWidth: 30, templet: "#buttonTop", fixed: "right", align: 'center'},
             {title: '状态', minWidth: 30, templet: "#buttonTpl", fixed: "right", align: 'center'},
             {title: '删除', minWidth: 30, templet: "#buttonDel", fixed: "right", align: 'center'},
-            {title: '操作', minWidth: 175, templet: '#table-content-list', fixed: "right", align: "center"}
+            {title: '操作', minWidth: 30, templet: '#table-content-list', fixed: "right", align: "center"}
         ]]
         //data:data
         //id:'article'

@@ -24,55 +24,55 @@
               <div class="layui-form-item">
                 <label class="layui-form-label">网站名称</label>
                 <div class="layui-input-block">
-                  <input type="text" name="sitename" value="layuiAdmin" class="layui-input">
+                  <input type="text" name="sitename" value="" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
                 <label class="layui-form-label">网站描述</label>
                 <div class="layui-input-block">
-                  <input type="text" name="description" value="layuiAdmin" class="layui-input">
+                  <input type="text" name="description" value="" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
                 <label class="layui-form-label">网站logo</label>
                 <div class="layui-input-block">
-                  <input type="text" name="logo" value="layuiAdmin" class="layui-input">
+                  <input type="text" name="logo" value="" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
                 <label class="layui-form-label">favicon.ico</label>
                 <div class="layui-input-block">
-                  <input type="text" name="icon" value="layuiAdmin" class="layui-input">
+                  <input type="text" name="icon" value="" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
                 <label class="layui-form-label">底部About</label>
                 <div class="layui-input-block">
-                  <input type="text" name="footerAbout" value="layuiAdmin" class="layui-input">
+                  <input type="text" name="footerAbout" value="" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
                 <label class="layui-form-label">底部备案号</label>
                 <div class="layui-input-block">
-                  <input type="text" name="footerICP" value="layuiAdmin" class="layui-input">
+                  <input type="text" name="footerICP" value="" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
                 <label class="layui-form-label">底部Copy Right</label>
                 <div class="layui-input-block">
-                  <input type="text" name="footerCopyRight" value="layuiAdmin" class="layui-input">
+                  <input type="text" name="footerCopyRight" value="" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
                 <label class="layui-form-label">底部Powered By</label>
                 <div class="layui-input-block">
-                  <input type="text" name="footerPoweredBy" value="layuiAdmin" class="layui-input">
+                  <input type="text" name="footerPoweredBy" value="" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
                 <label class="layui-form-label">底部Powered By URL</label>
                 <div class="layui-input-block">
-                  <input type="text" name="footerPoweredByURL" value="layuiAdmin" class="layui-input">
+                  <input type="text" name="footerPoweredByURL" value="" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">

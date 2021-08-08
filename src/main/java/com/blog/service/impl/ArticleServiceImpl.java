@@ -353,6 +353,32 @@ public class ArticleServiceImpl implements ArticleService {
         return blogVOS;
     }
 
+    /**
+     * 获取归档文章列表
+     * @return
+     */
+    @Override
+    public List<BlogVO> getArchiveBlog(){
+        Sort sort = new Sort(Sort.Direction.DESC, "createTime");
+        List<TbBlog> all = articleDao.findAll(sort);
+        List<BlogVO> list = new ArrayList<>();
+        all.forEach(
+                blog -> {
+                    BlogVO vo = new BlogVO();
+                    BeanUtils.copyProperties(blog,vo);
+                    String time = null;
+                    try {
+                        time = DateUtils.parseDate2String(vo.getCreateTime(), "yyyy-MM-dd HH:mm");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    vo.setTime(time);
+                    list.add(vo);
+                }
+        );
+        return list;
+    }
+
     @Override
     public BlogVO getPageByUrl(String url) {
         TbBlog blog = articleDao.findByBlogSubUrl(url);

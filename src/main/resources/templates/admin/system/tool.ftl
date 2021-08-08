@@ -22,6 +22,8 @@
           </div>
           <div class="layui-card-body layuiadmin-card-list">
             <p>支持 Hexo/Jekyll 文章导入并解析元数据</p>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
             <button class="layui-btn layui-btn-radius  layui-btn-sm layui-inline" id="open_upload">上传</button>
           </div>
         </div>

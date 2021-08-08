@@ -17,10 +17,10 @@
             cursor: pointer;
             color: #01AAED;
         }
-        .layui-card:hover{
+        /*.layui-card:hover{
             border: 1px solid rgba(30, 35, 42, .06);
             box-shadow: 0 4px 10px 10px rgb(0 0 0 / 5%);
-        }
+        }*/
     </style>
 </head>
 <body>
@@ -35,7 +35,7 @@
                 </div>
                 <input id="themeId" name="id" type="hidden" value="${theme.id}">
                 <div class="layui-card-body layuiadmin-card-list" style="padding: 3px">
-                    <img class="" src="${theme.imgUrl}" style="width: 100%;height: 130px">
+                    <img class="" src="${theme.imgUrl}" style="width: 100%;height: 120px">
                 </div>
                 <div class="layui-card-body layuiadmin-card-list" style="border-top: #ccc;padding: 10px 10px;font-size: 15px;">
                     <p style="text-align: center">
@@ -54,7 +54,7 @@
 </div>
 </div>
 
-<script src="../../static/admin/plugins/layui/layui/layui.js"></script>
+<script src="../../../static/admin/plugins/layui/layui/layui.js"></script>
 <script>
     layui.config({
         base: '../../static/admin/plugins/layui/' //静态资源所在路径

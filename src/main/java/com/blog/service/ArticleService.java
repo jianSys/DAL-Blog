@@ -65,5 +65,11 @@ public interface ArticleService {
      * 根据id查询文章
      */
     BlogVO getBlogById(Integer id);
+
+    /**
+     * 获取归档首页
+     * @return
+     */
+    List<BlogVO> getArchiveBlog();
     //前端页面显示结束
 }
