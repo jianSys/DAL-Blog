@@ -71,5 +71,7 @@ public interface ArticleService {
      * @return
      */
     List<BlogVO> getArchiveBlog();
+
+    Page<BlogVO> getPageBlog(Integer pageNum);
     //前端页面显示结束
 }

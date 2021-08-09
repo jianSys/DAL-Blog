@@ -8,10 +8,7 @@ import com.blog.pojo.vo.BlogVO;
 import com.blog.service.ArticleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang.StringUtils;
@@ -87,15 +84,11 @@ public class ArticleServiceImpl implements ArticleService {
             }
             return criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
         };
-
         Page<TbBlog> page = blogDao.findAll(spec, pageable);
-
         if (page == null || page.getTotalElements() < 1) {
             return new PageImpl<>(new ArrayList<>(0), pageable, 0);
         }
-
         List<TbBlog> lists = page.getContent();
-
         if (lists != null && lists.size() > 0) {
             return new PageImpl<>(lists, pageable, page.getTotalElements());
         }
@@ -377,6 +370,59 @@ public class ArticleServiceImpl implements ArticleService {
                 }
         );
         return list;
+    }
+
+
+    @Override
+    public Page<BlogVO> getPageBlog(Integer pageNum) {
+
+        Sort sort = new Sort(Sort.Direction.DESC, "blogId");
+        PageRequest pageable = PageRequest.of(pageNum - 1, 5,sort);
+        Specification<TbBlog> spec = (root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> list = new ArrayList<>();
+            //判断状态已发布
+            list.add(criteriaBuilder.equal(root.get("blogStatus"), 1));
+            //未删除
+            list.add(criteriaBuilder.equal(root.get("isDeleted"), 0));
+            //有地址的是页面,没有地址的是文章
+            list.add(criteriaBuilder.isNull(root.get("blogSubUrl")));
+
+            Predicate predicate = criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
+            criteriaQuery.where(predicate);
+            //根据创建时间排序
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createTime")));
+            return criteriaQuery.getRestriction();
+        };
+
+        Page<TbBlog> page = blogDao.findAll(spec, pageable);
+        if (page == null || page.getTotalElements() < 1) {
+            return new PageImpl<>(new ArrayList<>(0), pageable, 0);
+        }
+        List<TbBlog> lists = page.getContent();
+        if (lists != null && lists.size() > 0) {
+            List<BlogVO> blogVOS = new ArrayList<>();
+            if (!CollectionUtils.isEmpty(lists)){
+                lists.forEach(
+                        blog->{
+                            BlogVO blogVO = new BlogVO();
+                            BeanUtils.copyProperties(blog,blogVO);
+                            if (null != blogVO.getCreateTime()){
+                                try {
+                                    //处理页面显示时间
+                                    blogVO.setTime(DateUtils.parseDate2String(blogVO.getCreateTime(),"yyyy年MM月"));
+                                    blogVO.setDay(DateUtils.parseDate2String(blogVO.getCreateTime(),"dd"));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            blogVOS.add(blogVO);
+
+                        }
+                );
+            }
+            return new PageImpl<>(blogVOS, pageable, page.getTotalElements());
+        }
+        return new PageImpl<>(new ArrayList<>(0), pageable, 0);
     }
 
     @Override

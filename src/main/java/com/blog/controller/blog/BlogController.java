@@ -9,6 +9,8 @@ import com.blog.service.AdminService;
 import com.blog.service.ArticleService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -58,12 +60,33 @@ public class BlogController {
     @GetMapping({"", "/", "index"})
     private ModelAndView index(HttpServletRequest request,
                                HttpServletResponse response) {
-        String ipAddr = IpUtil.getIpAddr(request);
+        /*String ipAddr = IpUtil.getIpAddr(request);
         getRedisTemplate();
         Map<String, String> config = adminService.getWebSite();
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/blog/" + theme + "/index");
-        mv.addObject("logo", "jian");
+        //mv.addObject("logo", "jian");
+        mv.addObject("config", config);
+        mv.addObject("copyRight", config.get("footerCopyRight"));
+        mv.addObject("allBlog", articleService.getAllBlog());
+        mv.addObject("hotBlog", articleService.getHotBlog());*/
+        return this.page(1);
+    }
+
+    @GetMapping("page/{PageNum}")
+    private ModelAndView page(@PathVariable("pageNum")int pageNum){
+        getRedisTemplate();
+        Map<String, String> config = adminService.getWebSite();
+        Page<BlogVO> pageBlog = articleService.getPageBlog(pageNum);
+        long totalElements = pageBlog.getTotalElements();
+        int totalPages = pageBlog.getTotalPages();
+        int number = pageBlog.getNumber();
+        int size = pageBlog.getSize();
+        int numberOfElements = pageBlog.getNumberOfElements();
+        Pageable pageable = pageBlog.getPageable();
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/blog/" + theme + "/index");
+        //mv.addObject("logo", "jian");
         mv.addObject("config", config);
         mv.addObject("copyRight", config.get("footerCopyRight"));
         mv.addObject("allBlog", articleService.getAllBlog());

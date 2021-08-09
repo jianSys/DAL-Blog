@@ -46,7 +46,7 @@
         .pagination-circle:hover {
             background-color: #f1404b;
             background-image: none;
-            color: var(--page-text-color);
+            color: #fff;
         }
 
         .pagination-list .disabled {
@@ -101,26 +101,11 @@
                                 <img src="${hot.blogCoverImage}">
                                 <a href="#" class="link"><i class="fa fa-link"></i></a>
                             </div>
-                            <!-- <div class="news-content">
-                                <h4>
-                                    <a href="#">
-                                        Java专栏
-                                    </a>
-                                </h4>
-                                <div class="date">
-                                    2020年6月16日
-                                </div>
-                                <p>
-                                    本专栏主要分享Java的各种常见问题，包括java学习路线，java基础，框架，微服务，项目，面试题，希望通过这些知识的分享能够提升自己的java水平
-                                </p>
-                                <a href="#" class="btn">
-                                    阅读更多
-                                </a>
-                            </div> -->
                         </div>
                     </div>
                     </#list>
-            </div>
+                </div>
+
                 <div class="new-article">
                     <div class="inner wow fadeInDown" data-wow-delay=".2s">
                         <h3><i class="fa fa-list" aria-hidden="true" style="font-size: 16px; color: #f1404b"></i> 所有文章</h3>
@@ -157,18 +142,18 @@
                         </div>
                     </div>
                 </#list>
-        </div>
+            </div>
+
             <div class="pagination flex  justify-center" style="padding-top: 20px" role="navigation" aria-label="pagination">
                 <ul class="pagination-list flex">
-                    <li class="previous disabled">
-                        <a class="pagination-circle" tabindex="0" role="button" aria-disabled="true" aria-label="Previous page"></a>
+                    <li class="previous is-invisible">
+                        <a class="pagination-circle" tabindex="0" role="button" aria-disabled="true" aria-label="Previous page"><i class="fa fa-angle-left fa-lg"></i></a>
                     </li>
-                    <li class=" selected"><a role="button" class="pagination-circle is-current" tabindex="0" aria-label="Page 1 is your current page" aria-current="page">1</a></li>
-                    <li class=""><a role="button" class="pagination-circle" tabindex="0" aria-label="Page 2">2</a></li>
-                    <li class=""><a role="button" class="pagination-circle" tabindex="0" aria-label="Page 3">3</a></li>
-                    <li class=""><a role="button" class="pagination-circle" tabindex="0" aria-label="Page 4">4</a></li>
-                    <li class=""><a role="button" class="pagination-circle" tabindex="0" aria-label="Page 5">5</a></li>
-                    <li class="next"><a class="pagination-circle" tabindex="0" role="button" aria-disabled="false" aria-label="Next page"><span class="iconfont icon-right"> <i class="fa fa-angle-right fa-lg"></i></span></a></li>
+                    <li class="selected"><a role="button" class="pagination-circle is-current" tabindex="0" aria-label="Page 1 is your current page" aria-current="page">1</a></li>
+                    <li class="next is-invisible">
+                        <a class="pagination-circle" tabindex="0" role="button" aria-disabled="false" aria-label="Next page"><span class="iconfont icon-right"> <i class="fa fa-angle-right fa-lg"></i></span>
+                        </a>
+                    </li>
                 </ul>
             </div>
     </div>
