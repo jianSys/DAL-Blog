@@ -76,6 +76,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <!-- 这是mybatis-plus依赖 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.1.1</version>
+        </dependency>
 
         <!-- 配置使用redis启动器 -->
         <dependency>
@@ -87,12 +93,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
-        </dependency>
-        <!-- 糊涂工具类-->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.6.6</version>
         </dependency>
         <!--lombok-->
         <dependency>
@@ -145,58 +145,8 @@
         </dependency>
     </dependencies>
 
-    <!--<profiles>
-        <profile>
-            &lt;!&ndash; 本地开发环境 &ndash;&gt;
-            <id>dev</id>
-            <properties>
-                <profiles.active>dev</profiles.active>
-                <modifier></modifier>
-            </properties>
-            <activation>
-                &lt;!&ndash; 默认的，不加参数时执行这个profile &ndash;&gt;
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            &lt;!&ndash; 测试环境 &ndash;&gt;
-            <id>test</id>
-            <properties>
-                <profiles.active>test</profiles.active>
-                <modifier>-test</modifier>
-            </properties>
-        </profile>
-        <profile>
-            &lt;!&ndash; 生产环境 &ndash;&gt;
-            <id>prod</id>
-            <properties>
-                <profiles.active>prod</profiles.active>
-                <modifier>-prod</modifier>
-            </properties>
-        </profile>
-    </profiles>-->
 
     <build>
-        <!--设置打包名称-->
-<!--        <finalName>dal-blog</finalName>-->
-        <!--<resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>false</filtering>
-                <excludes>
-                    <exclude>application-*.properties</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <excludes>
-                    <exclude>application-{profiles.active}.properties</exclude>
-                </excludes>
-            </resource>
-        </resources>-->
-
-
         <resources>
             <resource>
                 <directory>src/main/java</directory>

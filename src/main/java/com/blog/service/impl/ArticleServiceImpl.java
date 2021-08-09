@@ -3,6 +3,7 @@ package com.blog.service.impl;
 import com.blog.commons.enums.LogEnum;
 import com.blog.commons.utils.DateUtils;
 import com.blog.dao.*;
+import com.blog.mapper.BlogMapper;
 import com.blog.pojo.*;
 import com.blog.pojo.vo.BlogVO;
 import com.blog.service.ArticleService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import javax.persistence.Tuple;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -34,6 +36,10 @@ import java.util.stream.Collectors;
  */
 @Service
 public class ArticleServiceImpl implements ArticleService {
+
+    @Resource
+    private BlogMapper blogMapper;
+
     @Autowired
     private BlogDao articleDao;
 
@@ -54,8 +60,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public TbBlog findById(Integer id) {
-        TbBlog tbBlogEntity = articleDao.findById(id).get();
-        return tbBlogEntity;
+        TbBlog blog = blogMapper.selectById(id);
+        //TbBlog tbBlogEntity = articleDao.findById(id).get();
+        return blog;
     }
 
     /**
@@ -441,7 +448,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public BlogVO getBlogById(Integer id) {
-        TbBlog blog = articleDao.getOne(id);
+        //TbBlog blog = articleDao.getOne(id);
+        TbBlog blog = blogMapper.selectById(id);
         BlogVO blogVO = new BlogVO();
         BeanUtils.copyProperties(blog,blogVO);
         String time = null;
