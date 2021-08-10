@@ -1,10 +1,14 @@
 package com.blog.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+
 import java.util.Date;
 
 /**
@@ -16,79 +20,78 @@ import java.util.Date;
  * @Version: 1.0
  */
 @Data
-@Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tb_blog")
+@TableName("tb_blog")
 public class TbBlog {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "blog_id")
+    @TableId
+    @TableField("blog_id")
     Integer blogId;
-    @Column(name = "blog_title")
+    @TableField("blog_title")
     String blogTitle;
     /**
      * 自定义路径
      */
-    @Column(name = "blog_sub_url")
+    @TableField("blog_sub_url")
     String blogSubUrl;
     /**
      * 博客封面图
      */
-    @Column(name = "blog_cover_image")
+    @TableField("blog_cover_image")
     String blogCoverImage;
     /**
      * 博客内容
      */
-    @Column(name = "blog_content")
+    @TableField("blog_content")
     String blogContent;
     /**
      * 分类id
      */
-    @Column(name = "blog_category_id")
+    @TableField("blog_category_id")
     Integer blogCategoryId;
     /**
      * 分类名称
      */
-    @Column(name = "blog_category_name")
+    @TableField("blog_category_name")
     String blogCategoryName;
     /**
      * 标签
      */
-    @Column(name = "blog_tags")
+    @TableField("blog_tags")
     String blogTags;
     /**
      * 状态 0-草稿,1,发布
      */
-    @Column(name = "blog_status")
+    @TableField("blog_status")
     Integer blogStatus;
     /**
      * 阅读量
      */
-    @Column(name = "blog_views")
+    @TableField("blog_views")
     Integer blogViews;
     /**
      * 是否允许评论0-允许,1-不允许
      */
-    @Column(name = "enable_comment")
+    @TableField("enable_comment")
     Integer enableComment;
     /**
      * 是否置顶
      */
-    @Column(name = "blog_top")
+    @TableField("blog_top")
     Integer blogTop;
     /**
      * 文章简介
      */
-    @Column(name = "blog_introduce")
+    @TableField("blog_introduce")
     String blogIntroduce;
     /**
      * 是否删除
      */
-    @Column(name = "is_deleted")
+    @TableField("is_deleted")
     Integer isDeleted;
-    @Column(name = "create_time")
+    @TableField("create_time")
     Date createTime;
-    @Column(name = "update_time")
+    @TableField("update_time")
     Date updateTime;
 }

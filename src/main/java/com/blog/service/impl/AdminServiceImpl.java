@@ -1,8 +1,9 @@
 package com.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blog.commons.enums.LogEnum;
-import com.blog.dao.BlogConfigDao;
-import com.blog.dao.BlogLogDao;
+import com.blog.mapper.BlogConfigMapper;
+import com.blog.mapper.BlogLogMapper;
 import com.blog.pojo.TbBlogConfig;
 import com.blog.pojo.TbBlogLog;
 import com.blog.service.AdminService;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -26,17 +28,18 @@ import java.util.*;
 @Log4j2
 @Service
 public class AdminServiceImpl implements AdminService {
-    @Autowired
-    private BlogConfigDao configDao;
 
-    @Autowired
-    private BlogLogDao logDao;
+    @Resource
+    private BlogConfigMapper configMapper;
+
+    @Resource
+    private BlogLogMapper logMapper;
 
     @Override
     public Map<String, String> getWebSite() {
-        List<TbBlogConfig> all = configDao.findAll();
+        List<TbBlogConfig> list = configMapper.findAll();
         Map<String, String> map = new HashMap<>();
-        all.forEach(
+        list.forEach(
                 config -> {
                     map.put(config.getConfigName(), config.getConfigValue());
                 }
@@ -46,31 +49,29 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<TbBlogConfig> saveWebSite(Map<String, Object> map) {
-        List<TbBlogConfig> daoAll = configDao.findAll();
-        daoAll.forEach(
+        List<TbBlogConfig> configList = configMapper.findAll();
+        configList.forEach(
                 c -> {
                     Object value = map.get(c.getConfigName());
                     if (null != value) {
                         c.setConfigValue(value.toString());
                         c.setUpdateTime(new Date());
+                        configMapper.insert(c);
                     }
                 });
         try {
-            List<TbBlogConfig> all = configDao.saveAll(daoAll);
             //保存修改日志
-            logDao.save(
+            logMapper.insert(
                     TbBlogLog.builder()
                             .operation(LogEnum.WEBSITE_UPDATE_OPERATION.getOperation())
                             .createTime(new Date())
                             .build()
             );
-            return all;
+            return configList;
         } catch (Exception e) {
             log.error("==========================修改网站设置异常======================", e);
             return null;
         }
-
-
     }
 
 }

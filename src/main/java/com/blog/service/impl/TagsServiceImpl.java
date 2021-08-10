@@ -1,6 +1,7 @@
 package com.blog.service.impl;
 
 import com.blog.dao.BlogTagDao;
+import com.blog.mapper.BlogTagMapper;
 import com.blog.pojo.TbBlogTag;
 import com.blog.service.TagsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -21,8 +23,8 @@ import java.util.List;
 @Service
 public class TagsServiceImpl implements TagsService {
 
-    @Autowired
-    private BlogTagDao tagDao;
+    @Resource
+    private BlogTagMapper tagMapper;
 
     /**
      * 分页查询所有博客标签
@@ -32,8 +34,8 @@ public class TagsServiceImpl implements TagsService {
      */
     @Override
     public Page<TbBlogTag> findTagByPage(Pageable pageable) {
-        Page<TbBlogTag> all = tagDao.findAll(pageable);
-        return all;
+        //Page<TbBlogTag> all = tagDao.findAll(pageable);
+        return null;
     }
 
     /**
@@ -43,7 +45,7 @@ public class TagsServiceImpl implements TagsService {
      */
     @Override
     public TbBlogTag saveTags(TbBlogTag tbBlogTag) {
-        Integer tagId = tbBlogTag.getTagId();
+        /*Integer tagId = tbBlogTag.getTagId();
         if (null != tagId) {
             TbBlogTag entity = tagDao.save(tbBlogTag);
             return entity;
@@ -52,11 +54,12 @@ public class TagsServiceImpl implements TagsService {
             tbBlogTag.setIsDeleted(0);
             TbBlogTag tagEntity = tagDao.save(tbBlogTag);
             return tagEntity;
-        }
+        }*/
+        return null;
     }
 
     @Override
     public List<TbBlogTag> getAllTags() {
-        return tagDao.findAll();
+        return null;
     }
 }

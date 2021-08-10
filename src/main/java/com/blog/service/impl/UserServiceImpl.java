@@ -4,6 +4,9 @@ import com.blog.commons.enums.LogEnum;
 import com.blog.commons.utils.MD5Util;
 import com.blog.dao.BlogLogDao;
 import com.blog.dao.UserDao;
+import com.blog.mapper.BlogLogMapper;
+import com.blog.mapper.BlogMapper;
+import com.blog.mapper.BlogUserMapper;
 import com.blog.pojo.TbAdminUser;
 import com.blog.pojo.TbBlogLog;
 import com.blog.pojo.User;
@@ -12,6 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -26,11 +30,11 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserDao userDao;
+    @Resource
+    private BlogUserMapper userMapper;
 
-    @Autowired
-    private BlogLogDao logDao;
+    @Resource
+    private BlogLogMapper logMapper;
 
     /**
      * 用户登录
@@ -40,7 +44,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public TbAdminUser login(String username, String password) {
-        TbAdminUser user = userDao.findTbAdminUserByLoginUserName(username);
+        /*TbAdminUser user = userDao.findTbAdminUserByLoginUserName(username);
         String s = MD5Util.MD5Encode(password, "UTF-8");
         boolean b = s.equals(user.getLoginPassword());
         if (b){
@@ -61,7 +65,7 @@ public class UserServiceImpl implements UserService {
                         .createTime(new Date())
                         .operationUser(username)
                         .build()
-        );
+        );*/
         return null;
     }
 
@@ -72,12 +76,13 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Boolean validation(String username ,String oldPassword) {
-        TbAdminUser userInfo = userDao.findTbAdminUserByLoginUserName(username);
+        /*TbAdminUser userInfo = userDao.findTbAdminUserByLoginUserName(username);
         String s = MD5Util.MD5Encode(oldPassword, "UTF-8");
         boolean b = s.equals(userInfo.getLoginPassword());
         if (b){
             return true;
         }
+        return false;*/
         return false;
     }
 
@@ -88,16 +93,17 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public TbAdminUser updatePassword(String newPassword) {
-        String password = MD5Util.MD5Encode(newPassword, "UTF-8");
+        /*String password = MD5Util.MD5Encode(newPassword, "UTF-8");
         TbAdminUser adminUser = userDao.findAll().get(0);
         adminUser.setLoginPassword(password);
         TbAdminUser user = userDao.save(adminUser);
-        return user;
+        return user;*/
+        return null;
     }
 
     @Override
     public TbAdminUser getUserInfo(String username) {
-        TbAdminUser user = userDao.findTbAdminUserByLoginUserName(username);
-        return user;
+        //TbAdminUser user = userDao.findTbAdminUserByLoginUserName(username);
+        return null;
     }
 }

@@ -1,10 +1,14 @@
 package com.blog.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+
 
 /**
  * @program: dal-blog
@@ -13,38 +17,36 @@ import javax.persistence.*;
  * @create: 2021-07-03 18:33
  **/
 @Data
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tb_blog_theme")
+@TableName( "tb_blog_theme")
 public class TbBlogTheme {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @TableId(type = IdType.AUTO)
+    @TableField( "id")
     private Integer id;
     /**
      * 名称
      */
-    @Column(name = "name")
+    @TableField( "name")
     private String name;
     /**
      * 图片地址
      */
-    @Column(name = "img_url")
+    @TableField( "img_url")
     private String imgUrl;
     /**
      * 状态
      */
-    @Column(name = "status")
+    @TableField( "status")
     private Integer status;
     /**
      * 描述
      */
-    @Column(name = "description")
+    @TableField( "description")
     private String description;
     /**
      * 文件夹名称
      */
-    @Column(name = "folder_name")
+    @TableField( "folder_name")
     private String folderName;
 }

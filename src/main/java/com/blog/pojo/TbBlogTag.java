@@ -1,33 +1,36 @@
 package com.blog.pojo;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.Date;
 
 
 @Data
-@Entity
+
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tb_blog_tag")
+@TableName( "tb_blog_tag")
 public class TbBlogTag implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tag_id")
+    @TableId(type = IdType.AUTO)
+    @TableField( "tag_id")
     private Integer tagId;
 
-    @Column(name = "tag_name")
+    @TableField( "tag_name")
     private String tagName;
 
-    @Column(name = "is_deleted")
+    @TableField( "is_deleted")
     private Integer isDeleted;
 
-    @Column(name = "create_time")
+    @TableField( "create_time")
     private Date createTime;
 }

@@ -1,11 +1,13 @@
 package com.blog.service.impl;
 
 import com.blog.dao.BlogCommentsDao;
+import com.blog.mapper.BlogCommentMapper;
 import com.blog.pojo.TbBlogComment;
 import com.blog.service.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 /**
@@ -17,15 +19,16 @@ import java.util.Date;
 @Service
 public class CommentsServiceImpl implements CommentsService {
 
-    @Autowired
-    private BlogCommentsDao commentsDao;
+    @Resource
+    private BlogCommentMapper commentsMapper;
 
 
     @Override
     public TbBlogComment save(TbBlogComment comment) {
-        comment.setCommentCreateTime(new Date());
+        /*comment.setCommentCreateTime(new Date());
         comment.setCommentStatus(0);
         comment.setIsDeleted(0);
-        return commentsDao.save(comment);
+        return commentsDao.save(comment);*/
+        return null;
     }
 }

@@ -1,7 +1,6 @@
 package com.blog.dao;
 
-import com.blog.pojo.TbBlogFile;
-import org.springframework.data.jpa.repository.JpaRepository;
+
 
 /**
  * @ProjectName: dal-blog
@@ -11,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Date: 2021/7/5 10:32
  * @Version: 1.0
  */
-public interface BlogFileDao extends JpaRepository<TbBlogFile,Integer> {
+public interface BlogFileDao  {
 }

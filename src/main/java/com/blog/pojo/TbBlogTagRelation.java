@@ -1,10 +1,14 @@
 package com.blog.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,31 +21,29 @@ import java.util.Date;
  * @Version: 1.0
  */
 @Data
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tb_blog_tag_relation")
+@TableName( "tb_blog_tag_relation")
 public class TbBlogTagRelation implements Serializable {
     /**
      * 主键id
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "relation_id")
+    @TableId(type = IdType.AUTO)
+    @TableField( "relation_id")
     private Integer relationId;
     /**
      * 文章id
      */
-    @Column(name = "blog_id")
+    @TableField( "blog_id")
     private Integer blogId;
     /**
      * 标签id
      */
-    @Column(name = "tag_id")
+    @TableField( "tag_id")
     private Integer tagId;
     /**
      * 创建时间
      */
-    @Column(name = "create_time")
+    @TableField( "create_time")
     private Date createTime;
 }

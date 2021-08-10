@@ -1,11 +1,13 @@
 package com.blog.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,32 +19,31 @@ import java.util.Date;
  * @Date: 2021/6/16 9:37
  * @Version: 1.0
  */
-@Entity
+
 @Data
 @AllArgsConstructor
-@DynamicUpdate
 @NoArgsConstructor
-@Table(name = "tb_config")
+@TableName("tb_config")
 public class TbBlogConfig implements Serializable {
     /**
      * 配置名称
      */
-    @Id
-    @Column(name = "config_name")
+    @TableId(type = IdType.AUTO)
+    @TableField("config_name")
     private String configName;
     /**
      * 配置名称对应的值
      */
-    @Column(name = "config_value")
+    @TableField("config_value")
     private String configValue;
     /**
      * 创建时间
      */
-    @Column(name = "create_time")
+    @TableField("create_time")
     private Date createTime;
     /**
      * 更新时间
      */
-    @Column(name = "update_time")
+    @TableField("update_time")
     private Date updateTime;
 }

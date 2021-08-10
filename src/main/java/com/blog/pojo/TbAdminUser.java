@@ -1,15 +1,17 @@
 package com.blog.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+
 import java.io.Serializable;
 
 @Data
-@Entity
-@Table(name = "tb_admin_user")
+@TableName("tb_admin_user")
 @NoArgsConstructor
 @AllArgsConstructor
 public class TbAdminUser implements Serializable {
@@ -19,9 +21,7 @@ public class TbAdminUser implements Serializable {
      *
      * @mbggenerated
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "admin_user_id")
+    @TableId
     private Integer adminUserId;
 
     /**
@@ -30,7 +30,7 @@ public class TbAdminUser implements Serializable {
      *
      * @mbggenerated
      */
-    @Column(name = "login_user_name")
+    @TableField("login_user_name")
     private String loginUserName;
 
     /**
@@ -39,7 +39,7 @@ public class TbAdminUser implements Serializable {
      *
      * @mbggenerated
      */
-    @Column(name = "login_password")
+    @TableField("login_password")
     private String loginPassword;
 
     /**
@@ -48,7 +48,7 @@ public class TbAdminUser implements Serializable {
      *
      * @mbggenerated
      */
-    @Column(name = "nick_name")
+    @TableField("nick_name")
     private String nickName;
 
     /**
@@ -57,7 +57,7 @@ public class TbAdminUser implements Serializable {
      *
      * @mbggenerated
      */
-    @Column(name = "locked")
+    @TableField("locked")
     private Integer locked;
 
     /**
@@ -66,6 +66,6 @@ public class TbAdminUser implements Serializable {
      *
      * @mbggenerated
      */
-    @Column(name = "email")
+    @TableField("email")
     private String email;
 }

@@ -1,26 +1,21 @@
 package com.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blog.commons.enums.LogEnum;
 import com.blog.commons.utils.DateUtils;
 import com.blog.dao.*;
-import com.blog.mapper.BlogMapper;
+import com.blog.mapper.*;
 import com.blog.pojo.*;
 import com.blog.pojo.vo.BlogVO;
 import com.blog.service.ArticleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import javax.persistence.Tuple;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -40,28 +35,21 @@ public class ArticleServiceImpl implements ArticleService {
     @Resource
     private BlogMapper blogMapper;
 
-    @Autowired
-    private BlogDao articleDao;
+    @Resource
+    private BlogTagMapper blogTagMapper;
 
-    @Autowired
-    private BlogTagDao blogTagDao;
+    @Resource
+    private BlogCategoryMapper blogCategoryMapper;
 
-    @Autowired
-    private BlogDao blogDao;
+    @Resource
+    private BlogLogMapper blogLogMapper;
 
-    @Autowired
-    private BlogCategoryDao blogCategoryDao;
-
-    @Autowired
-    private BlogLogDao logDao;
-
-    @Autowired
-    private BlogTagRelationDao tagRelationDao;
+    @Resource
+    private BlogTagRelationMapper tagRelationMapper;
 
     @Override
     public TbBlog findById(Integer id) {
         TbBlog blog = blogMapper.selectById(id);
-        //TbBlog tbBlogEntity = articleDao.findById(id).get();
         return blog;
     }
 
@@ -74,7 +62,7 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public Page<TbBlog> findByPage(Map<String, Object> map, Pageable pageable) {
-        //分页带动态条件查询文章
+        /*//分页带动态条件查询文章
         Specification<TbBlog> spec = (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
             Integer id = (Integer) map.get("id");
@@ -99,7 +87,8 @@ public class ArticleServiceImpl implements ArticleService {
         if (lists != null && lists.size() > 0) {
             return new PageImpl<>(lists, pageable, page.getTotalElements());
         }
-        return new PageImpl<>(new ArrayList<>(0), pageable, 0);
+        return new PageImpl<>(new ArrayList<>(0), pageable, 0);*/
+        return null;
     }
 
     /**
@@ -110,18 +99,18 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public Page<TbBlogCategory> findCategoryByPage(Pageable pageable) {
-        Page<TbBlogCategory> all = blogCategoryDao.findAll(pageable);
-        return all;
+        //Page<TbBlogCategory> all = blogCategoryDao.findAll(pageable);
+        return null;
     }
 
     @Override
     public List<TbBlogCategory> findAllCategory() {
-        return blogCategoryDao.findAll();
+        return null;
     }
 
     @Override
     public TbBlog save(TbBlog tbBlogEntity) {
-        Integer blogId = tbBlogEntity.getBlogId();
+        /*Integer blogId = tbBlogEntity.getBlogId();
         String blogTags = tbBlogEntity.getBlogTags();
         if (null != blogId) {
             tbBlogEntity.setUpdateTime(new Date());
@@ -168,26 +157,31 @@ public class ArticleServiceImpl implements ArticleService {
                             .build()
             );
             return save;
-        }
+        }*/
+        return null;
     }
 
     @Override
     public TbBlogCategory findCategoryById(Integer id) {
-        return blogCategoryDao.getOne(id);
+        return null;
     }
 
     @Override
     public void delArticleById(Integer id) {
-        TbBlog blog = blogDao.getOne(id);
+        blogMapper.deleteById(id);
+      /*  TbBlog blog = blogDao.getOne(id);
         blog.setIsDeleted(1);
         blog.setBlogStatus(0);
-        blogDao.save(blog);
+        blogDao.save(blog);*/
     }
 
+    /**
+     * 查看所有文章数
+     * @return
+     */
     @Override
     public Integer getArticleCount() {
-
-        Integer count = articleDao.getBlogCount();
+        Integer count = blogMapper.getBlogCount();
         return count;
     }
 
@@ -198,7 +192,7 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public Map<String, Object> indexData() {
-        Map<String, Object> map = new HashMap<>();
+        /*Map<String, Object> map = new HashMap<>();
         //查询最热文章
         Sort sort = new Sort(Sort.Direction.DESC, "blogViews");
         List<TbBlog> list = articleDao.findAll(sort);
@@ -208,7 +202,8 @@ public class ArticleServiceImpl implements ArticleService {
 
         map.put("hotBlog", hotBlog);
         map.put("allBlog", list);
-        return map;
+        return map;*/
+        return null;
     }
 
     /**
@@ -218,7 +213,7 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public Integer getArticleViewsCount() {
-        Integer count = articleDao.getBlogViewsCount();
+        Integer count = blogMapper.getBlogViewsCount();
         return count;
     }
 
@@ -231,7 +226,7 @@ public class ArticleServiceImpl implements ArticleService {
         String[] split = tagsIds.split(",");
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < split.length; i++) {
-            TbBlogTag entity = blogTagDao.getOne(Integer.parseInt(split[i]));
+            TbBlogTag entity = blogTagMapper.selectById(Integer.parseInt(split[i]));
             if (i == split.length - 1) {
                 builder.append(entity.getTagName());
             } else {
@@ -245,11 +240,13 @@ public class ArticleServiceImpl implements ArticleService {
      * 根据标签添加中间表数据
      */
     public void saveTagRelation(String tagsIds,Integer blogId) {
+        QueryWrapper<TbBlogTagRelation> qw = new QueryWrapper<>();
+        qw.lambda().eq(TbBlogTagRelation::getBlogId,blogId);
         String[] split = tagsIds.split(",");
-        List<TbBlogTagRelation> all = tagRelationDao.findAllByBlogId(blogId);
+        List<TbBlogTagRelation> all = tagRelationMapper.selectList(qw);
         all.forEach(
                 t->{
-                    tagRelationDao.deleteById(t.getRelationId());
+                    tagRelationMapper.deleteById(t.getRelationId());
                 }
         );
         List<TbBlogTagRelation> list = new ArrayList<>();
@@ -261,7 +258,9 @@ public class ArticleServiceImpl implements ArticleService {
             list.add(relation);
         }
         try {
-            List<TbBlogTagRelation> saveAll = tagRelationDao.saveAll(list);
+            for (TbBlogTagRelation tagRelation : list) {
+                tagRelationMapper.insert(tagRelation);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -274,10 +273,10 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public void updateBlogViews(Integer id) {
-        TbBlog blog = articleDao.getOne(id);
+        TbBlog blog = blogMapper.selectById(id);
         Integer blogViews = blog.getBlogViews();
         blog.setBlogViews(blogViews + 1);
-        TbBlog tbBlog = articleDao.save(blog);
+        blogMapper.insert(blog);
     }
 
     /**
@@ -291,7 +290,7 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public List<BlogVO> getHotBlog() {
-        List<TbBlog> hotBlog = articleDao.getHotBlog();
+       /* List<TbBlog> hotBlog = articleDao.getHotBlog();
         ArrayList<BlogVO> blogVOS = new ArrayList<>();
         if (!CollectionUtils.isEmpty(hotBlog)){
             hotBlog.forEach(
@@ -303,7 +302,8 @@ public class ArticleServiceImpl implements ArticleService {
             );
         }
 
-        return blogVOS;
+        return blogVOS;*/
+       return null;
     }
 
     /**
@@ -314,7 +314,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<BlogVO> getAllBlog() {
 
-        Specification<TbBlog> spec = (root, criteriaQuery, criteriaBuilder) -> {
+        /*Specification<TbBlog> spec = (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
             //判断状态已发布
             list.add(criteriaBuilder.equal(root.get("blogStatus"), 1));
@@ -350,7 +350,8 @@ public class ArticleServiceImpl implements ArticleService {
                     }
             );
         }
-        return blogVOS;
+        return blogVOS;*/
+        return null;
     }
 
     /**
@@ -359,10 +360,11 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public List<BlogVO> getArchiveBlog(){
-        Sort sort = new Sort(Sort.Direction.DESC, "createTime");
-        List<TbBlog> all = articleDao.findAll(sort);
+        QueryWrapper<TbBlog> qw = new QueryWrapper<>();
+        qw.orderByDesc("createTime");
+        List<TbBlog> tbBlogs = blogMapper.selectList(qw);
         List<BlogVO> list = new ArrayList<>();
-        all.forEach(
+        tbBlogs.forEach(
                 blog -> {
                     BlogVO vo = new BlogVO();
                     BeanUtils.copyProperties(blog,vo);
@@ -382,8 +384,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Page<BlogVO> getPageBlog(Integer pageNum) {
-
-        Sort sort = new Sort(Sort.Direction.DESC, "blogId");
+/*
+         Sort sort = new Sort(Sort.Direction.DESC, "blogId");
         PageRequest pageable = PageRequest.of(pageNum - 1, 5,sort);
         Specification<TbBlog> spec = (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
@@ -429,12 +431,15 @@ public class ArticleServiceImpl implements ArticleService {
             }
             return new PageImpl<>(blogVOS, pageable, page.getTotalElements());
         }
-        return new PageImpl<>(new ArrayList<>(0), pageable, 0);
+        return new PageImpl<>(new ArrayList<>(0), pageable, 0);*/
+return null;
     }
 
     @Override
     public BlogVO getPageByUrl(String url) {
-        TbBlog blog = articleDao.findByBlogSubUrl(url);
+        QueryWrapper<TbBlog> qw = new QueryWrapper<>();
+        qw.lambda().eq(TbBlog::getBlogSubUrl,url);
+        TbBlog blog = blogMapper.selectOne(qw);
         BlogVO blogVO = new BlogVO();
         BeanUtils.copyProperties(blog,blogVO);
         try {

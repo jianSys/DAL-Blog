@@ -1,11 +1,14 @@
 package com.blog.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -18,36 +21,34 @@ import java.util.Date;
  */
 @Data
 @Builder
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_blog_log")
+@TableName( "tb_blog_log")
 public class TbBlogLog {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @TableId(type = IdType.AUTO)
+    @TableField( "id")
     Integer id;
 
     /**
      * 操作内容
      */
-    @Column(name = "operation")
+    @TableField( "operation")
     String operation;
 
     /**
      * 操作人
      */
-    @Column(name = "operation_user")
+    @TableField( "operation_user")
     String operationUser;
 
     /**
      * 备注
      */
-    @Column(name = "remark")
+    @TableField( "remark")
     String remark;
     /**
      * 操作时间
      */
-    @Column(name = "create_time")
+    @TableField( "create_time")
     Date createTime;
 }

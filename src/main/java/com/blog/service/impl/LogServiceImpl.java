@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import com.blog.commons.utils.ConvertUtils;
 import com.blog.commons.utils.DateUtils;
 import com.blog.dao.BlogLogDao;
+import com.blog.mapper.BlogLogMapper;
 import com.blog.pojo.TbBlogLog;
 import com.blog.pojo.vo.BlogLogVO;
 import com.blog.service.LogService;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,12 +33,12 @@ import java.util.List;
 @Service
 public class LogServiceImpl implements LogService {
 
-    @Autowired
-    private BlogLogDao logDao;
+    @Resource
+    private BlogLogMapper logMapper;
 
     @Override
     public List<BlogLogVO> getLatestLog() {
-        Sort sort = new Sort(Sort.Direction.DESC, "createTime");
+        /*Sort sort = new Sort(Sort.Direction.DESC, "createTime");
         Pageable pageable = new PageRequest(0, 5,sort);
         Page<TbBlogLog> page = logDao.findAll(pageable);
         List<TbBlogLog> content = page.getContent();
@@ -49,6 +51,7 @@ public class LogServiceImpl implements LogService {
             vo.setTime(ago);
             logList.add(vo);
         }
-        return logList;
+        return logList;*/
+        return null;
     }
 }
