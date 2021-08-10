@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.blog.pojo.TbBlog;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * @program: dal-blog
  * @description: 博客mapper
@@ -16,5 +18,8 @@ public interface BlogMapper extends BaseMapper<TbBlog> {
     Integer getBlogCount();
     @Select("select sum(t.blog_views) from tb_blog t")
     Integer getBlogViewsCount();
+
+    @Select("select * from tb_blog")
+    List<TbBlog> findAll();
 
 }

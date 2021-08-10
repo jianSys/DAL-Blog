@@ -3,6 +3,7 @@ package com.blog.controller.admin;
 import cn.hutool.json.JSONUtil;
 import com.blog.commons.web.base.BaseController;
 import com.blog.commons.web.domain.request.PageDomain;
+import com.blog.commons.web.domain.response.PageResult;
 import com.blog.commons.web.domain.response.Result;
 import com.blog.commons.constant.ControllerConstant;
 import com.blog.pojo.TbBlogCategory;
@@ -78,8 +79,6 @@ public class ArticleController extends BaseController {
     /**
      * 分页查询
      *
-     * @param page
-     * @param limit
      * @param id
      * @param title
      * @param blogCategoryName
@@ -100,9 +99,9 @@ public class ArticleController extends BaseController {
         Sort sort = new Sort(Sort.Direction.DESC, "blogId");
         Pageable pageable = new PageRequest(domain.getPage() - 1, domain.getLimit());
         try {
-            Page<TbBlog> byPage = articleService.findByPage(map, pageable);
-            Long total = byPage.getTotalElements();
-            List<TbBlog> content = byPage.getContent();
+            PageResult byPage = articleService.findByPage(map, pageable);
+            Long total = byPage.getTotal();
+            List<TbBlog> content = byPage.getData();
             Result result = new Result(0, "成功", total.intValue(), content);
             return result;
         } catch (Exception e) {
@@ -116,8 +115,8 @@ public class ArticleController extends BaseController {
     private Result categoryList(PageDomain domain) {
         Pageable pageable = new PageRequest(domain.getPage() - 1, domain.getLimit());
         try {
-            Page<TbBlogCategory> category = articleService.findCategoryByPage(pageable);
-            List<TbBlogCategory> content = category.getContent();
+            PageResult page = articleService.findCategoryByPage(pageable);
+            List<TbBlogCategory> content = page.getData();
             return new Result(0, "成功", content.size(), content);
         } catch (Exception e) {
             log.error("查询分类列表异常", e);
@@ -139,7 +138,7 @@ public class ArticleController extends BaseController {
         log.info("===============保存文章的入参为===========[{}]", JSONUtil.parse(tbBlogEntity));
         try {
             TbBlog save = articleService.save(tbBlogEntity);
-            return Result.ok("成功", save);
+            return Result.ok("成功");
         } catch (Exception e) {
             log.error("=====================保存文章信息异常=============", e);
             return Result.error("失败");

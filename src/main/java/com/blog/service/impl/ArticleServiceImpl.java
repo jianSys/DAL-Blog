@@ -1,25 +1,24 @@
 package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.commons.enums.LogEnum;
 import com.blog.commons.utils.DateUtils;
-import com.blog.dao.*;
+import com.blog.commons.web.domain.response.PageResult;
 import com.blog.mapper.*;
 import com.blog.pojo.*;
 import com.blog.pojo.vo.BlogVO;
 import com.blog.service.ArticleService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.awt.*;
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @ProjectName: springboot
@@ -61,7 +60,7 @@ public class ArticleServiceImpl implements ArticleService {
      * @return
      */
     @Override
-    public Page<TbBlog> findByPage(Map<String, Object> map, Pageable pageable) {
+    public PageResult findByPage(Map<String, Object> map, Pageable pageable) {
         /*//分页带动态条件查询文章
         Specification<TbBlog> spec = (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
@@ -98,7 +97,7 @@ public class ArticleServiceImpl implements ArticleService {
      * @return
      */
     @Override
-    public Page<TbBlogCategory> findCategoryByPage(Pageable pageable) {
+    public PageResult findCategoryByPage(Pageable pageable) {
         //Page<TbBlogCategory> all = blogCategoryDao.findAll(pageable);
         return null;
     }
@@ -109,56 +108,55 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public TbBlog save(TbBlog tbBlogEntity) {
-        /*Integer blogId = tbBlogEntity.getBlogId();
-        String blogTags = tbBlogEntity.getBlogTags();
+    public TbBlog save(TbBlog blog) {
+        Integer blogId = blog.getBlogId();
+        String blogTags = blog.getBlogTags();
         if (null != blogId) {
-            tbBlogEntity.setUpdateTime(new Date());
+            blog.setUpdateTime(new Date());
             //更新
-            if (null != tbBlogEntity.getBlogCategoryId()) {
-                TbBlogCategory category = this.findCategoryById(tbBlogEntity.getBlogCategoryId());
-                tbBlogEntity.setBlogCategoryName(category.getCategoryName());
+            if (null != blog.getBlogCategoryId()) {
+                TbBlogCategory category = this.findCategoryById(blog.getBlogCategoryId());
+                blog.setBlogCategoryName(category.getCategoryName());
             }
             if (StringUtils.isNotBlank(blogTags)) {
                 saveTagRelation(blogTags,blogId);
                 String tagsNames = getTagsNames(blogTags);
-                tbBlogEntity.setBlogTags(tagsNames);
+                blog.setBlogTags(tagsNames);
             }
-            TbBlog update = blogDao.save(tbBlogEntity);
+            blogMapper.updateById(blog);
             //文章修改日志
-            logDao.save(
+            blogLogMapper.insert(
                     TbBlogLog.builder()
                             .operation(LogEnum.ARTICLE_UPDATE_OPERATION.getOperation())
                             .createTime(new Date())
-                            .remark(update.getBlogTitle())
+                            .remark(blog.getBlogTitle())
                             .build()
             );
-            return update;
+            return null;
         } else {
-            tbBlogEntity.setUpdateTime(new Date());
-            tbBlogEntity.setCreateTime(new Date());
-            tbBlogEntity.setBlogViews(0);
-            tbBlogEntity.setIsDeleted(0);
-            if (null != tbBlogEntity.getBlogCategoryId()) {
-                TbBlogCategory category = this.findCategoryById(tbBlogEntity.getBlogCategoryId());
-                tbBlogEntity.setBlogCategoryName(category.getCategoryName());
+            blog.setUpdateTime(new Date());
+            blog.setCreateTime(new Date());
+            blog.setBlogViews(0);
+            blog.setIsDeleted(0);
+            if (null != blog.getBlogCategoryId()) {
+                TbBlogCategory category = this.findCategoryById(blog.getBlogCategoryId());
+                blog.setBlogCategoryName(category.getCategoryName());
             }
             if (StringUtils.isNotBlank(blogTags)) {
                 String tagsNames = getTagsNames(blogTags);
-                tbBlogEntity.setBlogTags(tagsNames);
+                blog.setBlogTags(tagsNames);
             }
-            TbBlog save = blogDao.save(tbBlogEntity);
+            blogMapper.insert(blog);
             //添加操作日志
-            logDao.save(
+            blogLogMapper.insert(
                     TbBlogLog.builder()
                             .operation(LogEnum.ARTICLE_ADD_OPERATION.getOperation())
                             .createTime(new Date())
-                            .remark(save.getBlogTitle())
+                            .remark(blog.getBlogTitle())
                             .build()
             );
-            return save;
-        }*/
-        return null;
+            return null;
+        }
     }
 
     @Override
@@ -276,7 +274,7 @@ public class ArticleServiceImpl implements ArticleService {
         TbBlog blog = blogMapper.selectById(id);
         Integer blogViews = blog.getBlogViews();
         blog.setBlogViews(blogViews + 1);
-        blogMapper.insert(blog);
+        blogMapper.updateById(blog);
     }
 
     /**
@@ -290,10 +288,12 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public List<BlogVO> getHotBlog() {
-       /* List<TbBlog> hotBlog = articleDao.getHotBlog();
+        QueryWrapper<TbBlog> qw = new QueryWrapper<>();
+        qw.orderByDesc("blog_views");
+        List<TbBlog> blogs = blogMapper.selectList(qw);
         ArrayList<BlogVO> blogVOS = new ArrayList<>();
-        if (!CollectionUtils.isEmpty(hotBlog)){
-            hotBlog.forEach(
+        if (!CollectionUtils.isEmpty(blogs)){
+            blogs.forEach(
                     blog->{
                         BlogVO blogVO = new BlogVO();
                         BeanUtils.copyProperties(blog,blogVO);
@@ -302,8 +302,7 @@ public class ArticleServiceImpl implements ArticleService {
             );
         }
 
-        return blogVOS;*/
-       return null;
+        return blogVOS.subList(0,4);
     }
 
     /**
@@ -361,7 +360,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<BlogVO> getArchiveBlog(){
         QueryWrapper<TbBlog> qw = new QueryWrapper<>();
-        qw.orderByDesc("createTime");
+        qw.orderByDesc("create_time");
         List<TbBlog> tbBlogs = blogMapper.selectList(qw);
         List<BlogVO> list = new ArrayList<>();
         tbBlogs.forEach(
@@ -381,35 +380,22 @@ public class ArticleServiceImpl implements ArticleService {
         return list;
     }
 
-
+    /**
+     * 分页查询首页数据
+     * @param pageNum
+     * @return
+     */
     @Override
-    public Page<BlogVO> getPageBlog(Integer pageNum) {
-/*
-         Sort sort = new Sort(Sort.Direction.DESC, "blogId");
-        PageRequest pageable = PageRequest.of(pageNum - 1, 5,sort);
-        Specification<TbBlog> spec = (root, criteriaQuery, criteriaBuilder) -> {
-            List<Predicate> list = new ArrayList<>();
-            //判断状态已发布
-            list.add(criteriaBuilder.equal(root.get("blogStatus"), 1));
-            //未删除
-            list.add(criteriaBuilder.equal(root.get("isDeleted"), 0));
-            //有地址的是页面,没有地址的是文章
-            list.add(criteriaBuilder.isNull(root.get("blogSubUrl")));
-
-            Predicate predicate = criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
-            criteriaQuery.where(predicate);
-            //根据创建时间排序
-            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createTime")));
-            return criteriaQuery.getRestriction();
-        };
-
-        Page<TbBlog> page = blogDao.findAll(spec, pageable);
-        if (page == null || page.getTotalElements() < 1) {
-            return new PageImpl<>(new ArrayList<>(0), pageable, 0);
-        }
-        List<TbBlog> lists = page.getContent();
+    public PageResult<BlogVO> getPageBlog(Integer pageNum) {
+        QueryWrapper<TbBlog> qw = new QueryWrapper<>();
+        qw.lambda().eq(TbBlog::getBlogStatus,1);
+        qw.lambda().eq(TbBlog::getIsDeleted,0);
+        qw.isNull("blog_sub_url");
+        IPage<TbBlog> page = new Page(pageNum,2);
+        IPage<TbBlog> iPage = blogMapper.selectPage(page, qw);
+        List<TbBlog> lists = iPage.getRecords();
         if (lists != null && lists.size() > 0) {
-            List<BlogVO> blogVOS = new ArrayList<>();
+            List<BlogVO> blogs = new ArrayList<>();
             if (!CollectionUtils.isEmpty(lists)){
                 lists.forEach(
                         blog->{
@@ -424,17 +410,23 @@ public class ArticleServiceImpl implements ArticleService {
                                     e.printStackTrace();
                                 }
                             }
-                            blogVOS.add(blogVO);
+                            blogs.add(blogVO);
 
                         }
                 );
             }
-            return new PageImpl<>(blogVOS, pageable, page.getTotalElements());
+            return new PageResult<>(blogs,iPage.getSize(),iPage.getTotal());
+            //return new PageResult(blogVOS,iPage.getSize(),iPage.getPages());
         }
-        return new PageImpl<>(new ArrayList<>(0), pageable, 0);*/
-return null;
+        //return new PageImpl<>(new ArrayList<>(0), pageable, 0);*/
+        return new PageResult<>(new ArrayList<>(),iPage.getSize(),iPage.getTotal());
     }
 
+    /**
+     * 根据url查询数据
+     * @param url
+     * @return
+     */
     @Override
     public BlogVO getPageByUrl(String url) {
         QueryWrapper<TbBlog> qw = new QueryWrapper<>();
@@ -451,9 +443,13 @@ return null;
         return blogVO;
     }
 
+    /**
+     * 根据id查询博客
+     * @param id
+     * @return
+     */
     @Override
     public BlogVO getBlogById(Integer id) {
-        //TbBlog blog = articleDao.getOne(id);
         TbBlog blog = blogMapper.selectById(id);
         BlogVO blogVO = new BlogVO();
         BeanUtils.copyProperties(blog,blogVO);

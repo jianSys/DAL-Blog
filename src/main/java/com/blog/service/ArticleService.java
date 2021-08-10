@@ -1,5 +1,6 @@
 package com.blog.service;
 
+import com.blog.commons.web.domain.response.PageResult;
 import com.blog.pojo.TbBlogCategory;
 import com.blog.pojo.TbBlog;
 import com.blog.pojo.vo.BlogVO;
@@ -25,9 +26,9 @@ public interface ArticleService {
      */
     TbBlog findById(Integer id);
 
-    Page<TbBlog> findByPage(Map<String, Object> map, Pageable pageable);
+    PageResult findByPage(Map<String, Object> map, Pageable pageable);
 
-    Page<TbBlogCategory> findCategoryByPage(Pageable pageable);
+    PageResult findCategoryByPage(Pageable pageable);
 
     List<TbBlogCategory> findAllCategory();
 
@@ -72,6 +73,6 @@ public interface ArticleService {
      */
     List<BlogVO> getArchiveBlog();
 
-    Page<BlogVO> getPageBlog(Integer pageNum);
+   PageResult getPageBlog(Integer pageNum);
     //前端页面显示结束
 }

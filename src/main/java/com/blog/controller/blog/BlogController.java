@@ -77,19 +77,12 @@ public class BlogController {
     private ModelAndView page(@PathVariable("pageNum")int pageNum){
         getRedisTemplate();
         Map<String, String> config = adminService.getWebSite();
-        Page<BlogVO> pageBlog = articleService.getPageBlog(pageNum);
-        long totalElements = pageBlog.getTotalElements();
-        int totalPages = pageBlog.getTotalPages();
-        int number = pageBlog.getNumber();
-        int size = pageBlog.getSize();
-        int numberOfElements = pageBlog.getNumberOfElements();
-        Pageable pageable = pageBlog.getPageable();
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/blog/" + theme + "/index");
         //mv.addObject("logo", "jian");
         mv.addObject("config", config);
         mv.addObject("copyRight", config.get("footerCopyRight"));
-        mv.addObject("allBlog", articleService.getAllBlog());
+        mv.addObject("allBlog", articleService.getPageBlog(pageNum).getData());
         mv.addObject("hotBlog", articleService.getHotBlog());
         return mv;
     }
@@ -116,14 +109,11 @@ public class BlogController {
             mv.setViewName("/error/404");
             return mv;
         }
-        Map<String, String> webSite = adminService.getWebSite();
         //更新观看人数
         articleService.updateBlogViews(id);
-
         mv.setViewName("/blog/" + theme + "/blog");
         mv.addObject("blog", tbBlog);
-        mv.addObject("config", webSite);
-        mv.addObject("content", tbBlog.getBlogContent());
+        mv.addObject("config", adminService.getWebSite());
         return mv;
     }
 
@@ -145,7 +135,6 @@ public class BlogController {
         mv.setViewName("/blog/" + theme + "/blog");
         mv.addObject("blog", tbBlog);
         mv.addObject("config", webSite);
-        mv.addObject("content", tbBlog.getBlogContent());
         return mv;
     }
 
@@ -161,7 +150,7 @@ public class BlogController {
     @GetMapping("archive")
     private ModelAndView archive(){
         ModelAndView mv = new ModelAndView();
-        mv.addObject("blog",articleService.getAllBlog());
+        mv.addObject("blog",articleService.getArchiveBlog());
         mv.addObject("config", adminService.getWebSite());
         mv.setViewName("/blog/" + theme + "/archive");
         return mv;

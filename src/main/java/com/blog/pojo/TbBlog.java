@@ -1,5 +1,6 @@
 package com.blog.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -25,9 +26,10 @@ import java.util.Date;
 @AllArgsConstructor
 @TableName("tb_blog")
 public class TbBlog {
-    @TableId
-    @TableField("blog_id")
+
+    @TableId(value = "blog_id",type = IdType.AUTO)
     Integer blogId;
+
     @TableField("blog_title")
     String blogTitle;
     /**
