@@ -23,7 +23,7 @@ layui.config({
         //console.log(data['value']);
         //var value = data['value'];
         $.ajax({
-            url: "getCategory",
+            url: "../category/getAllCategory",
             type: 'GET',
             dataType: 'json',
             //data:{id: value},

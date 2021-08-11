@@ -87,13 +87,24 @@ public class LoginController {
         }
     }
 
+    /**
+     * 修改登录用户密码
+     * @param map
+     * @param session
+     * @return
+     */
     @ResponseBody
     @PostMapping("updatePassword")
     private Result updatePassword(@RequestBody Map<String, String> map, HttpSession session) {
         System.out.println(map);
-        TbAdminUser adminUser = userService.updatePassword(map.get("repassword"));
-        session.removeAttribute("loginUser");
-        return new Result(0, "成功", adminUser);
+        try{
+            userService.updatePassword(map.get("repassword"));
+            session.removeAttribute("loginUser");
+            return Result.ok("密码修改成功");
+        }catch (Exception e){
+            log.error("=================修改登录密码异常==============",e);
+            return Result.error("修改密码失败");
+        }
     }
 
 

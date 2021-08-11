@@ -7,8 +7,8 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width" />
     <title>DAL个人博客</title>
-    <meta name="keywords" content="个人博客，个人网站，个人博客模板，好看的个人博客">
-    <meta name="description" content="个人博客搭建，个人博客免费建站，个人博客网站html源码，个人博客网站制作模板，源码下载，织梦，前端，java，PHP模板源码分享">
+    <meta name="keywords" content="个人博客，个人网站，好看的个人博客">
+    <meta name="description" content="个人博客">
    <#include "common.ftl">
     <style>
         .justify-center {
@@ -149,7 +149,14 @@
                     <li class="previous is-invisible">
                         <a class="pagination-circle" tabindex="0" role="button" aria-disabled="true" aria-label="Previous page"><i class="fa fa-angle-left fa-lg"></i></a>
                     </li>
-                    <li class="selected"><a role="button" class="pagination-circle is-current" tabindex="0" aria-label="Page 1 is your current page" aria-current="page">1</a></li>
+                    <#list 1..page.totalPages as i>
+                        <#if currentPage = i>
+                            <li class="selected"><a role="button" class="pagination-circle is-current" tabindex="0" aria-label="Page 1 is your current page" aria-current="page">${i}</a></li>
+
+                        <#else >
+                        <li class="selected"><a role="button" class="pagination-circle" tabindex="0" aria-label="Page 1 is your current page" aria-current="page">${i}</a></li>
+                        </#if>
+                    </#list>
                     <li class="next is-invisible">
                         <a class="pagination-circle" tabindex="0" role="button" aria-disabled="false" aria-label="Next page"><span class="iconfont icon-right"> <i class="fa fa-angle-right fa-lg"></i></span>
                         </a>

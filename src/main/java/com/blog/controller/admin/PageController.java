@@ -1,6 +1,8 @@
 package com.blog.controller.admin;
 
 import cn.hutool.json.JSONUtil;
+import com.blog.commons.web.base.BaseController;
+import com.blog.commons.web.domain.request.PageDomain;
 import com.blog.commons.web.domain.response.Result;
 import com.blog.commons.constant.ControllerConstant;
 import com.blog.pojo.TbBlog;
@@ -9,7 +11,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -21,27 +25,29 @@ import java.util.List;
  * @Version: 1.0
  */
 @Log4j2
-@Controller
+@RestController
 @RequestMapping(ControllerConstant.API_ADMIN_PREFIX + "page")
-public class PageController {
+public class PageController extends BaseController {
 
-    @Autowired
+    public static String MODULE_PATH = "/admin/page/";
+
+    @Resource
     private PageService pageService;
 
     @GetMapping("toPageAdd")
-    private String toPageAdd() {
-        return "/admin/page/pageAdd";
+    private ModelAndView toPageAdd() {
+        return jumpPage(MODULE_PATH + "pageAdd");
     }
 
     @GetMapping("toPageForm")
-    private String toPageForm() {
-        return "/admin/page/pageForm";
+    private ModelAndView toPageForm() {
+        return jumpPage(MODULE_PATH + "pageForm");
     }
 
 
     @GetMapping("toPageList")
-    private String toPageList() {
-        return "/admin/page/pageList";
+    private ModelAndView toPageList() {
+        return jumpPage(MODULE_PATH + "pageList");
     }
 
 
@@ -50,19 +56,18 @@ public class PageController {
     private Result saveArticle(@RequestBody TbBlog tbBlogEntity) {
         log.info("===============保存页面的入参为===========[{}]", JSONUtil.parse(tbBlogEntity));
         try {
-            TbBlog save = pageService.savePage(tbBlogEntity);
-            return new Result(0, "成功", save);
+            pageService.savePage(tbBlogEntity);
+            return Result.ok("保存页面信息成功");
         } catch (Exception e) {
             log.error("=====================保存页面信息异常=============", e);
-            return new Result(500, "失败");
+            return Result.error("保存页面信息失败");
         }
     }
 
     @ResponseBody
     @GetMapping("getPageList")
     private Result getAllPage(
-            @RequestParam(value = "page", required = true) Integer page,
-            @RequestParam(value = "limit", required = true) Integer limit
+            PageDomain domain
     ) {
         List<TbBlog> all = pageService.getAllPage();
         return new Result(0, "查询所有页面成功", all);

@@ -21,8 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @TableName( "tb_blog_theme")
 public class TbBlogTheme {
-    @TableId(type = IdType.AUTO)
-    @TableField( "id")
+    @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
     /**
      * 名称

@@ -4,6 +4,8 @@ import com.blog.pojo.TbBlogFile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * @ProjectName: dal-blog
  * @ClassName: FileService
@@ -16,11 +18,11 @@ public interface FileService {
     /**
      * 分页查询
      */
-    Page<TbBlogFile> getFileListByPage(Pageable pageable);
+    List<TbBlogFile> getFileListByPage(Pageable pageable);
     /**
      * 保存数据
      */
-    TbBlogFile saveBlogFile(TbBlogFile tbBlogFile);
+    void saveBlogFile(TbBlogFile tbBlogFile);
     /**
      * 根据id获取
      */

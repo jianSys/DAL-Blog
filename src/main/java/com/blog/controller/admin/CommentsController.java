@@ -3,6 +3,8 @@ package com.blog.controller.admin;
 import com.blog.commons.constant.ControllerConstant;
 import com.blog.commons.utils.IpUtil;
 import com.blog.commons.web.base.BaseController;
+import com.blog.commons.web.domain.request.PageDomain;
+import com.blog.commons.web.domain.response.PageResult;
 import com.blog.commons.web.domain.response.Result;
 import com.blog.pojo.TbBlogComment;
 import com.blog.service.CommentsService;
@@ -40,5 +42,17 @@ public class CommentsController extends BaseController {
         comment.setCommentatorIp(ipAddr);
         commentsService.save(comment);
         return Result.ok("评论成功");
+    }
+
+    /**
+     * 获取评价分页信息
+     * @param domain
+     * @param comment
+     * @return
+     */
+    @GetMapping("getPage")
+    private Result page(PageDomain domain,TbBlogComment comment){
+        PageResult<TbBlogComment> page = commentsService.page(domain, comment);
+        return new Result(0,"查询列表成功",page.getTotal().intValue(),page.getData());
     }
 }

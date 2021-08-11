@@ -1,6 +1,9 @@
 package com.blog.controller.admin;
 
 import cn.hutool.json.JSONUtil;
+import com.blog.commons.web.base.BaseController;
+import com.blog.commons.web.domain.request.PageDomain;
+import com.blog.commons.web.domain.response.PageResult;
 import com.blog.commons.web.domain.response.Result;
 import com.blog.commons.constant.ControllerConstant;
 import com.blog.pojo.TbBlogTag;
@@ -12,7 +15,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -24,38 +29,38 @@ import java.util.List;
  * @Version: 1.0
  */
 @Log4j2
-@Controller
+@RestController
 @RequestMapping(ControllerConstant.API_ADMIN_PREFIX + "/tags")
-public class TagsController {
+public class TagsController extends BaseController {
 
-    @Autowired
+    public static String MODULE_PATH = "/admin/tags/";
+
+    @Resource
     private TagsService tagsService;
 
     @GetMapping("toTagsList")
-    private String toTagsList() {
-        return "/admin/tags/tagsList";
+    private ModelAndView toTagsList() {
+        return jumpPage(MODULE_PATH + "tagsList");
     }
 
     @GetMapping("toTagsEdit")
-    private String toTagsEdit() {
-        return "/admin/tags/tagsEdit";
+    private ModelAndView toTagsEdit() {
+        return jumpPage(MODULE_PATH + "tagsEdit");
     }
 
     @GetMapping("tagsList")
     @ResponseBody
-    private Result tagsListByPage(@RequestParam(value = "page", required = true) Integer page,
-                                  @RequestParam(value = "limit", required = true) Integer limit) {
-        Pageable pageable = new PageRequest(page - 1, limit);
-        log.info("查询标签列表的入参为[{},{}]", page, limit);
+    private Result tagsListByPage(PageDomain domain) {
+        log.info("查询标签列表的入参为=================[{}]", domain);
         try {
-            Page<TbBlogTag> tagPage = tagsService.findTagByPage(pageable);
-            Long total = tagPage.getTotalElements();
-            List<TbBlogTag> content = tagPage.getContent();
+            PageResult<TbBlogTag> tagPage = tagsService.findTagByPage(domain);
+            Long total = tagPage.getTotal();
+            List<TbBlogTag> content = tagPage.getData();
             System.out.println(content);
             return new Result(0, "成功", total.intValue(), content);
         } catch (Exception e) {
             log.error("查询标签列表异常", e);
-            return new Result(500, "失败");
+            return Result.error("查询标签列表失败");
         }
     }
 
@@ -64,11 +69,11 @@ public class TagsController {
     private Result saveTags(@RequestBody TbBlogTag tagEntity) {
         log.info("=============保存标签的入参为==========[{}]", JSONUtil.parse(tagEntity));
         try {
-            TbBlogTag entity = tagsService.saveTags(tagEntity);
-            return new Result(0, "成功", entity);
+            tagsService.saveTags(tagEntity);
+            return Result.ok("成功");
         } catch (Exception e) {
             log.error("=============保存标签异常===========", e);
-            return new Result(500, "失败");
+            return Result.error("失败");
         }
 
     }
@@ -82,7 +87,7 @@ public class TagsController {
             return new Result(0, "成功", allTags);
         } catch (Exception e) {
             log.error("==============查询便签列表失败================", e);
-            return new Result(500, "失败");
+            return Result.error(500, "失败");
         }
 
     }

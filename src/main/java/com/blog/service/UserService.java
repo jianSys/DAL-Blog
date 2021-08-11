@@ -17,7 +17,7 @@ public interface UserService {
 
     Boolean validation(String username,String oldPassword);
 
-    TbAdminUser updatePassword(String newPassword);
+    void updatePassword(String newPassword);
 
     TbAdminUser getUserInfo(String username);
 };

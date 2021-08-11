@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.commons.enums.LogEnum;
 import com.blog.commons.utils.DateUtils;
+import com.blog.commons.web.domain.request.PageDomain;
 import com.blog.commons.web.domain.response.PageResult;
 import com.blog.mapper.*;
 import com.blog.pojo.*;
@@ -55,12 +56,30 @@ public class ArticleServiceImpl implements ArticleService {
     /**
      * 分页查询所有博客文章
      *
-     * @param map
-     * @param pageable
+     * @param domain
+     * @param blog
      * @return
      */
     @Override
-    public PageResult findByPage(Map<String, Object> map, Pageable pageable) {
+    public PageResult<TbBlog> findByPage(PageDomain domain, TbBlog blog) {
+        //创建分页
+        IPage<TbBlog> page = new Page(domain.getPage(),domain.getLimit());
+        //条件查询
+        QueryWrapper<TbBlog> wrapper = new QueryWrapper<>();
+        Integer blogId = blog.getBlogId();
+        if (null != blogId){
+            wrapper.lambda().eq(TbBlog::getBlogId,blogId);
+        }
+        String blogTitle = blog.getBlogTitle();
+        if (StringUtils.isNotBlank(blogTitle)){
+            wrapper.lambda().eq(TbBlog::getBlogTitle,blogTitle);
+        }
+        String blogCategoryName = blog.getBlogCategoryName();
+        if (StringUtils.isNotBlank(blogCategoryName)){
+            wrapper.lambda().like(TbBlog::getBlogCategoryName,blogCategoryName);
+        }
+        IPage<TbBlog> iPage = blogMapper.selectPage(page, wrapper);
+        return new PageResult<>(iPage.getRecords(),iPage.getSize(),iPage.getTotal());
         /*//分页带动态条件查询文章
         Specification<TbBlog> spec = (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
@@ -87,7 +106,7 @@ public class ArticleServiceImpl implements ArticleService {
             return new PageImpl<>(lists, pageable, page.getTotalElements());
         }
         return new PageImpl<>(new ArrayList<>(0), pageable, 0);*/
-        return null;
+
     }
 
     /**
@@ -416,9 +435,7 @@ public class ArticleServiceImpl implements ArticleService {
                 );
             }
             return new PageResult<>(blogs,iPage.getSize(),iPage.getTotal());
-            //return new PageResult(blogVOS,iPage.getSize(),iPage.getPages());
         }
-        //return new PageImpl<>(new ArrayList<>(0), pageable, 0);*/
         return new PageResult<>(new ArrayList<>(),iPage.getSize(),iPage.getTotal());
     }
 

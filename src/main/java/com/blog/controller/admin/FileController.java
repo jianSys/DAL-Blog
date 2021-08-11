@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @program: dal-blog
@@ -31,8 +32,8 @@ public class FileController {
     private FileService fileService;
 
     @GetMapping("toFileList")
-    private ModelAndView toFileList(HttpServletRequest request){
-        return this.getFileListByPage(request,1);
+    private ModelAndView toFileList(){
+        return this.getFileListByPage(1);
     }
 
     @GetMapping("toFileDetails/{id}")
@@ -43,17 +44,19 @@ public class FileController {
         mv.addObject("file",file);
         return mv;
     }
+
+
     @ResponseBody
     @GetMapping("page/{pageNum}")
-    private ModelAndView getFileListByPage(HttpServletRequest request,@PathVariable("pageNum") int pageNum){
+    private ModelAndView getFileListByPage(@PathVariable("pageNum") int pageNum){
 
         Sort sort = new Sort(Sort.Direction.DESC, "createTime");
         Pageable pageable =PageRequest.of(pageNum - 1, Integer.MAX_VALUE,sort);
-        Page<TbBlogFile> page = fileService.getFileListByPage(pageable);
+        List<TbBlogFile> fileList = fileService.getFileListByPage(pageable);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/admin/file/fileList");
-        mv.addObject("total",page.getTotalElements());
-        mv.addObject("fileList",page.getContent());
+        mv.addObject("total",fileList.size());
+        mv.addObject("fileList",fileList);
         return mv;
     }
 }

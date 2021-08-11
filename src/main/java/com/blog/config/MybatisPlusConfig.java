@@ -29,7 +29,8 @@ public class MybatisPlusConfig {
     public PaginationInterceptor paginationInterceptor(){
         return new PaginationInterceptor();
     }
-    /*@Bean // SQL执行分析插件
+
+    @Bean // SQL执行分析插件
     public SqlExplainInterceptor sqlExplainInterceptor() {
         SqlExplainInterceptor sqlExplainInterceptor = new SqlExplainInterceptor();
         List<ISqlParser> list = new ArrayList<>();
@@ -42,5 +43,5 @@ public class MybatisPlusConfig {
     public OptimisticLockerInterceptor optimisticLockerInterceptor() {
         return new OptimisticLockerInterceptor();
     }
-*/
+
 }

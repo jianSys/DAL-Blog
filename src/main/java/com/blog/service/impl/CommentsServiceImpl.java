@@ -1,5 +1,11 @@
 package com.blog.service.impl;
 
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blog.commons.web.domain.request.PageDomain;
+import com.blog.commons.web.domain.response.PageResult;
 import com.blog.dao.BlogCommentsDao;
 import com.blog.mapper.BlogCommentMapper;
 import com.blog.pojo.TbBlogComment;
@@ -30,5 +36,13 @@ public class CommentsServiceImpl implements CommentsService {
         comment.setIsDeleted(0);
         return commentsDao.save(comment);*/
         return null;
+    }
+
+    @Override
+    public PageResult<TbBlogComment> page(PageDomain domain, TbBlogComment comment) {
+        IPage<TbBlogComment> page = new Page(domain.getPage(),domain.getLimit());
+        QueryWrapper<TbBlogComment> wrapper = new QueryWrapper<>();
+        IPage<TbBlogComment> iPage = commentsMapper.selectPage(page, wrapper);
+        return new PageResult<>(iPage.getRecords(),iPage.getSize(),iPage.getTotal());
     }
 }

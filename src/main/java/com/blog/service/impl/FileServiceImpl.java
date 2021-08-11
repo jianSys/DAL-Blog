@@ -1,5 +1,6 @@
 package com.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blog.dao.BlogFileDao;
 import com.blog.mapper.BlogFileMapper;
 import com.blog.pojo.TbBlogFile;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ProjectName: dal-blog
@@ -26,23 +28,21 @@ public class FileServiceImpl implements FileService {
     private BlogFileMapper fileMapper;
 
     @Override
-    public Page<TbBlogFile> getFileListByPage(Pageable pageable) {
-        //Page<TbBlogFile> all = fileDao.findAll(pageable);
-        return null;
+    public List<TbBlogFile> getFileListByPage(Pageable pageable) {
+        QueryWrapper<TbBlogFile> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("create_time");
+        List<TbBlogFile> fileList = fileMapper.selectList(wrapper);
+        return fileList;
     }
 
     @Override
-    public TbBlogFile saveBlogFile(TbBlogFile tbBlogFile) {
-        /*if (null == tbBlogFile){
-            return null;
-        }
-        TbBlogFile save = fileDao.save(tbBlogFile);
-        return save;*/
-        return null;
+    public void saveBlogFile(TbBlogFile tbBlogFile) {
+        fileMapper.insert(tbBlogFile);
     }
 
     @Override
     public TbBlogFile getFileById(Integer id) {
-        return null;
+        TbBlogFile file = fileMapper.selectById(id);
+        return file;
     }
 }

@@ -167,6 +167,7 @@ public class UploadController {
             fileService.saveBlogFile(TbBlogFile.builder().fileUrl(url).fileName(newFileName).fileType(suffixName).createTime(new Date()).build());
             return new Result(0, "上传成功", url);
         } catch (Exception e) {
+            log.error("=============上传文件发生异常============",e);
             e.printStackTrace();
             return new Result(500, "文件上传失败");
         }
@@ -209,8 +210,10 @@ public class UploadController {
             response.setHeader("Content-Type", "text/html");
             response.getWriter().write("{\"success\": 1, \"message\":\"success\",\"url\":\"" + fileUrl + "\"}");
         } catch (UnsupportedEncodingException e) {
+            log.error("=============上传文件发生异常============",e);
             response.getWriter().write("{\"success\":0}");
         } catch (IOException e) {
+            log.error("=============上传文件发生异常============",e);
             response.getWriter().write("{\"success\":0}");
         }
     }

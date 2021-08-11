@@ -77,29 +77,17 @@ public class ArticleController extends BaseController {
     }
 
     /**
-     * 分页查询
-     *
-     * @param id
-     * @param title
-     * @param blogCategoryName
+     * 分页查询所有文章
+     * @param domain
+     * @param blog
      * @return
      */
     @ResponseBody
     @GetMapping("articleList")
     private Result articleList(PageDomain domain,
-                               @RequestParam(value = "id", required = false) Integer id,
-                               @RequestParam(value = "title", required = false) String title,
-                               @RequestParam(value = "blogCategoryName", required = false) String blogCategoryName) {
-        log.info("分页查询文章列表的入参为==========>>>>[{},{},{},{},{}]", domain.getPage(), domain.getLimit(), id, title, blogCategoryName);
-        //创建查询条件
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("title", title);
-        map.put("blogCategoryName", blogCategoryName);
-        Sort sort = new Sort(Sort.Direction.DESC, "blogId");
-        Pageable pageable = new PageRequest(domain.getPage() - 1, domain.getLimit());
-        try {
-            PageResult byPage = articleService.findByPage(map, pageable);
+                               TbBlog blog) {
+        log.info("分页查询文章列表的入参为==========>>>>[{},{},{}]", domain.getPage(), domain.getLimit(), blog);try {
+            PageResult<TbBlog> byPage = articleService.findByPage(domain, blog);
             Long total = byPage.getTotal();
             List<TbBlog> content = byPage.getData();
             Result result = new Result(0, "成功", total.intValue(), content);

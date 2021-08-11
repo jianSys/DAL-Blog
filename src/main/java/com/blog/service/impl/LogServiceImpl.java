@@ -1,6 +1,9 @@
 package com.blog.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.commons.utils.ConvertUtils;
 import com.blog.commons.utils.DateUtils;
 import com.blog.dao.BlogLogDao;
@@ -10,7 +13,6 @@ import com.blog.pojo.vo.BlogLogVO;
 import com.blog.service.LogService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -38,20 +40,21 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public List<BlogLogVO> getLatestLog() {
-        /*Sort sort = new Sort(Sort.Direction.DESC, "createTime");
-        Pageable pageable = new PageRequest(0, 5,sort);
-        Page<TbBlogLog> page = logDao.findAll(pageable);
-        List<TbBlogLog> content = page.getContent();
-        ArrayList<BlogLogVO> logList = new ArrayList<>();
-        for (TbBlogLog log : content) {
+        IPage<TbBlogLog> page = new Page(0,5);
+        QueryWrapper<TbBlogLog> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("create_time");
+        IPage<TbBlogLog> iPage = logMapper.selectPage(page, wrapper);
+        List<TbBlogLog> logList = iPage.getRecords();
+
+        List<BlogLogVO> list = new ArrayList<>();
+        for (TbBlogLog log : logList) {
             BlogLogVO vo = new BlogLogVO();
             BeanUtils.copyProperties(log,vo);
             //封装时间
             String ago = DateUtils.getTimeAgo(vo.getCreateTime());
             vo.setTime(ago);
-            logList.add(vo);
+            list.add(vo);
         }
-        return logList;*/
-        return null;
+        return list;
     }
 }

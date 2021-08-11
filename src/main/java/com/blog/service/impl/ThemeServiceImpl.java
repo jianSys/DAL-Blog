@@ -1,5 +1,6 @@
 package com.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blog.dao.BlogThemeDao;
 import com.blog.mapper.BlogThemeMapper;
 import com.blog.pojo.TbBlogTheme;
@@ -26,10 +27,15 @@ public class ThemeServiceImpl implements ThemeService {
 
     @Resource
     private BlogThemeMapper themeMapper;
+
+    /**
+     * 查询所有的主题
+     * @return
+     */
     @Override
     public List<TbBlogTheme> getAllTheme() {
-        //List<TbBlogTheme> all = themeDao.findAll();
-        return null;
+        List<TbBlogTheme> themeList = themeMapper.findAll();
+        return themeList;
     }
 
     /**
@@ -38,22 +44,24 @@ public class ThemeServiceImpl implements ThemeService {
      */
     @Override
     public void replaceTheme(Integer id) {
-       /* String value = (String) redisTemplate.opsForValue().get("theme");
+        String value = (String) redisTemplate.opsForValue().get("theme");
         if (StringUtils.isNotBlank(value)) {
             Boolean theme = redisTemplate.delete("theme");
         }
         //获取已经启动的主题
         this.closeTheme();
 
-        TbBlogTheme theme = themeDao.getOne(id);
+        TbBlogTheme theme = themeMapper.selectById(id);
         theme.setStatus(1);
-        TbBlogTheme blogTheme = themeDao.save(theme);
+        int blogTheme = themeMapper.updateById(theme);
         //加入redis
-        redisTemplate.opsForValue().set("theme",blogTheme.getFolderName());*/
+        redisTemplate.opsForValue().set("theme",theme.getFolderName());
     }
     public void closeTheme(){
-       /* TbBlogTheme upTheme = themeDao.findUpTheme();
+        QueryWrapper<TbBlogTheme> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(TbBlogTheme::getStatus,1);
+        TbBlogTheme upTheme = themeMapper.selectOne(wrapper);
         upTheme.setStatus(0);
-        themeDao.save(upTheme);*/
+        themeMapper.updateById(upTheme);
     }
 }

@@ -18,7 +18,7 @@ public interface PageService {
      * @param tbBlog
      * @return
      */
-    TbBlog savePage(TbBlog tbBlog);
+    void savePage(TbBlog tbBlog);
 
     /**
      * 查询所有页面

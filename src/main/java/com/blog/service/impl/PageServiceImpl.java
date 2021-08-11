@@ -1,9 +1,11 @@
 package com.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blog.dao.ArticleDao;
 import com.blog.mapper.BlogMapper;
 import com.blog.pojo.TbBlog;
 import com.blog.service.PageService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,32 +30,28 @@ public class PageServiceImpl implements PageService {
     private BlogMapper blogMapper;
 
     @Override
-    public TbBlog savePage(TbBlog tbBlog) {
-        /*System.out.println(tbBlog);
-        if (null==tbBlog){
-            return null;
-        }
+    public void savePage(TbBlog tbBlog) {
         tbBlog.setBlogTop(0);
         tbBlog.setBlogStatus(1);
         tbBlog.setBlogTags("我是页面");
         tbBlog.setCreateTime(new Date());
         tbBlog.setBlogCategoryName("页面");
         tbBlog.setBlogCategoryId(0);
-        return articleDao.save(tbBlog);*/
-        return null;
+        blogMapper.insert(tbBlog);
     }
 
     @Override
     public List<TbBlog> getAllPage() {
-        /*List<TbBlog> all = articleDao.findAll();
-        //迭代器循环
-        Iterator<TbBlog> it = all.iterator();
+        QueryWrapper<TbBlog> wrapper = new QueryWrapper<>();
+        //wrapper.lambda().isNotNull(TbBlog::getBlogSubUrl);
+        List<TbBlog> blogList = blogMapper.selectList(wrapper);
+        Iterator<TbBlog> it = blogList.iterator();
         while (it.hasNext()){
             TbBlog blog = it.next();
             if (StringUtils.isBlank(blog.getBlogSubUrl())){
                 it.remove();
             }
-        }*/
-        return null;
+        }
+        return blogList;
     }
 }

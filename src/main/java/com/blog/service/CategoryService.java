@@ -1,8 +1,12 @@
 package com.blog.service;
 
+import com.blog.commons.web.domain.request.PageDomain;
+import com.blog.commons.web.domain.response.PageResult;
 import com.blog.pojo.TbBlogCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * @ProjectName: springboot
@@ -13,5 +17,6 @@ import org.springframework.data.domain.Pageable;
  * @Version: 1.0
  */
 public interface CategoryService {
-    Page<TbBlogCategory> findCategoryByPage(Pageable pageable);
+    PageResult<TbBlogCategory> findCategoryByPage(PageDomain domain);
+    List<TbBlogCategory> findAllCategory();
 }

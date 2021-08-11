@@ -2,6 +2,9 @@ package com.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.blog.pojo.TbAdminUser;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * @ProjectName: dal-blog
@@ -12,4 +15,9 @@ import com.blog.pojo.TbAdminUser;
  * @Version: 1.0
  */
 public interface BlogUserMapper extends BaseMapper<TbAdminUser> {
+    /**
+     * 查询登录用户
+     */
+    @Select("select * from tb_admin_user")
+    List<TbAdminUser> findAll();
 }

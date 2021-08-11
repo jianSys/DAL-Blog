@@ -159,7 +159,6 @@ layui.config({
     //监听搜索
     form.on('submit(LAY-app-contlist-search)', function (data) {
         var field = data.field;
-
         //执行重载
         table.reload('LAY-app-content-list', {
             where: field

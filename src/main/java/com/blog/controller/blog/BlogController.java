@@ -2,6 +2,7 @@ package com.blog.controller.blog;
 
 import com.blog.commons.utils.IpUtil;
 import com.blog.commons.web.base.BaseController;
+import com.blog.commons.web.domain.response.PageResult;
 import com.blog.commons.web.domain.response.Result;
 import com.blog.pojo.TbBlog;
 import com.blog.pojo.vo.BlogVO;
@@ -58,18 +59,7 @@ public class BlogController {
     }
 
     @GetMapping({"", "/", "index"})
-    private ModelAndView index(HttpServletRequest request,
-                               HttpServletResponse response) {
-        /*String ipAddr = IpUtil.getIpAddr(request);
-        getRedisTemplate();
-        Map<String, String> config = adminService.getWebSite();
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("/blog/" + theme + "/index");
-        //mv.addObject("logo", "jian");
-        mv.addObject("config", config);
-        mv.addObject("copyRight", config.get("footerCopyRight"));
-        mv.addObject("allBlog", articleService.getAllBlog());
-        mv.addObject("hotBlog", articleService.getHotBlog());*/
+    private ModelAndView index() {
         return this.page(1);
     }
 
@@ -77,12 +67,14 @@ public class BlogController {
     private ModelAndView page(@PathVariable("pageNum")int pageNum){
         getRedisTemplate();
         Map<String, String> config = adminService.getWebSite();
+        PageResult<BlogVO> result = articleService.getPageBlog(pageNum);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/blog/" + theme + "/index");
-        //mv.addObject("logo", "jian");
         mv.addObject("config", config);
         mv.addObject("copyRight", config.get("footerCopyRight"));
-        mv.addObject("allBlog", articleService.getPageBlog(pageNum).getData());
+        mv.addObject("allBlog", result.getData());
+        mv.addObject("page",result);
+        mv.addObject("currentPage" ,pageNum);
         mv.addObject("hotBlog", articleService.getHotBlog());
         return mv;
     }
@@ -147,6 +139,11 @@ public class BlogController {
     private String toRead() {
         return "/blog/" + theme + "/read";
     }
+
+    /**
+     * 首页归档数据返回
+     * @return
+     */
     @GetMapping("archive")
     private ModelAndView archive(){
         ModelAndView mv = new ModelAndView();

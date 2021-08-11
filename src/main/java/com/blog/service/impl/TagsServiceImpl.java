@@ -1,11 +1,15 @@
 package com.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blog.commons.web.domain.request.PageDomain;
+import com.blog.commons.web.domain.response.PageResult;
 import com.blog.dao.BlogTagDao;
 import com.blog.mapper.BlogTagMapper;
 import com.blog.pojo.TbBlogTag;
 import com.blog.service.TagsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -29,13 +33,15 @@ public class TagsServiceImpl implements TagsService {
     /**
      * 分页查询所有博客标签
      *
-     * @param pageable
+     * @param domain
      * @return
      */
     @Override
-    public Page<TbBlogTag> findTagByPage(Pageable pageable) {
-        //Page<TbBlogTag> all = tagDao.findAll(pageable);
-        return null;
+    public PageResult<TbBlogTag> findTagByPage(PageDomain domain) {
+        IPage<TbBlogTag> page = new Page(domain.getPage(),domain.getLimit());
+        QueryWrapper<TbBlogTag> wrapper = new QueryWrapper<>();
+        IPage<TbBlogTag> iPage = tagMapper.selectPage(page, wrapper);
+        return new PageResult<>(iPage.getRecords(),iPage.getSize(),iPage.getTotal());
     }
 
     /**
@@ -44,22 +50,22 @@ public class TagsServiceImpl implements TagsService {
      * @param tbBlogTag
      */
     @Override
-    public TbBlogTag saveTags(TbBlogTag tbBlogTag) {
-        /*Integer tagId = tbBlogTag.getTagId();
+    public void saveTags(TbBlogTag tbBlogTag) {
+        Integer tagId = tbBlogTag.getTagId();
         if (null != tagId) {
-            TbBlogTag entity = tagDao.save(tbBlogTag);
-            return entity;
+            tagMapper.updateById(tbBlogTag);
         } else {
             tbBlogTag.setCreateTime(new Date());
             tbBlogTag.setIsDeleted(0);
-            TbBlogTag tagEntity = tagDao.save(tbBlogTag);
-            return tagEntity;
-        }*/
-        return null;
+            tagMapper.insert(tbBlogTag);
+        }
+
     }
 
     @Override
     public List<TbBlogTag> getAllTags() {
-        return null;
+        QueryWrapper<TbBlogTag> wrapper = new QueryWrapper<>();
+        List<TbBlogTag> tagList = tagMapper.selectList(wrapper);
+        return tagList;
     }
 }

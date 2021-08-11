@@ -20,19 +20,19 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">文章ID</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="blogId" placeholder="请输入文章id" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">标题</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="title" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="blogTitle" placeholder="请输入文章标题" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">分类</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="blogCategoryName" placeholder="请输入" autocomplete="off"
+                        <input type="text" name="blogCategoryName" placeholder="请输入分类" autocomplete="off"
                                class="layui-input">
                     </div>
                 </div>

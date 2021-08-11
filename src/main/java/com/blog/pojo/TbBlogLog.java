@@ -25,8 +25,7 @@ import java.util.Date;
 @NoArgsConstructor
 @TableName( "tb_blog_log")
 public class TbBlogLog {
-    @TableId(type = IdType.AUTO)
-    @TableField( "id")
+    @TableId(value = "id",type = IdType.AUTO)
     Integer id;
 
     /**

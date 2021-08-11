@@ -2,6 +2,7 @@ package com.blog.controller.admin;
 
 import com.blog.commons.web.base.BaseController;
 import com.blog.commons.web.domain.request.PageDomain;
+import com.blog.commons.web.domain.response.PageResult;
 import com.blog.commons.web.domain.response.Result;
 import com.blog.commons.constant.ControllerConstant;
 import com.blog.pojo.TbBlogCategory;
@@ -40,6 +41,13 @@ public class CategoryController extends BaseController {
         return jumpPage(MODULE_PATH + "categoryList");
     }
 
+    @GetMapping("getAllCategory")
+    @ResponseBody
+    private Result getAllCategory() {
+        List<TbBlogCategory> allCategory = categoryService.findAllCategory();
+        return new Result(0, "成功", allCategory.size(), allCategory);
+    }
+
     @GetMapping("toCategoryEdit")
     private ModelAndView toCategoryEdit() {
         return jumpPage(MODULE_PATH + "categoryEdit");
@@ -49,18 +57,16 @@ public class CategoryController extends BaseController {
     /**
      * find category list by page
      *
-     * @param page
-     * @param limit
+     * @param domain
      * @return
      */
     @GetMapping("categoryList")
     @ResponseBody
     private Result categoryList(PageDomain domain) {
-        Pageable pageable = new PageRequest(domain.getPage() - 1, domain.getLimit());
         try {
-            Page<TbBlogCategory> category = categoryService.findCategoryByPage(pageable);
-            Long total = category.getTotalElements();
-            List<TbBlogCategory> content = category.getContent();
+            PageResult<TbBlogCategory> category = categoryService.findCategoryByPage(domain);
+            Long total = category.getTotal();
+            List<TbBlogCategory> content = category.getData();
             return new Result(0, "成功", total.intValue(), content);
         } catch (Exception e) {
             log.error("查询分类列表异常", e);
